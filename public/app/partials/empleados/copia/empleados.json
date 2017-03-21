@@ -1,0 +1,22 @@
+[{
+        "idEmpleado": "1",
+        "nombre": "Juan",
+        "apellidos": "Santos",
+        "nif": "11111111Z",
+        "telefono": "616616616"
+    },
+    {
+        "idEmpleado": "2",
+        "nombre": "Juan",
+        "apellidos": "Santos",
+        "nif": "22222222Z",
+        "telefono": "616616616"
+    },
+    {
+        "idEmpleado": "3",
+        "nombre": "Juan",
+        "apellidos": "Santos",
+        "nif": "33333333Z",
+        "telefono": "616616616"
+    }
+]

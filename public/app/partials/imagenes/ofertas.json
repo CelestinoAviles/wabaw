@@ -1,0 +1,17 @@
+[
+    {
+        "idOferta": "1", 
+        "dsc": "CocaCola",
+        "pvp": "1.95"
+    },
+    {   
+        "idOferta": "2", 
+        "dsc": "CocaCola",
+        "pvp": "1.95"
+    },
+    {   
+        "idOferta": "3", 
+        "dsc": "CocaCola",
+        "pvp": "1.95"
+    }
+]

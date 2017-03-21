@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Waba</title>
+  <meta charset="utf-8">
+  <meta name="Waba" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--  Incluyo modificaciones a los CSS por defecto de bootstrap. 
+-->
+  <link rel="stylesheet" href="./css/waba.css">
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Opine sobre este producto</h2>
+
+  <form class="form-horizontal">
+
+    <div class="form-group">
+      <label class="control-label col-xs-2" for="Producto">Imagen:</label>
+      <div class="col-xs-4 text-center">
+		  <img src="../../img/producto/cocacola.jpg" alt="desc..."/>
+      </div>
+    </div>
+	  <div class="form-group">
+      <label class="control-label col-xs-2" for="Producto">Producto:</label>
+      <div class="col-xs-8">
+        <input type="text" class="form-control" id="Producto" value="Coca Cola 25 cl." disabled>
+      </div>
+    </div>
+
+	  <div class="form-group">
+      <label class="control-label col-sm-2" for="Val">Valoración:</label>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" id="Val" placeholder="1-5">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Presentacion">Presentación:</label>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" id="Presentacion" placeholder="1-5">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Rel">Relación calidad/precio:</label>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" id="Rel" placeholder="1-5">
+		</div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Obs">Comentarios:</label>
+      <div class="col-sm-10">
+		  <textarea class="form-control" rows="5" id="Obs"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      	<div class="col-sm-offset-2 col-sm-10">
+		  <a href="javascript:history.back(-1);" title="Volver a la página anterior" class="btn btn-info" role="button">Volver</a>
+		  <a href="../RedesSociales/RedesSocialesOpinar.html" class="btn btn-info" role="button">Enviar</a>    
+		</div>
+    </div>
+  </form>
+
+	
+
+</div>
+
+	
+</body>
+</html>
+

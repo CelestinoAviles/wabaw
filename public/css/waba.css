@@ -1,0 +1,55 @@
+
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+      	background-color: #81CEE8;
+    }
+
+    .well {
+		color: red;
+    }
+
+	body {
+      	background-color: #CEF6EC;
+		padding-top: 70px;
+    }
+
+
+	.page-header {
+      background-color: blue;
+      padding: 20px;
+    }
+
+	.footer {
+      background-color: red;
+      padding: 20px;
+    }
+    
+  .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:100px;
+  }
+
+.btn-xxl {
+  padding: 20px 26px;
+  font-size: 35px;
+  border-radius: 8px;
+}
+
+  /* Hide the carousel text when the screen is less than 600 pixels wide */
+  @media (max-width: 200px) {
+    .carousel-caption {
+      display: none;
+    }
+  }
+
+/* Para validación de campos */
+.ng-invalid.ng-dirty {
+  border-color: red;
+}
+.ng-valid.ng-dirty {
+  border-color: green;
+}
+

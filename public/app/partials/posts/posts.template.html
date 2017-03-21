@@ -1,0 +1,120 @@
+<div class="container">
+
+    <div class="row">
+        <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
+    </div>
+    <div class="row"><br/></div>
+    <div class="panel panel-primary" ng-show="!showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title"> {{ texto }}</h3>
+        </div>
+        <table class="table table-hover">
+            <td class="col-md-6">
+                <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
+            </td>
+            <td class="col-md-6">
+                <input type="text" ng-model="filtroTexto">
+            </td>
+        </table>
+
+        <div class="panel-body">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-2">Acciones</th>
+                        <th class="col-md-1">Fecha</th>
+                        <th class="col-md-2">Valoraciones</th>
+                        <th class="col-md-1">Comentarios</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+                <tbody>
+                    <tr ng-repeat="item in dat | filter:filtroTexto">
+                        <td>
+                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                        </td>
+                        <td>
+                            {{ item.fecha  | date:'dd/MM/yyyy' }}
+                        </td>
+                        <td>
+                            General : {{ item.valor_general }} <br>
+                            Limpieza: {{ item.valor_limpieza }} <br>
+                            Servicio: {{ item.valor_servicio }} <br>
+                        </td>
+                        <td>
+                            {{ item.observaciones }}
+                        </td>
+                    </tr>
+                    <tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    <div class="panel panel-primary" ng-show="showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title">Datos</h3>
+            <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()"><i class="glyphicon glyphicon-ok"></i></button>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6"><label>Fecha</label><input type="datetime" class="form-control" disabled="true" ng-model="datSel.fecha"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Nombre</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.login"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <label for="sel1">General:</label>
+                    <select class="form-control" id="sel1" ng-model="datSel.valor_general">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <label for="sel1">Limpieza:</label>
+                    <select class="form-control" id="sel1" ng-model="datSel.valor_limpieza">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div><br>
+            
+            <div class="row">
+                <div class="col-xs-3">
+                    <label for="sel1">Servicio:</label>
+                    <select class="form-control" id="sel1" ng-model="datSel.valor_servicio">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-6"><label>Comentarios</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.observaciones"></div>
+            </div>
+        </div>
+    </div> 
+
+
+</div>
+
+

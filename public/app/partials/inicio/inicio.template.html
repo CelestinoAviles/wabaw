@@ -1,0 +1,71 @@
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+    </ol>
+
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img src="http://placehold.it/1200x200?text=IMAGE" alt="Image">
+        <div class="carousel-caption">
+          <h3>Producto: 1€</h3>
+          <p>Precio normal: 2€ </p>
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="http://placehold.it/1200x200?text=Another Image Maybe" alt="Image">
+        <div class="carousel-caption">
+          <h3>Producto 2</h3>
+          <p>Precio normal: </p>
+        </div>
+      </div>
+    </div>
+
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Siguiente</span>
+    </a>
+</div>
+  
+<div class="container text-center">
+  <div class="row">
+    <div class="col-sm-3">
+      <img src="../img/inicio/pizza.jpg" class="img-rounded img-responsive" style="width:80%" alt="Imagen">
+      <p></p>
+    </div>
+    <div class="col-sm-3">
+      <img src="../img/inicio/frappelattehelado.jpg" class="img-rounded img-responsive" style="width:80%" alt="Imagen">
+      <p>Project 2</p>
+    </div>
+    <div class="col-sm-3">
+      <img src="../img/inicio/hamburguesa.jpg" class="img-rounded img-responsive" style="width:100%" alt="Imagen">
+      <p>Project 3</p>
+    </div>
+    <div class="col-sm-3">
+      <img src="../img/inicio/hamburguesa.jpg" class="img-rounded img-responsive" style="width:100%" alt="Imagen">
+      <p>Project 3</p>
+    </div>
+    <div class="col-sm-12">
+          <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="$ctrl.verPantallaCatalogo()">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="col-md-6">
+        <button type="button" class="btn btn-primary" ng-click="$ctrl.verPantallaCatalogo()">Catalogo</button>
+    </div>
+    <div class="col-md-6">
+          <button type="button" class="btn btn-primary" ng-click="$ctrl.verPantallaNuevo()">Nuevo</button>
+    </div>
+
+</div>
+ 
+
+<br>

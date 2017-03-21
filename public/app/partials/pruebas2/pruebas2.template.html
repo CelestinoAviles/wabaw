@@ -1,0 +1,58 @@
+<h1> PRUEBAS DOS </h1>
+
+<div ng-controller="cero as cero">
+    {{ cero.mensaje2 }}
+    <button ng-click="logPadre()">Padre</button>
+
+
+    <div ng-controller="uno as uno">
+        {{ uno.mensaje2 }}
+        <button ng-click="logPadre()">Padre</button>
+
+        <p>div anidados que ponen mensajes de los dos controladores.</p>
+        <p> {{ cero.mensaje2 }} </p>
+        <p> {{ uno.mensaje2 }} </p>
+    
+    </div>
+
+</div>
+
+        <div ng-controller="dos as dos">
+            {{ dos.mensaje2 }}
+
+            <select ng-model="dos.url" ng-change="dos.buscaEnRegion()">
+                <option value="http://restcountries.eu/rest/v1/region/africa">Africa</option>
+                <option value="http://restcountries.eu/rest/v1/region/europe">Europa</option>
+            </select>
+            <button ng-click="dos.buscaEnRegion()">Dar</button>
+            <div>
+                Paises
+                <ul>
+                    <li ng-repeat= "pais in dos.paises">
+                        Pais: {{pais.name | uppercase }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+<div ng-controller="tres as tres">
+    {{ tres.mensaje }}
+    <form ng-submit="tres.grabar()">
+        <input type="text" ng-model="tres.datos.nombre">
+        <input type="submit" value="Enviar">
+    </form>
+</div>
+
+
+<div>
+    <nav>
+        <ul>
+            <li><a href="#pruebas2/p2">P 2</a>
+            <li><a href="#pruebas2/p3">P 3</a>
+            </li>
+        </ul>
+    </nav>
+<!--
+    <div ng-view></div>
+-->
+</div>

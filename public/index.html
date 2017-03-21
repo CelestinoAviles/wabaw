@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wabaw">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="Waba" content="width=device-width, initial-scale=1">
+
+    <!-- Hojas de estilo -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="./css/waba.css">
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.4.6/angular-locale_es-es.js"></script>
+    <script src="./app/wabaw.module.js"></script>
+    <script src="./app/wabaw.config.js"></script>
+
+    <script src="./app/partials/posts/posts.component.js"></script>
+    <script src="./app/partials/ofertas/ofertas.component.js"></script>
+    <script src="./app/partials/articulos/articulos.component.js"></script>
+    <script src="./app/partials/articulosopiniones/articulosopiniones.component.js"></script>
+    <script src="./app/partials/imagenes/imagenes.component.js"></script>
+    <script src="./app/partials/empleados/empleados.component.js"></script>
+    <script src="./app/partials/moviles/moviles.component.js"></script>
+    <script src="./app/partials/pruebas/pruebas.module.js"></script>
+    <script src="./app/partials/pruebas/pruebas.component.js"></script>
+    <script src="./app/partials/usuarios/usuarios.module.js"></script>
+    <script src="./app/partials/usuarios/usuarios.component.js"></script>
+    <script src="./app/partials/pruebas2/pruebas2.module.js"></script>
+    <script src="./app/partials/inicio/inicio.module.js"></script>
+    <script src="./app/partials/inicio/inicio.component.js"></script>
+    <script src="./app/partials/menu/menu.module.js"></script>
+    <script src="./app/partials/menu/menu.component.js"></script>
+    <script src="./app/partials/menu/menu-mantenimientos.module.js"></script>
+    <script src="./app/partials/menu/menu-mantenimientos.component.js"></script>
+    <script src="./app/partials/entidad1/entidad1.module.js"></script>
+    <script src="./app/partials/entidad1/entidad1.component.js"></script>
+    <script src="./app/partials/entidad2/entidad2.module.js"></script>
+    <script src="./app/partials/entidad2/entidad2.component.js"></script>
+    <script src="./app/partials/mesas/mesas.module.js"></script>
+    <script src="./app/partials/mesas/mesas.component.js"></script>
+    <script src="./app/partials/mesas/mesas-listado.module.js"></script>
+    <script src="./app/partials/mesas/mesas-listado.component.js"></script>
+    <script src="./app/partials/mesas/mesas-detalle-camarero.module.js"></script>
+    <script src="./app/partials/mesas/mesas-detalle-camarero.component.js"></script>
+    <script src="./app/partials/tickets/ticket-linea-estado.module.js"></script>
+    <script src="./app/partials/tickets/ticket-linea-estado.component.js"></script>
+    <script src="./app/partials/opiniones/opiniones-listado.module.js"></script>
+    <script src="./app/partials/opiniones/opiniones-listado.component.js"></script>
+
+    <script src="./app/partials/productos/productos-listado.module.js"></script>
+    <script src="./app/partials/productos/productos-listado.component.js"></script>
+    <script src="./app/partials/productos/producto-opina.module.js"></script>
+    <script src="./app/partials/productos/producto-opina.component.js"></script>
+    <script src="./app/partials/productos/producto-detalle.component.js"></script>
+
+    <script src="./app/partials/pago/pago.module.js"></script>
+    <script src="./app/partials/pago/pago.config.js"></script>
+    <script src="./app/partials/pago/pago.component.js"></script>
+    <script src="./app/partials/pago/pago-efectivo.module.js"></script>
+    <script src="./app/partials/pago/pago-efectivo.component.js"></script>
+    <script src="./app/partials/pago/pago-paypal.module.js"></script>
+    <script src="./app/partials/pago/pago-paypal.component.js"></script>
+    <script src="./app/partials/pago/pago-tarjeta.module.js"></script>
+    <script src="./app/partials/pago/pago-tarjeta.component.js"></script>
+    <title>Wabaw</title>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+
+                <a class="navbar-brand" href="http://www.ucam.edu"><img src="img/logo/001.jpg" height="60" width="60" alt="" /></a>
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="#!/menu">Menu</a></li>
+                    <li><a href="#!/inicio">Inicio</a></li>
+                    <li><a href="#!/mesasListado">Mesas</a></li>
+                    <li><a href="#!/productosListado">Productos</a></li>
+                    <li><a href="#!/opinionesListado">Opiniones</a></li>
+                    <li><a href="#!/posts">Opiniones2</a></li>
+                    <li><a href="#!/menuMantenimientos">Mantenimientos</a></li>
+                    <li><a href="#!/pruebas2">Pruebas2</a></li>
+                    <li><a href="#!/usuarios">Usuarios</a></li>
+                    <li><a href="#!/moviles">Móviles</a></li>
+                    <li><a href="#!/empleados">Empleados</a></li>
+                    <li><a href="#!/articulos">Artículos</a></li>
+                    <li><a href="#!/articulosopiniones">ArtículosOpiniones</a></li>
+                    <li><a href="#!/imagenes">Imágenes</a></li>
+                    <li><a href="#!/ofertas">Ofertas</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="view-container">
+        <div ng-view></div>
+    </div>
+
+</body>
+
+</html>

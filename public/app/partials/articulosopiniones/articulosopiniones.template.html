@@ -1,0 +1,101 @@
+<div class="container">
+
+    <div class="row">
+        <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
+    </div>
+    <div class="row"><br/></div>
+    <div class="panel panel-primary" ng-show="!showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title"> {{ texto }}</h3>
+        </div>
+        <table class="table table-hover">
+            <td class="col-md-6">
+                <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
+            </td>
+            <td class="col-md-6">
+                <input type="text" ng-model="filtroTexto">
+            </td>
+        </table>
+
+        <div class="panel-body">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-2">Acciones</th>
+                        <th class="col-md-1">Fecha</th>
+                        <th class="col-md-1">Login</th>
+                        <th class="col-md-1">Articulo</th>
+                        <th class="col-md-1">Valoración</th>
+                        <th class="col-md-6">Comentarios</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+                <tbody>
+                    <tr ng-repeat="item in dat | filter:filtroTexto">
+                        <td>
+                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                        </td>
+                        <td>
+                            {{ item.fecha  | date:'dd/MM/yyyy' }}
+                        </td>
+                        <td>
+                            {{ item.login }}
+                        </td>
+                        <td>
+                            {{ item.codigoarticulo }}
+                        </td>
+                        <td>
+                            {{ item.valorgeneral }}
+                        </td>
+                        <td>
+                            {{ item.observaciones }}
+                        </td>
+                    </tr>
+                    <tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    <div class="panel panel-primary" ng-show="showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title">Datos</h3>
+            <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()"><i class="glyphicon glyphicon-ok"></i></button>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6"><label>Fecha</label><input type="datetime" class="form-control" disabled="true" ng-model="datSel.fecha"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Login</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.login"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Código Artículo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigoarticulo"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <label for="sel1">General:</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.valorgeneral">
+                </div>
+            </div><br>
+
+            <br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Comentarios</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.observaciones"></div>
+            </div>
+        </div>
+    </div> 
+
+
+</div>
+
+

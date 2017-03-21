@@ -1,0 +1,57 @@
+<div ng-controller="contrasenya">
+    <form>
+        Contraseña: <input type="password" ng-model="password">
+        <p ng-show="errorMinimo">{{textoAyuda}}</p>
+        Texto: <input type="text" ng-model="opcion">
+        <p>{{ opcion }} - {{txtselect}} </p>
+        <select ng-model="txtselect">
+                <option value="uno">Opcion 1</option>
+                <option value="dos">Opcion 2</option>
+            </select>
+    </form>
+</div>
+
+<div ng-controller="CtrlPadre">
+    <button ng-click="logPadre()">Padre</button>
+</div>
+<div class="container" ng-controller="miCtrlInicio">
+    {{mensaje2}} ppp ¿Entiendes el contenido de este libro?
+    <input type="checkbox" ng-model="respuesta" ng-init="respuesta= true" />
+    <div ng-hide="respuesta">
+        <h2>Me esforzare más!</h2>
+    </div>
+    <div ng-show="respuesta">
+        <h2>Felicidades!</h2>
+    </div>
+    <p ng-controller="miCtrl" ng-bind="mensaje3"></p>
+</div>
+
+
+<div class="header">
+    <h1>Todo App</h1>
+    <hr>
+    <h1 class="lead">Node + Express + Angular + PostgreSQL</h1>
+</div>
+
+<div ng-controller="mainController">
+    <form>
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" placeholder="Añadir a todo..." ng-model="formData.text">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add Todo</button>
+
+    </form>
+
+    <div class="container">
+
+        <ul ng-repeat="todo in todoData  track by $index">
+            <li>
+                {{ todo.index }}
+                <input type="checkbox" ng-click="deleteTodo(todo.id)">&nbsp;
+                <button class="btn btn-primary btn-xs" ng-click="deleteTodo(todo.id)">Delete</button>
+                <button class="btn btn-primary btn-xs" ng-click="updateTodo(todo.id, todo.text, todo.done)">Update</button> {{ todo.text }}
+            </li>
+        </ul>
+    </div>
+
+</div>
