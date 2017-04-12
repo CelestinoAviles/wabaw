@@ -11,11 +11,11 @@ angular.
     function config($locationProvider, $routeProvider, $httpProvider) {
       $locationProvider.hashPrefix('!');
 
-      $routeProvider.
-        when('/menu', {
+      $routeProvider
+          .when('/menu', {
           template: '<menu></menu>'
-        }).
-        when('/juegos', {
+      })
+          .when('/juegos', {
           template: '<juegos></juegos>'
         }).
         when('/menuMantenimientos', {
@@ -36,14 +36,8 @@ angular.
         when('/mesas/$', {
           template: '<mesas-detalle-camarero></mesas-detalle-camarero>'
         }).
-        when('/mesasListado', {
-          template: '<mesas-listado></mesas-listado>'
-        }).
         when('/ticketLineaEstado/$', {
           template: '<ticket-linea-estado></ticket-linea-estado>'
-        }).
-        when('/opinionesListado', {
-          template: '<opiniones-listado></opiniones-listado>'
         }).
         when('/pago', {
           template: '<pago></pago>'

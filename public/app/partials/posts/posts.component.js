@@ -10,7 +10,7 @@ angular.module('posts')
         controller: function EntidadController($scope, $http, $routeParams, $location) {
 
             var auxRuta = '/posts/api/v1/posts';
-            var auxEntidad = 'Opiniones sobre el establecimiento';
+            var auxEntidad = 'Opiniones sobre servicios y productos del Establecimiento';
     
             $scope.rate = 1;
             $scope.max = 5;
