@@ -58,6 +58,8 @@ app.get('/', function(req, res) {
 });
 
 // No se para lo que es. Copiado de angularcode http://angularcode.com/creating-rest-api-using-nodejs-and-consuming-in-angularjs/
+// Modificacion para ver si lo graba en GITHUB
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
