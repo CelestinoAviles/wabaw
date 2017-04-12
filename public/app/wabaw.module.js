@@ -4,12 +4,15 @@
 angular.module('wabaw', [
     'ngRoute',
     'ngResource',
+    'ui.bootstrap',
+    'general',
     'menu',
     'menuMantenimientos',
     'inicio',
     'entidad1',
     'entidad2',
     'mesas',
+    'mesas-tickets',
     'mesasListado',
     'mesasDetalleCamarero',
     'ticketLineaEstado',
@@ -26,8 +29,15 @@ angular.module('wabaw', [
     'empleados',
     'articulos',
     'articulosopiniones',
+    'articulosimagenes',
     'imagenes',
     'posts',
-    'ofertas'
+    'ofertas',
+    'tickets',
+    'ticketsLineas',
+    'dispositivopreferencias',
+    'preferencias',
+    'juegos',
+    'llamada'
 ]);
 

@@ -96,11 +96,11 @@ router.get( glbApi, (req, res, next) => {
 router.put( glbApi + '/:id', (req, res, next) => {
     const results = [];
     // Grab data from the URL parameters
-    const id = req.params.codigo;
+    const id = req.params.id;
     // Graba datos from http request
     const data = {codigo: id, 
                   nombre: req.body.nombre, 
-                  apellidosd: req.body.apellidos,
+                  apellidos: req.body.apellidos,
                   email: req.body.email,
                   telefono1: req.body.telefono1
                  };
@@ -115,7 +115,7 @@ router.put( glbApi + '/:id', (req, res, next) => {
             return res.status(500).json({success: false, data: err});
         }
 
-        console.log('put 000');
+        console.log('put 000' + data.codigo);
         // SQL Query > Update Data
         client.query('UPDATE wabaw.empleados SET nombre=($2), apellidos=($3), email=($4), telefono1=($5) WHERE codigo=($1)', 
                      [data.codigo, data.nombre, data.apellidos, data.email, data.telefono1]);

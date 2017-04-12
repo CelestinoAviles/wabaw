@@ -23,9 +23,10 @@
                 <thead>
                     <tr>
                         <th class="col-md-2">Acciones</th>
-                        <th class="col-md-1">Id Interno</th>
                         <th class="col-md-1">Id</th>
-                        <th class="col-md-3">Mesa</th>
+                        <th class="col-md-1">Código </th>
+                        <th class="col-md-7">Descripción de la Mesa</th>
+                        <th class="col-md-1">Estado</th>
                     </tr>
                 </thead>
                 <tfoot></tfoot>
@@ -44,6 +45,9 @@
                         </td>
                         <td>
                             <span><a href="#!/mesas/$">{{ item.nombremesa }}</a></span>
+                        </td>
+                        <td>
+                            <span><a href="#!/mesas/$">{{ item.estado }}</a></span>
                         </td>
                     </tr>
                     <tbody>
@@ -66,6 +70,9 @@
             </div><br>
             <div class="row">
                 <div class="col-md-6"><label>NOMBRE</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.nombremesa"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><label>Estado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.estado"></div>
             </div>
         </div>
     </div> 

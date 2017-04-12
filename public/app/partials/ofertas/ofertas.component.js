@@ -1,8 +1,6 @@
 //---------------------------------------------------------//
 // modulo **** OFERTAS *****
 //---------------------------------------------------------//
-angular.module('ofertas', [])
-
 angular.module('ofertas')
     .component('ofertas', {
         templateUrl: 'app/partials/ofertas/ofertas.template.html',

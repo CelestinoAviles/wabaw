@@ -30,7 +30,7 @@ router.use(bodyParser.urlencoded({ extended: true }));  // for parsing applicati
 router.post('/api/v1/articulos', (req, res, next) => {
     const results = [];
     // Graba datos from http request
-    const data = { codigo: req.body.codigo, 
+    const data = { codigo_articulo: req.body.codigo_articulo, 
                    nombre: req.body.nombre,
                    descripcion: req.body.descripcion
                  };
@@ -45,8 +45,8 @@ router.post('/api/v1/articulos', (req, res, next) => {
         }
       
         // SQL Query > Insert Data
-        client.query('INSERT INTO wabaw.articulos(CODIGO, NOMBRE, DESCRIPCION, COD_FAMILIA) values($1,$2,$3,$4)',
-                     [data.codigo, data.nombre, data.descripcion, 12 ]);
+        client.query('INSERT INTO wabaw.articulos(CODIGO_ARTICULO, NOMBRE, DESCRIPCION, COD_FAMILIA) values($1,$2,$3,$4)',
+                     [data.codigo_articulo, data.nombre, data.descripcion, 12 ]);
         // SQL Query > Select Data
         const query = client.query('SELECT * FROM wabaw.articulos ORDER BY nombre ASC');
         // Stream results back one row at a time
@@ -99,6 +99,7 @@ router.put( '/api/v1/articulos/:id', (req, res, next) => {
     const id = req.params.id;
     // Graba datos from http request
     const data = {codigo: id, 
+                  codigo_articulo: req.body.codigo_articulo, 
                   nombre: req.body.nombre, 
                   descripcion: req.body.descripcion
                  };
@@ -115,8 +116,8 @@ router.put( '/api/v1/articulos/:id', (req, res, next) => {
 
         console.log('put 000');
         // SQL Query > Update Data
-        client.query('UPDATE wabaw.articulos SET nombre=($2), descripcion=($3) WHERE codigo=($1)', 
-                     [data.codigo, data.nombre, data.descripcion]);
+        client.query('UPDATE wabaw.articulos SET codigo_articulo=($2), nombre=($3), descripcion=($4) WHERE codigo=($1)', 
+                     [data.codigo, data.codigo_articulo, data.nombre, data.descripcion]);
         // SQL Query > Select Data
         const query = client.query("SELECT * FROM wabaw.articulos ORDER BY nombre ASC");
         // Stream results back one row at a time

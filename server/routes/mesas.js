@@ -24,7 +24,10 @@ router.use(bodyParser.urlencoded({ extended: true }));  // for parsing applicati
 router.post('/api/v1/mesas', (req, res, next) => {
     const results = [];
     // Graba datos from http request
-    const data = { idMesa: req.body.idmesa, nombreMesa: req.body.nombremesa};
+    const data = { idMesa: req.body.idmesa,
+                  nombreMesa: req.body.nombremesa,
+                  estado: req.body.estado
+                 };
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
@@ -36,8 +39,8 @@ router.post('/api/v1/mesas', (req, res, next) => {
         }
       
         // SQL Query > Insert Data
-        client.query('INSERT INTO wabaw.mesas(idMesa, nombreMesa) values($1,$2)',
-                     [data.idMesa, data.nombreMesa]);
+        client.query('INSERT INTO wabaw.mesas(idMesa, nombreMesa, estado) values($1,$2, $3)',
+                     [data.idMesa, data.nombreMesa, data.estado]);
         // SQL Query > Select Data
         const query = client.query('SELECT * FROM wabaw.mesas ORDER BY IdMesa ASC');
         // Stream results back one row at a time
@@ -89,7 +92,10 @@ router.put('/api/v1/mesas/:id', (req, res, next) => {
     // Grab data from the URL parameters
     const id = req.params.id;
     // Graba datos from http request
-    const data = {id: req.body.id, idMesa: req.body.idmesa, nombreMesa: req.body.nombremesa};
+    const data = {id: req.body.id, 
+                  idMesa: req.body.idmesa, 
+                  estado: req.body.estado, 
+                  nombreMesa: req.body.nombremesa};
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
@@ -102,10 +108,10 @@ router.put('/api/v1/mesas/:id', (req, res, next) => {
 
         console.log('put 000');
         // SQL Query > Update Data
-        client.query('UPDATE wabaw.mesas SET idMesa=($1), nombreMesa=($2) WHERE id=($3)',
-                     [data.idMesa, data.nombreMesa, data.id]);
+        client.query('UPDATE wabaw.mesas SET idMesa=($1), nombreMesa=($2), estado=($3) WHERE id=($4)',
+                     [data.idMesa, data.nombreMesa, data.estado, data.id]);
         // SQL Query > Select Data
-        const query = client.query("SELECT * FROM wabaw.mesas ORDER BY id ASC");
+        const query = client.query("SELECT * FROM wabaw.mesas ORDER BY idMesa ASC");
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);

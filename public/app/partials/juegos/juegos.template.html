@@ -1,0 +1,48 @@
+<div class="container" >
+
+    <div class="row" ng-show="showNivel1Equipos || showNivel1Solitario ">
+        <div class="col-xs-2">
+            <a ng-click="Volver()" class="btn btn-info btn-block" role="button">Volver</a>
+        </div>
+        <div class="col-xs-10">
+            <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
+        </div>
+    </div>
+    <div class="row"><br/></div>
+
+    <div class="row" ng-show="showNivel0">
+        <div class="col-xs-6">
+            <img ng-src="../../../img/imagenes/solitario.png" class="img-responsive" alt="Cinque Terre" width="200" height="200" ng-click="Solitario()" alt="Solitario">
+        </div>
+        <div class="col-xs-6">
+            <img ng-src="../../../img/imagenes/equipos.jpg" class="img-responsive" alt="Cinque Terre" width="200" height="200" ng-click="Equipos()" alt="Equipos"> 
+        </div>
+    </div>
+
+    <div class="row" ng-show="showNivel1Solitario">
+        <div class="col-xs-6">
+            <button ng-click="lanzar('http://solitariosonline.es/');" class="btn btn-info btn-block" role="button">                 <h1>Solitario</h1>
+            </button>
+            <img ng-src="../../../img/imagenes/solitario000.jpg" class="img-responsive" alt="Solitario" width="200" height="200" ng-click="lanzar('http://solitariosonline.es/')" alt="Solitario">
+        </div>
+        <div class="col-xs-6">
+            <a href="http://www.sudoku-online.org/" class="btn btn-info btn-block" role="button"><h1>Sudoku</h1></a>
+            <img ng-src="../../../img/imagenes/sudoku.jpg" class="img-responsive" alt="Sudoku" width="200" height="200" ng-click="Sudoku()">
+        </div>
+    </div>
+
+    <div class="row" ng-show="showNivel1Equipos">
+
+        <div class="col-xs-6">
+            <a href="https://www.playok.com/es/damas/" class="btn btn-info btn-block" role="button"><h1>Damas</h1></a>
+            <img ng-src="../../../img/imagenes/damas.jpg" class="img-responsive" alt="Damas" width="200" height="200" ng-click="Damas()">
+        </div>
+        <div class="col-xs-6">
+            <a href="https://ajedrez-online.es/" class="btn btn-info btn-block" role="button"><h1>Ajedrez</h1></a>
+            <img ng-src="../../../img/imagenes/ajedrez.jpg" class="img-responsive" alt="Ajedrez" width="200" height="200" ng-click="Ajedrez()">
+        </div>
+
+    </div>
+
+
+</div>

@@ -1,20 +1,25 @@
+// myApp.config(['$httpProvider', function ($httpProvider) {
+//     $httpProvider.defaults.useXDomain = true;
+//     delete $httpProvider.defaults.headers.common['X-Requested-With'];
+// }]);
+
 // Defino las rutas en el fichero de configuración
 'use strict';
 angular.
   module('wabaw').
-  config(['$locationProvider' ,'$routeProvider',
-    function config($locationProvider, $routeProvider) {
+  config(['$locationProvider' ,'$routeProvider', '$httpProvider',
+    function config($locationProvider, $routeProvider, $httpProvider) {
       $locationProvider.hashPrefix('!');
 
       $routeProvider.
         when('/menu', {
           template: '<menu></menu>'
         }).
+        when('/juegos', {
+          template: '<juegos></juegos>'
+        }).
         when('/menuMantenimientos', {
           template: '<menu-mantenimientos></menu-mantenimientos>'
-        }).
-        when('/mesas', {
-          template: '<mesas-listado></mesas-listado>'
         }).
         when('/inicio', {
           template: '<inicio></inicio>'
@@ -70,11 +75,26 @@ angular.
           .when('/articulos', {
           template: '<articulos></articulos>'
         })
+          .when('/artList', {
+          template: '<art-list></art-list>'
+        })
+          .when('/artDetail', {
+          template: '<art-detail></art-detail>'
+        })
           .when('/articulosopiniones', {
           template: '<articulosopiniones></articulosopiniones>'
         })
+          .when('/articulosimagenes', {
+          template: '<articulosimagenes></articulosimagenes>'
+        })
+          .when('/art-total', {
+          template: '<art-total></art-total>'
+        })
           .when('/imagenes', {
           template: '<imagenes></imagenes>'
+        })
+          .when('/imagenescarrusel', {
+          template: '<imagenescarrusel></imagenescarrusel>'
         })
           .when('/posts', {
           template: '<posts></posts>'
@@ -82,7 +102,36 @@ angular.
           .when('/ofertas', {
           template: '<ofertas></ofertas>'
         })
+          .when('/ofertasver001', {
+          template: '<ofertasver001></ofertasver001>'
+        })
+          .when('/ofertascarrusel', {
+          template: '<ofertascarrusel></ofertascarrusel>'
+        })
+          .when('/tickets', {
+          template: '<tickets></tickets>'
+        })
+          .when('/ticket-cabecera', {
+          template: '<ticket-cabecera></ticket-cabecera>'
+        })
+          .when('/ticketsLineas', {
+          template: '<tickets-lineas></tickets-lineas>'
+        })
+          .when('/ticketLineas', {
+          template: '<ticket-lineas></ticket-lineas>'
+        })
+          .when('/mesasTickets', {
+          template: '<mesas-tickets></mesas-tickets>'
+        })
+          .when('/dispositivopreferencias', {
+          template: '<dispositivopreferencias></dispositivopreferencias>'
+        })
+          .when('/preferencias', {
+          template: '<preferencias></preferencias>'
+        })
+          .when('/llamada', {
+          template: '<llamada></llamada>'
+        })
         .otherwise('/inicio');
     }
   ]);
-

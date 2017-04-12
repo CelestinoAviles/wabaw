@@ -5,6 +5,8 @@
 		//---------------------------------------------------------//
 		//---------------------------------------------------------//
 		//---------------------------------------------------------//
+		//---------------------------------------------------------//
+		angular.module('opinionesListado', []);
 		angular.module('opinionesListado')
 		    .component('opinionesListado', {
 		        templateUrl: 'app/partials/opiniones/opiniones-listado.template.html',

@@ -24,8 +24,9 @@
                     <tr>
                         <th class="col-md-2">Acciones</th>
                         <th class="col-md-1">Fecha</th>
+                        <th class="col-md-1">Usuario</th>
                         <th class="col-md-2">Valoraciones</th>
-                        <th class="col-md-1">Comentarios</th>
+                        <th class="col-md-6">Comentarios</th>
                     </tr>
                 </thead>
 
@@ -39,6 +40,9 @@
                         </td>
                         <td>
                             {{ item.fecha  | date:'dd/MM/yyyy' }}
+                        </td>
+                        <td>
+                            {{ item.login }}
                         </td>
                         <td>
                             General : {{ item.valor_general }} <br>

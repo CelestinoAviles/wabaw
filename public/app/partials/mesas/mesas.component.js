@@ -1,10 +1,23 @@
 //---------------------------------------------------------//
 // modulo **** MESAS *****
 //---------------------------------------------------------//
+angular.module('mesas', []);
+
 angular.module('mesas')
     .component('mesas', {
         templateUrl: 'app/partials/mesas/mesas.template.html',
-        controller: function MesasController($scope, $http, $routeParams, $location) {
+        controller: function MesasController($scope, $http, $routeParams, $location, servicio, srvGeneral) {
+
+            alert('cambio lo de servicio');
+            console.log('cambio lo de servicio');
+            console.log(servicio.datosCompartidos);
+            servicio.datosCompartidos = 'cuatro cinco seis';
+            console.log(servicio.datosCompartidos);
+            console.log(servicio.calculoIVA(100));
+            
+            srvGeneral.alerta('vayayaya');
+            console.log(srvGeneral.calculoIVA(10, 20));
+            
 
             $scope.texto = "Mesas";
             $scope.dat = [];

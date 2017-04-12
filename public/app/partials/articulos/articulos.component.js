@@ -21,7 +21,7 @@ angular.module('articulos')
             $scope.update = false;
 
             mostrarDatos();
-
+            
             function mostrarDatos() {
                 $scope.dat = [];
                 $http.get('/articulos/api/v1/articulos')

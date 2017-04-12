@@ -23,6 +23,14 @@ CREATE SEQUENCE wabaw.sqempleados
   INCREMENT BY 1
   CACHE 1;
 
+CREATE TABLE wabaw.dispositivo_preferencias (
+    codigo_dispositivo char(3) not null,
+    nombre_dispositivo char(20) not null,
+    codigo_espacio integer null,
+    idioma_dispositivo char(6) not null,
+    CONSTRAINT dispositivo_preferencias_pkey PRIMARY KEY (codigo_dispositivo)
+);
+
 
 CREATE TABLE wabaw.series_facturas (
     serie_codigo char(3) NOT NULL,
@@ -63,7 +71,8 @@ ARTICULOS
 */
 
 CREATE TABLE wabaw.articulos (
-    codigo    char(10) not null,
+    codigo    integer not null default nextval('wabaw.sqgeneral'),
+    codigo_articulo    char(10) not null,
     nombre    char(30) not null,
     descripcion char(100) not null,
     cod_familia integer not null,
@@ -81,21 +90,34 @@ CREATE TABLE wabaw.articulos (
     CONSTRAINT articulos_pkey PRIMARY KEY (codigo)
 );
 
-CREATE TABLE wabaw.ofertas (
-    id        integer not null default nextval('wabaw.sqgeneral'),
-    codigo    char(10) not null,
-    pvp       decimal(6,2),
-    fechaInicio timestamp,
-    fechaFin    timestamp,
-    observaciones char(100),
-    CONSTRAINT ofertas_pkey PRIMARY KEY (id)
+CREATE TABLE wabaw.Articulos_Imagenes (
+    codigo           integer not null default nextval('wabaw.sqgeneral'),
+    codigo_articulo  integer not null,
+    codigo_imagen    integer not null,
+    numero_orden     integer not null,
+    CONSTRAINT Articulos_imagenes_pkey PRIMARY KEY (codigo)
 );
 
 
-insert into wabaw.articulos
-(codigo, nombre, descripcion, cod_familia, stock_actual, pvp_venta, fecha_ultima_venta)
-values
-('COCA33CL', 'Coca Cola 33 cl.', 'Refresco de cola', 2, 125, 1.5, current_date);
+CREATE TABLE wabaw.mesas (
+    id        integer not null default nextval('wabaw.sqgeneral'),
+    idmesa    char(10) not null,
+    nombremesa char(40) not null,
+    estado     char(03) null,
+    llamada    char(10) null,
+    CONSTRAINT mesas_pkey PRIMARY KEY (id)
+);
+
+
+CREATE TABLE wabaw.ofertas (
+    id               integer not null default nextval('wabaw.sqgeneral'),
+    codigo_ARTICULO  INTEGER not null,
+    pvp              decimal(6,2),
+    fechaInicio      timestamp,
+    fechaFin         timestamp,
+    observaciones    char(100),
+    CONSTRAINT ofertas_pkey PRIMARY KEY (id)
+);
 
 
 /*
@@ -151,7 +173,7 @@ CREATE TABLE wabaw.usuarios (
     nombre      char(20) not null,
     pwd         char(20) not null,
     login       char(20) not null,
-    email       char(20) not null,
+    email       char(40) not null,
     tfno        char(12),
     CONSTRAINT usuarios_pkey PRIMARY KEY (login)
 );
@@ -209,10 +231,6 @@ CREATE TABLE wabaw.almacenes (
 
 CREATE TABLE wabaw.tickets (
     codigo          integer  not null default nextval('wabaw.sqgeneral'),
-    serie           char(3) not null,
-    anu             integer not null,
-    cod             integer not null,
-    tipo            char(1) not null,
     cod_cliente     integer not null,
     cod_empleado    integer not null,
     cod_espacio     integer not null,
@@ -221,12 +239,27 @@ CREATE TABLE wabaw.tickets (
     fecha_pago      timestamp,
     observaciones   char(100),
     subtotal        decimal(12,2),
-    descuento       decimal(04,2),
-    impuestos       decimal(04,2),
+    prc_descuento       decimal(04,2),
+    tot_descuento       decimal(12,2),
+    prc_impuestos       decimal(04,2),
+    tot_impuestos       decimal(12,2),
     total           decimal(12,2),
     total_entrega   decimal(12,2),
     total_cambio    decimal(12,2),
+    estado          varchar(3),
+    llamada         varchar(10),
     CONSTRAINT tickets_pkey PRIMARY KEY (codigo)
+);
+
+CREATE TABLE wabaw.tickets_lineas (
+    codigo          integer  not null default nextval('wabaw.sqgeneral'),
+    cod_ticket      integer not null,
+    cod_articulo    integer not null,
+    cantidad        decimal(12,2) not null,
+    pvu             decimal(12,2) not null,
+    total           decimal(12,2) not null,
+    estado          varchar(3) null,
+    CONSTRAINT tktlin_pkey PRIMARY KEY (codigo)
 );
 
 

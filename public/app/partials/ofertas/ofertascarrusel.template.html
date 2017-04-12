@@ -1,0 +1,16 @@
+<div id="miCarousel" class="carousel slide" data-ride="carousel" data-interval="50">
+
+    <div class="carousel-inner" role="listbox">
+             <div class="item" ng-class="{active: $first }" ng-repeat="item0 in dat">
+                <img ng-src="../img/inicio/tres.png" alt=" carousel {{$index}}">
+                <div class="carousel-caption">
+                    <h3>
+                            {{ item0.id }}  {{$index}} --- {{ $first }}
+                    </h3>
+                </div>
+            </div>
+    </div>
+        
+    <a class="carousel-control right" href="#miCarousel" data-slide="next"></a>
+    <a class="carousel-control left" href="#miCarousel" data-slide="prev"></a>
+</div>

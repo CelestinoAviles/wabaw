@@ -1,0 +1,93 @@
+<div class="container">
+
+    <div class="row">
+        <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
+    </div>
+    <div class="row"><br/></div>
+    <div class="panel panel-primary" ng-show="!showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title"> {{ texto }}</h3>
+        </div>
+        <table class="table table-hover">
+            <td class="col-md-6">
+                <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
+            </td>
+            <td class="col-md-6">
+                <input type="text" ng-model="filtroTexto">
+            </td>
+        </table>
+
+        <div class="panel-body">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-2">Acciones</th>
+                        <th class="col-md-1">Codigo</th>
+                        <th class="col-md-3">Articulo</th>
+                        <th class="col-md-4">Imagen</th>
+                        <th class="col-md-2">Imagen</th>
+                        <th class="col-md-1">NºOrden</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+                <tbody>
+                    <tr ng-repeat="item in dat | filter:filtroTexto">
+                        <td>
+                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                        </td>
+                        <td>
+                            {{ item.codigo }}
+                        </td>
+                        <td>
+                            {{ item.codigo_articulo }} == {{ item.nombre }}
+                        </td>
+                        <td>
+                            {{ item.codigo_imagen }}  == {{ item.url }}
+                        </td>
+                        <td>
+                            <img ng-src= {{item.url}} class="img-rounded img-responsive" style="width:100%" alt="Imagen">
+                        </td>
+                        <td>
+                            {{ item.numero_orden }}
+                        </td>
+                    </tr>
+                    <tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    <div class="panel panel-primary" ng-show="showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title">Datos</h3>
+            <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()"><i class="glyphicon glyphicon-ok"></i></button>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6"><label>Codigo</label><input type="datetime" class="form-control" disabled="true" ng-model="datSel.codigo"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Codigo Articulo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo_articulo"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Código Imagen</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo_imagen"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Numero de Orden</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.numero_orden"></div>
+            </div><br>
+
+        </div>
+    </div> 
+
+
+</div>
+
+

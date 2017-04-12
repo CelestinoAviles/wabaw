@@ -3,6 +3,12 @@
     <div class="row">
         <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
     </div>
+    
+    <imagenescarrusel> </imagenescarrusel>
+    <ofertasver001> </ofertasver001>
+    <mesas> </mesas>
+
+
     <div class="row"><br/></div>
     <div class="panel panel-primary" ng-show="!showCategoria">
         <div class="panel-heading">
@@ -24,6 +30,7 @@
                     <tr>
                         <th class="col-md-2">Acciones</th>
                         <th class="col-md-1">Codigo</th>
+                        <th class="col-md-2">Articulo</th>
                         <th class="col-md-2">Nombre</th>
                         <th class="col-md-1">Descripción</th>
                     </tr>
@@ -39,6 +46,9 @@
                         </td>
                         <td>
                             {{ item.codigo }}
+                        </td>
+                        <td>
+                            {{ item.codigo_articulo }}
                         </td>
                         <td>
                             {{ item.nombre }}
@@ -62,6 +72,9 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-6"><label>Código</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo"></div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-6"><label>Código Articulo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo_articulo"></div>
             </div><br>
             <div class="row">
                 <div class="col-md-6"><label>Nombre</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.nombre"></div>

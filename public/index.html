@@ -6,23 +6,51 @@
     <meta name="Waba" content="width=device-width, initial-scale=1">
 
     <!-- Hojas de estilo -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="./css/waba.css">
 
+    <!-- Scripts -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.4.6/angular-locale_es-es.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
     <script src="./app/wabaw.module.js"></script>
     <script src="./app/wabaw.config.js"></script>
 
+    <script src="./app/common/general.module.js"></script>
+    <script src="./app/common/general.js"></script>
+    <script src="./app/common/general.factory.js"></script>
+    <script src="./app/partials/llamada/llamada.module.js"></script>
+    <script src="./app/partials/llamada/llamada.component.js"></script>
+    <script src="./app/partials/juegos/juegos.module.js"></script>
+    <script src="./app/partials/juegos/juegos.component.js"></script>
+    <script src="./app/partials/dispositivopreferencias/preferencias.module.js"></script>
+    <script src="./app/partials/dispositivopreferencias/preferencias.component.js"></script>
+    <script src="./app/partials/dispositivopreferencias/dispositivopreferencias.module.js"></script>
+    <script src="./app/partials/dispositivopreferencias/dispositivopreferencias.component.js"></script>
+    <script src="./app/partials/tickets_lineas/tickets-lineas.module.js"></script>
+    <script src="./app/partials/tickets_lineas/tickets-lineas.component.js"></script>
+    <script src="./app/partials/tickets/tickets.module.js"></script>
+    <script src="./app/partials/tickets/tickets.component.js"></script>
+    <script src="./app/partials/tickets/ticket-cabecera.component.js"></script>
+    <script src="./app/partials/tickets_lineas/ticket-lineas.component.js"></script>
     <script src="./app/partials/posts/posts.component.js"></script>
+    <script src="./app/partials/ofertas/ofertas.module.js"></script>
     <script src="./app/partials/ofertas/ofertas.component.js"></script>
+    <script src="./app/partials/ofertas/ofertasver001.component.js"></script>
+    <script src="./app/partials/ofertas/ofertascarrusel.component.js"></script>
     <script src="./app/partials/articulos/articulos.component.js"></script>
+    <script src="./app/partials/articulos/art-total.component.js"></script>
+    <script src="./app/partials/articulos/art-list.component.js"></script>
+    <script src="./app/partials/articulos/art-detail.component.js"></script>
     <script src="./app/partials/articulosopiniones/articulosopiniones.component.js"></script>
+    <script src="./app/partials/articulosimagenes/articulosimagenes.module.js"></script>
+    <script src="./app/partials/articulosimagenes/articulosimagenes.component.js"></script>
     <script src="./app/partials/imagenes/imagenes.component.js"></script>
+    <script src="./app/partials/imagenes/imagenescarrusel.component.js"></script>
     <script src="./app/partials/empleados/empleados.component.js"></script>
     <script src="./app/partials/moviles/moviles.component.js"></script>
     <script src="./app/partials/pruebas/pruebas.module.js"></script>
@@ -42,6 +70,7 @@
     <script src="./app/partials/entidad2/entidad2.component.js"></script>
     <script src="./app/partials/mesas/mesas.module.js"></script>
     <script src="./app/partials/mesas/mesas.component.js"></script>
+    <script src="./app/partials/mesas/mesas-tickets.component.js"></script>
     <script src="./app/partials/mesas/mesas-listado.module.js"></script>
     <script src="./app/partials/mesas/mesas-listado.component.js"></script>
     <script src="./app/partials/mesas/mesas-detalle-camarero.module.js"></script>
@@ -71,19 +100,18 @@
 </head>
 
 <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-
-                <a class="navbar-brand" href="http://www.ucam.edu"><img src="img/logo/001.jpg" height="60" width="60" alt="" /></a>
-
+                <button type="button"></button>
+                <a class="navbar-brand" href="#"><strong>WABAW</strong></a>
             </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
+            <div class="navbar-collapse collapse " id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="#!/menu">Menu</a></li>
                     <li><a href="#!/inicio">Inicio</a></li>
-                    <li><a href="#!/mesasListado">Mesas</a></li>
+                    <li><a href="#!/mesasListado">Mesas(L)</a></li>
+                    <li><a href="#!/mesas">Mesas</a></li>
                     <li><a href="#!/productosListado">Productos</a></li>
                     <li><a href="#!/opinionesListado">Opiniones</a></li>
                     <li><a href="#!/posts">Opiniones2</a></li>
@@ -93,18 +121,28 @@
                     <li><a href="#!/moviles">Móviles</a></li>
                     <li><a href="#!/empleados">Empleados</a></li>
                     <li><a href="#!/articulos">Artículos</a></li>
-                    <li><a href="#!/articulosopiniones">ArtículosOpiniones</a></li>
+                    <li><a href="#!/articulosopiniones">Art.Opi.</a></li>
+                    <li><a href="#!/articulosimagenes">Art.Img.</a></li>
                     <li><a href="#!/imagenes">Imágenes</a></li>
                     <li><a href="#!/ofertas">Ofertas</a></li>
+                    <li><a href="#!/tickets">Tickets</a></li>
+                    <li><a href="#!/ticketsLineas">TicketsLin</a></li>
+                    <li><a href="#!/dispositivopreferencias">Disp</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-
-    <div class="view-container">
+    <header>
+        Bienvenido
+    </header>
+    
+    <div>
         <div ng-view></div>
     </div>
 
+    <footer>
+        @ 2017
+    </footer>
 </body>
 
 </html>

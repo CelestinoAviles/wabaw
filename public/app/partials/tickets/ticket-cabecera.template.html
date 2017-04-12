@@ -1,0 +1,49 @@
+<div class="container">
+    
+    <div class="panel panel-primary" ng-show="showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title">Ticket {{ datSel.codigo }}</h3>
+            <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()"><i class="glyphicon glyphicon-ok"></i></button>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <label>Nº Ticket</label>
+                    <input type="numer" class="form-control" disabled="true" ng-model="datSel.codigo">
+                </div>
+                <div class="col-md-1">
+                    <label>Mesa</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cod_espacio">
+                </div>
+                <div class="col-md-3">
+                    <label>Fecha Alta</label>
+                    <input type="datetime" class="form-control" disabled="true" ng-model="datSel.fecha_ticket" placeholder="yyyy-MM-dd hh:mm">
+                </div>
+                
+                <div class="col-md-3">
+                    <label>Fecha Modificación</label>
+                    <input type="datetime" class="form-control" disabled="true" ng-model="datSel.fecha_modifica">
+                </div>
+
+                <div class="col-md-1">
+                    <label>Empleado</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cod_empleado">
+                </div>
+
+                <div class="col-md-2">
+                    <label>Nombre Cliente</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cod_cliente">
+                </div>
+
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-12"><label>Comentarios</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.observaciones"></div>
+            </div>
+        </div>
+    </div> 
+
+</div>
+
+

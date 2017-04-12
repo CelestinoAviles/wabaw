@@ -1,0 +1,166 @@
+<div id="divMasterDetailWrapper">
+    <div id="divMasterView">
+
+<!--    <div id="{{customer.customerid}}" ng-repeat='Customer in listOfCustomers'>
+-->
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-2">Acciones</th>
+                        <th class="col-md-1">Id</th>
+                        <th class="col-md-1">Código </th>
+                        <th class="col-md-7">Descripción de la Mesa</th>
+                        <th class="col-md-1">Estado</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+                    <tr ng-repeat="item in dat | filter:filtroTexto" ng-click="seleccionaMesa(item);">
+                        <td>
+                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                        </td>
+                        <td>
+                            {{ item.id }}
+                        </td>
+                        <td>
+                            {{ item.idmesa }}
+                        </td>
+                        <td>
+                            <span><a href="#!/mesas/$">{{ item.nombremesa }}</a></span>
+                        </td>
+                        <td>
+                            <span><a href="#!/mesas/$">{{ item.estado }}</a></span>
+                        </td>
+                    </tr>
+                                0   {{dat.length}} MESAS(s) 1
+
+                <tbody>
+                                 0  {{dat.length}} MESAS(s) 2
+                        
+        </table>
+                                  0 {{dat.length}} MESAS(s) 3
+        <div class="cssOneOrderTotal">
+           <div class="cssOneProductQty">
+              ==== 0 {{ dat.length }} MESAS(s)
+           </div>
+                     0              {{dat.length}} MESAS(s) 4
+           <div class="cssOneProductSubtotal"> 
+<!--               {{Order.ProductsInBasket|orderTotal | currency}} -->
+           </div>
+        </div>
+    </div>
+</div>
+
+<div id="divDetailView">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">Acciones</th>
+                        <th class="col-md-1">Ticket</th>
+                        <th class="col-md-1">Fecha</th>
+                        <th class="col-md-1">Mesa</th>
+                        <th class="col-md-1">Cliente</th>
+                        <th class="col-md-1">Empleado</th>
+                        <th class="col-md-1">Modifica</th>
+                        <th class="col-md-1">Estado</th>
+                        <th class="col-md-1">Total</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+                <tbody>
+                    <tr ng-repeat="item in datTickets | filter:filtroTexto" ng-click="seleccionaTicket(item);">
+                        <td>
+                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-primary" ng-click="estado($index)"><i class="glyphicon glyphicon-random"></i></button>
+                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                        </td>
+                        <td>
+                            {{ item.codigo }}
+                        </td>
+                        <td>
+                            {{ item.fecha_ticket  | date:'dd/MM/yyyy hh:mm' }}
+                        </td>
+                        <td>
+                            {{ item.cod_espacio  }}
+                        </td>
+                        <td>
+                            {{ item.cod_cliente  }}
+                        </td>
+                        <td>
+                            {{ item.cod_empleado  }}
+                        </td>
+                        <td>
+                            {{ item.fecha_modifica  | date:'dd/MM/yyyy  hh:mm' }}
+                        </td>
+                        <td>
+                            {{ item.estado }}
+                        </td>
+                        <td>
+                            {{ item.total }}
+                        </td>
+                    </tr>
+                    <tbody>
+                            ====       {{datTickets.length}} TICKETS(s)
+            </table>
+    
+    </div>
+
+<div class="container" id"lineas">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">Acciones</th>
+                        <th class="col-md-1">Ticket</th>
+                        <th class="col-md-1">Cód.Artículo</th>
+                        <th class="col-md-3">Descripción</th>
+                        <th class="col-md-1">Precio</th>
+                        <th class="col-md-1">Cantidad</th>
+                        <th class="col-md-1">Total</th>
+                        <th class="col-md-1">Estado</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+                <tbody>
+                    <tr ng-repeat="item in datLineasTickets | filter:filtroTexto" >
+                        <td>
+                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-primary" ng-click="estado($index)"><i class="glyphicon glyphicon-random"></i></button>
+                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                        </td>
+                        <td>
+                            {{ item.cod_ticket }}
+                        </td>
+                        <td>
+                            {{ item.cod_articulo  }}
+                        </td>
+                        <td>
+                            Descripcion
+                        </td>
+                        <td>
+                            {{ item.pvu  }}
+                        </td>
+                        <td>
+                            {{ item.cantidad  }}
+                        </td>
+                        <td>
+                            {{ item.total  }}
+                        </td>
+                        <td>
+                            {{ item.estado }}
+                        </td>
+                    </tr>
+                    ==== ==== {{ datLineasTickets.length}} Lineas de tikect
+                    ==== {{  datLineasTickets | countItemsInOrder }} item(s), -->
+                    ==SBK== {{  datLineasTickets | filtroSumaClave:'cantidad' }} item(s), -->
+                    ==== {{  datLineasTickets | orderTotal }} Euros, -->
+                    ==FST== {{  datLineasTickets | filtroSumaTotal:'cantidad':'pvu' }} Euros, -->
+                    <tbody>
+            </table>
+</div>

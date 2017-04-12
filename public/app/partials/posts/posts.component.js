@@ -1,8 +1,8 @@
 //---------------------------------------------------------//
-// modulo **** ARTICULOS *****
+// modulo **** OPINIONES SOBRE EL ESTAVLECIMIENTO   *****
 //---------------------------------------------------------//
 
-angular.module('posts', [])
+angular.module('posts', []);
 
 angular.module('posts')
     .component('posts', {
@@ -10,7 +10,7 @@ angular.module('posts')
         controller: function EntidadController($scope, $http, $routeParams, $location) {
 
             var auxRuta = '/posts/api/v1/posts';
-            var auxEntidad = 'posts';
+            var auxEntidad = 'Opiniones sobre el establecimiento';
     
             $scope.rate = 1;
             $scope.max = 5;

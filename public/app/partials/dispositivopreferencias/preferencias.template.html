@@ -1,0 +1,42 @@
+<div class="container">
+
+    <div class="panel panel-primary" ng-show="showPreferencias">
+        <div class="panel-heading">
+            <h3 class="panel-title">Datos</h3>
+            <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()"><i class="glyphicon glyphicon-ok"></i></button>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6"><label>Código Dispositivo</label>
+                    <input class="form-control" ng-readonly="true" ng-model="datSel.codigo_dispositivo">
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Nombre Dispositivo</label>
+                    <input class="form-control" ng-readonly="true" ng-model="datSel.nombre_dispositivo">
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Código Espacio</label>
+                    <input class="form-control" ng-readonly="true" ng-model="datSel.codigo_espacio">
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <label for="sel1">Idioma:</label>
+                    <input class="form-control" ng-model="datSel.idioma_dispositivo">
+                </div>
+            </div><br>
+
+        </div>
+    </div> 
+</div>

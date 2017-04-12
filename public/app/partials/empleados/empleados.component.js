@@ -71,7 +71,7 @@ angular.module('empleados')
             }
 
             
-            $scope.grabar = function() {
+            $scope.grabar = function(index) {
                 if ($scope.insert) {
                     $scope.showCategoria = false;
                     $scope.insert = false;
@@ -85,7 +85,9 @@ angular.module('empleados')
                     });
                 }
                  else {
-                     $http.put('/empleados/api/v1/empleados/' + $scope.datSel.codigo, $scope.datSel)
+                     var auxId = $scope.datSel.codigo;
+                     console.log($scope.datSel);
+                     $http.put('/empleados/api/v1/empleados/' + auxId, $scope.datSel)
                          .success((data) => {
                         $scope.datSel = {};
                     })
