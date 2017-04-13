@@ -47,6 +47,7 @@ angular.module('mesas-tickets')
 
             $scope.texto = "Mesas Tickets";
             
+            $scope.showEstado = false;
             //  We'll load our list of Customers from our JSON Web Service into this variable
             $scope.listOfCustomers = null;
 
@@ -141,6 +142,12 @@ angular.module('mesas-tickets')
                 $scope.update = true;
             }
 
+            $scope.cambiarEstado = function(index) {
+                $scope.ver(index);
+                $scope.showEstado = true;
+                $scope.update = true;
+            }
+            
         
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].id;
@@ -158,6 +165,7 @@ angular.module('mesas-tickets')
                 $scope.datSel = {};
                 $scope.showCategoria = true;
                 $scope.insert = true;
+                
             }
 
             
@@ -194,6 +202,7 @@ angular.module('mesas-tickets')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                 };
+                $scope.showEstado = false;
             }
         }
     });

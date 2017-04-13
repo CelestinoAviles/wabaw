@@ -120,6 +120,24 @@ CREATE TABLE wabaw.ofertas (
 );
 
 
+CREATE TABLE WABAW.ESTADOS (
+    codigo           integer not null,
+    tipo             char(03) not null,
+    nombre           char(10) not null,
+    color            char(10) not null,
+    CONSTRAINT estados_pkey PRIMARY KEY (codigo)
+);
+insert into wabaw.estados (codigo, tipo, nombre, color) values (1, 'MES', 'LIBRE',   'green');
+insert into wabaw.estados (codigo, tipo, nombre, color) values (2, 'MES', 'OCUPADO', 'orange');
+insert into wabaw.estados (codigo, tipo, nombre, color) values (3, 'MES', 'LLAMANDO', 'orange');
+insert into wabaw.estados (codigo, tipo, nombre, color) values (4, 'MES', 'RESERVADO', 'orange');
+insert into wabaw.estados (codigo, tipo, nombre, color) values (5, 'MES', 'ANULADO',  'orange');
+insert into wabaw.estados (codigo, tipo, nombre, color) values (10, 'TKT', 'ABIERTO',   'green');
+insert into wabaw.estados (codigo, tipo, nombre, color) values (11, 'TKT', 'PAGADO', 'green');
+insert into wabaw.estados (codigo, tipo, nombre, color) values (21, 'TKL', 'PEDIDO', 'orange');
+insert into wabaw.estados (codigo, tipo, nombre, color) values (22, 'TKL', 'SERVIDO', 'orange');
+
+
 /*
 
 FAMILIAS
