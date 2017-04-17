@@ -13,15 +13,14 @@ var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
 router.use(bodyParser.json());                          // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true }));  // for parsing application/x-www-form-urlencoded
 
-
+var glbApi = '/api/v1/mesas';
 // 
 // ALTA 
 //
-router.post('/api/v1/mesas', (req, res, next) => {
+router.post( glbApi, (req, res, next) => {
     const results = [];
     // Graba datos from http request
     const data = { idMesa: req.body.idmesa,
@@ -57,9 +56,43 @@ router.post('/api/v1/mesas', (req, res, next) => {
 });
 
 //
+// LEER DATOS DE UNA SOLA ENTIDAD
+//
+router.get( glbApi + '/:id', (req, res, next) => {
+  const results = [];
+  var codigo = req.params.id;
+  // Get a Postgres client from the connection pool
+  pg.connect(connectionString, (err, client, done) => {
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return res.status(500).json({success: false, data: err});
+    }
+      console.log('mesa -->'+codigo+'<---')
+    // SQL Query > Select Data
+    client.query('SELECT * FROM  wabaw.mesas WHERE IDMESA=($1)',
+                     [ codigo ] );
+    const query = client.query('SELECT * FROM wabaw.mesas WHERE IDMESA = ($1)', [codigo]);
+    // Stream results back one row at a time
+    query.on('row', (row) => {
+      results.push(row);
+    });
+    // After all data is returned, close connection and return results
+    query.on('end', () => {
+      done();
+      return res.json(results);
+    });
+  });
+});
+
+
+
+
+//
 // LEER DATOS
 //
-router.get('/api/v1/mesas', (req, res, next) => {
+router.get(glbApi, (req, res, next) => {
   const results = [];
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, (err, client, done) => {
@@ -110,6 +143,48 @@ router.put('/api/v1/mesas/:id', (req, res, next) => {
         // SQL Query > Update Data
         client.query('UPDATE wabaw.mesas SET idMesa=($1), nombreMesa=($2), estado=($3) WHERE id=($4)',
                      [data.idMesa, data.nombreMesa, data.estado, data.id]);
+        // SQL Query > Select Data
+        const query = client.query("SELECT * FROM wabaw.mesas ORDER BY idMesa ASC");
+        // Stream results back one row at a time
+        query.on('row', (row) => {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+        console.log('put 001');
+        });
+});
+
+//
+//  MODIFICA EL ESTADO DE LA MESA
+//
+router.put('/api/v1/mesas/llamada/:id', (req, res, next) => {
+    const results = [];
+    // Grab data from the URL parameters
+    const id = req.params.id;
+    // Graba datos from http request
+    const data = {id: req.body.idMesa, 
+                  idmesa: req.body.idmesa, 
+                  llamada: req.body.llamada
+                 };
+
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, (err, client, done) => {
+        // Handle connection errors
+        if(err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        console.log('put mesa: ' + data.idmesa + ' llamada:' + data.llamada );
+        // SQL Query > Update Data
+        client.query('UPDATE wabaw.mesas SET llamada=($2) WHERE idMesa=($1)',
+                     [data.idmesa, data.llamada ]);
         // SQL Query > Select Data
         const query = client.query("SELECT * FROM wabaw.mesas ORDER BY idMesa ASC");
         // Stream results back one row at a time

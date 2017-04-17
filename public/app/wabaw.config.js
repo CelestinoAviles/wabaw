@@ -56,8 +56,8 @@ angular.
         }).
         when('/pruebas2', {
           template: '<pruebas2></pruebas2>'
-        }).
-        when('/usuarios', {
+        })
+          .when('/usuarios', {
           template: '<usuarios></usuarios>'
         })
           .when('/moviles', {
@@ -93,6 +93,9 @@ angular.
           .when('/posts', {
           template: '<posts></posts>'
         })
+          .when('/postsCliente', {
+          template: '<posts-cliente></posts-cliente>'
+        })
           .when('/ofertas', {
           template: '<ofertas></ofertas>'
         })
@@ -111,11 +114,11 @@ angular.
           .when('/ticketsLineas', {
           template: '<tickets-lineas></tickets-lineas>'
         })
-          .when('/ticketLineas', {
-          template: '<ticket-lineas></ticket-lineas>'
-        })
           .when('/mesasTickets', {
           template: '<mesas-tickets></mesas-tickets>'
+        })
+          .when('/mesaTicket0', {
+          template: '<mesa-ticket></mesa-ticket>'
         })
           .when('/dispositivopreferencias', {
           template: '<dispositivopreferencias></dispositivopreferencias>'

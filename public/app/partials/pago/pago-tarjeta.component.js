@@ -15,10 +15,10 @@ angular.module('pagoTarjeta')
         $scope.texto = auxTxt;
 
         this.volver = function() {
-            $location.path('/mesas');
+            $location.path('#!/inicio');
         }
         this.enviar = function() {
-            $window.location.href = 'http://www.lacaixa.com';
+            $window.location.href = 'https://www.caixabank.es/particular/home/particulares_es.html';
         }
 
     }

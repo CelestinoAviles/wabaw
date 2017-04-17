@@ -1,8 +1,7 @@
 //---------------------------------------------------------//
-// modulo **** OPINIONES SOBRE EL ESTAVLECIMIENTO   *****
+// modulo **** OPINIONES SOBRE EL ESTABLECIMIENTO   *****
 //---------------------------------------------------------//
-
-angular.module('posts', []);
+(function() {
 
 angular.module('posts')
     .component('posts', {
@@ -12,6 +11,7 @@ angular.module('posts')
             var auxRuta = '/posts/api/v1/posts';
             var auxEntidad = 'Opiniones sobre servicios y productos del Establecimiento';
     
+            $scope.opcionCliente = false;
             $scope.rate = 1;
             $scope.max = 5;
             $scope.texto = auxEntidad.toUpperCase();;
@@ -105,3 +105,5 @@ angular.module('posts')
             }
         }
     });
+
+    })();

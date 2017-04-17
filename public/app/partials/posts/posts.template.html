@@ -3,17 +3,18 @@
     <div class="row">
         <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
     </div>
+
     <div class="row"><br/></div>
     <div class="panel panel-primary" ng-show="!showCategoria">
         <div class="panel-heading">
             <h3 class="panel-title"> {{ texto }}</h3>
         </div>
         <table class="table table-hover">
-            <td class="col-md-6">
+            <td class="col-xs-6">
                 <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
             </td>
-            <td class="col-md-6">
-                <input type="text" ng-model="filtroTexto">
+            <td class="col-xs-6">
+                <input class="form-control" type="text" ng-model="filtroTexto">
             </td>
         </table>
 
@@ -22,18 +23,19 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="col-md-2">Acciones</th>
+                        <th class="col-md-2" ng-show="!{{opcionCliente}}">Acciones </th>
                         <th class="col-md-1">Fecha</th>
                         <th class="col-md-1">Usuario</th>
                         <th class="col-md-2">Valoraciones</th>
-                        <th class="col-md-6">Comentarios</th>
+                        <th class="col-md-1">Redes</th>
+                        <th class="col-md-5">Comentarios</th>
                     </tr>
                 </thead>
 
                 <tfoot></tfoot>
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto">
-                        <td>
+                        <td ng-show="!{{opcionCliente}}">
                             <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
                             <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
                             <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
@@ -50,6 +52,9 @@
                             Servicio: {{ item.valor_servicio }} <br>
                         </td>
                         <td>
+                            {{ item.redes_sociales }}
+                        </td>
+                        <td>
                             {{ item.observaciones }}
                         </td>
                     </tr>
@@ -58,6 +63,15 @@
         </div>
     </div>
 
+    <div class="container" ng-show="verFacebook">
+        <div class="row">
+            <div class="fb-like" data-href="http://www.pensionsegura.es" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true">
+            </div>
+        </div>
+        <div class="row">
+            <div class="fb-comments" data-href="http://www.pensionsegura.es" data-numposts="5"></div>
+        </div>
+    </div>
     
     <div class="panel panel-primary" ng-show="showCategoria">
         <div class="panel-heading">
@@ -67,11 +81,9 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-6"><label>Fecha</label><input type="datetime" class="form-control" disabled="true" ng-model="datSel.fecha"></div>
-            </div><br>
-
-            <div class="row">
-                <div class="col-md-6"><label>Nombre</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.login"></div>
+                <div class="col-md-6"><label>Nombre</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.login">
+                </div>
             </div><br>
 
             <div class="row">
@@ -113,12 +125,39 @@
                 </div>
             </div><br>
             <div class="row">
+                <div class="col-md-6"><label>Publicar en redes sociales :</label>
+                    <input type="checkbox" ng-readonly="!(insert || update)" ng-model="datSel.redes_sociales">
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6"><label>Comentarios</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.observaciones"></div>
             </div>
         </div>
     </div> 
 
+<!--
 
+
+-->
+    
+    
+<!-- Este sí funciona -->   
+    <div class="container">
+        <div class="col-xs-6">
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a class="twitter-timeline" href="https://twitter.com/CelestinoAviles">Tweets de Celestino</a> 
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="col-xs-6">
+            <blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">"No one likes Bit O' Honey." ~<a href="https://twitter.com/CelestinoAviles">@CelestinoAviles</a> <a href="https://twitter.com/hashtag/truth?src=hash">#truth</a></p>— Aru (@IAmAru) <a href="https://twitter.com/IAmAru/status/608455483507245059">June 10, 2015</a></blockquote>
+
+            <twitter-widget>
+                <blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">"No one likes Bit O' Honey." ~<a href="https://twitter.com/griffinmcelroy">@griffinmcelroy</a> <a href="https://twitter.com/hashtag/truth?src=hash">#truth</a></p>— Aru (@IAmAru) <a href="https://twitter.com/IAmAru/status/608455483507245059">June 10, 2015</a></blockquote>
+            </twitter-widget>
+        </div>    
+    </div>
+
+    
 </div>
 
 

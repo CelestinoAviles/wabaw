@@ -21,11 +21,14 @@ var glbApi = '/api/v1/tickets';
 router.use(bodyParser.json());                          // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true }));  // for parsing application/x-www-form-urlencoded
 
+console.log('entro en tickets');
 // 
 // ALTA 
 //
 router.post( glbApi, (req, res, next) => {
     const results = [];
+    
+    console.log('entro en alta');
     // Graba datos from http request
     const data = { codigo:         req.body.codigo, 
                    cod_cliente:    req.body.cod_cliente,
@@ -108,8 +111,6 @@ router.get( '/api/v1/mesa-tickets/:id', (req, res, next) => {
       
   });
 });
-
-
 
 
 //
@@ -199,7 +200,6 @@ router.put( glbApi + '/:id', (req, res, next) => {
                    total_cambio:   req.body.total_cambio
                  };
 
-    
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
         // Handle connection errors

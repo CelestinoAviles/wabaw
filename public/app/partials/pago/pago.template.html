@@ -1,0 +1,23 @@
+<div class="container">
+
+    <div class="panel-body">
+        <div class="col-xs-8">
+            <div class="well">Resumen del ticket</div>
+        </div>
+        <div class="col-xs-4">
+            <div class="well">MESA: {{ espacio }}</div>
+            <div class="well">Total: {{ total }}</div>
+        </div>
+    </div>
+    
+    <h2>Seleccionar forma de pago</h2>
+    
+    <div class="list-group">
+        <a href="#!/pagoEfectivo" class="list-group-item">Efectivo. Dinero</a>
+        <a href="#!/pagoPaypal"   class="list-group-item">PayPal</a>
+        <a href="#!pagoTarjeta"   class="list-group-item">Tarjeta de crédito</a>
+    </div>
+    
+    <button type="button" class="btn btn-block btn-primary" ng-click="$ctrl.volver()">Volver</button>
+
+</div>

@@ -1,5 +1,6 @@
 // Defino las rutas en el fichero de configuración
-'use strict';
+( function() {
+    'use strict';
 
 angular.
   module('pago').
@@ -23,3 +24,4 @@ angular.
       otherwise('/mesas');
     }
   ])
+})();

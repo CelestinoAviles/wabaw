@@ -4,7 +4,10 @@
 angular.module('wabaw', [
     'ngRoute',
     'ngResource',
+    'ui.grid',
+    'ui.grid.edit',
     'ui.bootstrap',
+    'ngtweet',
     'general',
     'menu',
     'menuMantenimientos',

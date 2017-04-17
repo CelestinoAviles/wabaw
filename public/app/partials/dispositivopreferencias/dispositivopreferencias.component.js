@@ -64,7 +64,7 @@ angular.module('dispositivopreferencias')
                     codigo_dispositivo: $scope.datSel.codigo_dispositivo,
                     nombre_dispositivo: $scope.datSel.nombre_dispositivo,
                     idioma_dispositivo: $scope.datSel.idioma_dispositivo,
-                    codigo_espacio    : $scope.datSel.codigo_espacio
+                    codigo_espacio    : $scope.datSel.codigo_espacio,
                 };
 
                 // Guardamos directo el JSON al localStorage:
@@ -75,7 +75,6 @@ angular.module('dispositivopreferencias')
                 var dispositivoGuardado = localStorage.getItem("dispositivo");
 
                 $scope.preferencias = dispositivo;
-    
                 
             }
 

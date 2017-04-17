@@ -214,6 +214,7 @@ CREATE TABLE wabaw.posts_general (
     valor_general   integer,
     valor_limpieza   integer,
     valor_servicio   integer,
+    redes_sociales   boolean,
     observaciones    char(200) not null,
     CONSTRAINT post_general_pkey PRIMARY KEY (codigo)
 );

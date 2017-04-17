@@ -1,7 +1,7 @@
 //---------------------------------------------------------//
 // modulo **** ARTICULOS *****
 //---------------------------------------------------------//
-angular.module('articulos', [])
+(function() {
 
 angular.module('articulos')
     .component('articulos', {
@@ -104,3 +104,4 @@ angular.module('articulos')
             }
         }
     });
+})();

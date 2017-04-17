@@ -4,17 +4,20 @@
         <div class="col-xs-2">
             <a ng-click="Volver()" class="btn btn-info btn-block" role="button">Volver</a>
         </div>
-        <div class="col-xs-10">
-            <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
-        </div>
     </div>
     <div class="row"><br/></div>
 
     <div class="row" ng-show="showNivel0">
         <div class="col-xs-6">
-            <img ng-src="../../../img/imagenes/solitario.png" class="img-responsive" alt="Cinque Terre" width="200" height="200" ng-click="Solitario()" alt="Solitario">
+            <button ng-click="Solitario()" class="btn btn-info btn-block" role="button">                 <h1>Solitarios</h1>
+            </button>
+            <img ng-src="../../../img/imagenes/solitario.png" class="img-responsive" alt="" width="200" height="200" ng-click="Solitario()" alt="Solitario">
         </div>
+
         <div class="col-xs-6">
+            <button ng-click="Equipos()" class="btn btn-info btn-block" role="button">
+                <h1>Juegos en Equipo</h1>
+            </button>
             <img ng-src="../../../img/imagenes/equipos.jpg" class="img-responsive" alt="Cinque Terre" width="200" height="200" ng-click="Equipos()" alt="Equipos"> 
         </div>
     </div>

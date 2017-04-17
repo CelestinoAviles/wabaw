@@ -1,13 +1,41 @@
 <div class="container">
-  <h2>Forma de Pago en efectivo</h2>
+  <h2>Pago en efectivo</h2>
 
-  <form>
-    <label>Mesa: <input type="text" name="Mesa" value="10" size="5" disabled></label>
-    <label>Importe: <input type="text" name="Importe" value="10.50" size="5" disabled>€</label>
-
+<div class="panel-body">
+        <div class="col-xs-4">
+            <div class="well">Resumen del ticket</div>
+        </div>
+        <div class="col-xs-4">
+            <div class="well">MESA: {{ espacio }}</div>
+        </div>
+        <div class="col-xs-4">
+            <div class="well">Total: {{ total }}</div>
+        </div>
+</div>
+    
+    
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Entrega</label>
+                    <input class="form-control" ng-model="entrega">
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="well">
+                        Cambio: {{ entrega - total }}
+                    </div>
+                </div>
+            </div><br>
+        </div>
+    </div> 
+      
 	  <div class="form-group">
       		<div class="col-sm-offset-2 col-sm-10">
-		  		<button type="button" class="btn btn-primary" ng-click="$ctrl.volver()">Aceptar</button>
+		  		<button type="button" class="btn btn-primary" ng-click="$ctrl.volver()">Cancelar</button>
+		  		<button type="button" class="btn btn-primary" ng-click="$ctrl.pagar()">Pagar</button>
             </div>
     	</div>
   </form>

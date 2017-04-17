@@ -12,9 +12,11 @@
 		    .component('inicio', {
 		        templateUrl: 'app/partials/inicio/inicio.template.html',
 		        controller: function InicioController($scope, $routeParams, $location, servicio) {
-                    alert('Ole');
+                    
+                    CargarFacebook();
+                    
                     $scope.servicio = servicio;
-                    alert($scope.servicio);
+//                    alert($scope.servicio);
                     console.log($scope.servicio);
                     console.log(servicio.listaCompartida);
                     console.log(servicio.datosCompartidos);
@@ -35,8 +37,40 @@
 //                    function glbVar
 //                    srvGeneral.inicializarVariables(glbVar);
 //                    srvGeneral.miFuncion(glbVar.numDecimales);
-                    
 
+                    function compartirFacebook()  
+                    {
+                        FB.ui({
+                            method: 'share',
+                            display: 'popup',
+                            href: 'https://developers.facebook.com/docs/',
+                        }, function(response){});
+                    };
+                    
+          function CargarFacebook() {
+                window.fbAsyncInit = function() {
+                    FB.init({
+                        appId      : '1303323409750155',
+                        xfbml      : true,
+                        version    : 'v2.8'
+                    });
+                    FB.ui({
+                        method: 'share',
+                        display: 'popup',
+                        href: 'https://developers.facebook.com/docs/',
+                    }, function(response){});
+                        FB.AppEvents.logPageView();
+                };
+
+                (function(d, s, id){
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) {return;}
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            };
+  
 		        }
 		    });
 

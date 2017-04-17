@@ -18,6 +18,10 @@ var bodyParser = require('body-parser');
 
 var glbApi = '/api/v1/ticketslineas';
 
+// 'SELECT * FROM wabaw.tickets_lineas ORDER BY codigo ASC;'
+var glbConsulta= 'select t.* , a.* from wabaw.tickets_lineas T, wabaw.articulos a where t.cod_articulo = a.codigo';
+var glbConsultaOrdenada = glbConsulta + ' order by t.codigo ASC';
+
 router.use(bodyParser.json());                          // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true }));  // for parsing application/x-www-form-urlencoded
 
@@ -49,7 +53,7 @@ router.post( glbApi, (req, res, next) => {
         client.query('INSERT INTO wabaw.tickets_lineas(COD_TICKET, COD_ARTICULO, CANTIDAD, PVU, TOTAL, ESTADO) values($1, $2, $3, $4, $5, $6 )',
                      [ data.cod_ticket, data.cod_articulo, data.cantidad, data.pvu, data.total, data.estado ]);
         // SQL Query > Select Data
-        const query = client.query('SELECT * FROM wabaw.tickets_lineas ORDER BY codigo ASC');
+        const query = client.query(glbConsultaOrdenada);
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);
@@ -77,7 +81,7 @@ router.get( glbApi, (req, res, next) => {
       return res.status(500).json({success: false, data: err});
     }
     // SQL Query > Select Data
-    const query = client.query('SELECT * FROM wabaw.tickets_lineas ORDER BY codigo ASC;');
+    const query = client.query( glbConsultaOrdenada );
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
@@ -109,9 +113,9 @@ router.get( glbApi+"/:id", (req, res, next) => {
     }
 
         // SQL Query > Select
-        client.query('SELECT * FROM wabaw.tickets_lineas WHERE cod_ticket=($1)', [id]);
+        client.query(glbConsulta + ' AND t.cod_ticket=($1)  ORDER BY T.CODIGO ASC', [id]);
       // SQL Query > Select Data
-    const query = client.query('SELECT * FROM wabaw.tickets_lineas WHERE cod_ticket=($1)', [id]);
+    const query = client.query( glbConsulta + ' AND t.cod_ticket=($1) ORDER BY T.CODIGO ASC', [id]);
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
@@ -156,7 +160,7 @@ router.put( glbApi + '/:id', (req, res, next) => {
 
     
         // SQL Query > Select Data
-        const query = client.query("SELECT * FROM wabaw.tickets_lineas ORDER BY codigo ASC");
+        const query = client.query( glbConsultaOrdenada );
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);
@@ -191,7 +195,7 @@ router.delete( glbApi + '/:id', (req, res, next) => {
         // SQL Query > Delete Data
         client.query('DELETE FROM wabaw.tickets_lineas WHERE codigo=($1)', [id]);
         // SQL Query > Select Data
-        var query = client.query('SELECT * FROM wabaw.tickets_lineas ORDER BY codigo ASC');
+        var query = client.query( glbConsultaOrdenada );
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);

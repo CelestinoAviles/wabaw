@@ -3,22 +3,49 @@
 //---------------------------------------------------------//
 (function(){
     
-angular.module('articulos', [])
+angular.module('articulos')
     .component('artList', {
         templateUrl: 'app/partials/articulos/art-list.template.html',
-        controller: function EntidadController($scope, $http, $routeParams, $location) {
+        controller: function EntidadController($scope, $http, $routeParams, $location, uiGridConstants) {
 
+            
+            
+            $scope.gridOptions1 = {
+                enableSorting: true,
+                columnDefs: [
+                    { field: 'codigo' },
+                    { field: 'nombre' },
+                    { field: 'codigo_articulo', enableSorting: false }
+                ],
+                onRegisterApi: function( gridApi ) {
+                    $scope.grid1Api = gridApi;
+                }
+            };
+            
+            
+            
+            
             mostrarDatos();
-
+            
+            
+                console.log('1--2');
+                console.log($scope.dat);
+                console.log($scope.gridOptions1);
+            
             function mostrarDatos() {
                 $http.get('/articulos/api/v1/articulos')
                     .success((data) => {
                     $scope.dat = data;
+                    $scope.gridOptions1.data = data;
+                    console.log('123');
+                    console.log(data);
+                    console.log($scope.dat);
+    
                 })
                 .error((error) => {
                     console.log('Error: ' + error);
                 });
-            
+                console.log('1');
             }
 
             $scope.ver = function(index) {
