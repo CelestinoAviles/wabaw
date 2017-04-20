@@ -32,7 +32,8 @@ router.post('/api/v1/articulos', (req, res, next) => {
     // Graba datos from http request
     const data = { codigo_articulo: req.body.codigo_articulo, 
                    nombre: req.body.nombre,
-                   descripcion: req.body.descripcion
+                   descripcion: req.body.descripcion,
+                   pvp_venta: req.body.pvp_venta
                  };
 
     // Get a Postgres client from the connection pool
@@ -89,6 +90,79 @@ router.get( '/api/v1/articulos', (req, res, next) => {
   });
 });
 
+//
+// LEER DATOS DE UN ARTICULO
+//
+router.get( '/api/v1/articulos/:id', (req, res, next) => {
+  const results = [];
+    id = req.params.id;
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, (err, client, done) => {
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return res.status(500).json({success: false, data: err});
+    }
+    // SQL Query > Select Data
+    const query = client.query('SELECT * FROM wabaw.articulos WHERE CODIGO = ($1) ORDER BY nombre ASC;', [id]);
+    // Stream results back one row at a time
+    query.on('row', (row) => {
+      results.push(row);
+    });
+    // After all data is returned, close connection and return results
+    query.on('end', () => {
+      done();
+      return res.json(results);
+    });
+  });
+});
+
+
+//
+// LEER DATOS DE ARTICULOS QUE PERTENECEN A UNA FAMILIA
+//
+router.get( '/api/v1/articulos-ver/:id', (req, res, next) => {
+  const results = [];
+    var codFami = req.params.id;
+    console.log('FAmilia:' + codFami)
+  // Get a Postgres client from the connection pool
+  pg.connect(connectionString, (err, client, done) => {
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return res.status(500).json({success: false, data: err});
+    }
+    // SQL Query > Select Data
+        var aux = 'SELECT AI.CODIGO, AI.CODIGO_ARTICULO, A.NOMBRE, A.PVP_VENTA, AI.CODIGO_IMAGEN, I.URL, AI.NUMERO_ORDEN ' 
+        aux = aux + ' FROM wabaw.Articulos_IMAGENES AS AI, '
+        aux = aux + ' wabaw.articulos as A, '
+        aux = aux + ' wabaw.imagenes as I '
+        aux = aux + ' where AI.CODIGO_ARTICULO = A.CODIGO '
+        aux = aux + ' AND AI.CODIGO_IMAGEN = I.CODIGO '
+        aux = aux + ' AND AI.NUMERO_ORDEN = 1 '
+        aux = aux + ' AND A.COD_FAMILIA = ($1) '
+        aux = aux + ' ORDER BY A.NOMBRE, A.PVP_VENTA ASC'
+
+
+        const query = client.query( aux, [ codFami ] );
+    // Stream results back one row at a time
+    query.on('row', (row) => {
+      results.push(row);
+    });
+    // After all data is returned, close connection and return results
+    query.on('end', () => {
+      done();
+      return res.json(results);
+    });
+  });
+});
+
+
+
+
+
 
 //
 //  MODIFICA
@@ -101,7 +175,8 @@ router.put( '/api/v1/articulos/:id', (req, res, next) => {
     const data = {codigo: id, 
                   codigo_articulo: req.body.codigo_articulo, 
                   nombre: req.body.nombre, 
-                  descripcion: req.body.descripcion
+                  descripcion: req.body.descripcion,
+                  pvp_venta: req.body.pvp_venta
                  };
 
     
@@ -116,8 +191,8 @@ router.put( '/api/v1/articulos/:id', (req, res, next) => {
 
         console.log('put 000');
         // SQL Query > Update Data
-        client.query('UPDATE wabaw.articulos SET codigo_articulo=($2), nombre=($3), descripcion=($4) WHERE codigo=($1)', 
-                     [data.codigo, data.codigo_articulo, data.nombre, data.descripcion]);
+        client.query('UPDATE wabaw.articulos SET codigo_articulo=($2), nombre=($3), descripcion=($4), PVP_VENTA=($5) WHERE codigo=($1)', 
+                     [data.codigo, data.codigo_articulo, data.nombre, data.descripcion, data.pvp_venta]);
         // SQL Query > Select Data
         const query = client.query("SELECT * FROM wabaw.articulos ORDER BY nombre ASC");
         // Stream results back one row at a time

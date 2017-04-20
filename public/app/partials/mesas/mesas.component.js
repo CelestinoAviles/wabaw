@@ -8,14 +8,13 @@ angular.module('mesas')
         templateUrl: 'app/partials/mesas/mesas.template.html',
         controller: function MesasController($scope, $http, $routeParams, $location, servicio, srvGeneral) {
 
-            alert('cambio lo de servicio');
             console.log('cambio lo de servicio');
             console.log(servicio.datosCompartidos);
             servicio.datosCompartidos = 'cuatro cinco seis';
             console.log(servicio.datosCompartidos);
             console.log(servicio.calculoIVA(100));
             
-            srvGeneral.alerta('vayayaya');
+//            srvGeneral.alerta('Mensaje con un servicio dado de alta en servicios generales');
             console.log(srvGeneral.calculoIVA(10, 20));
             
 

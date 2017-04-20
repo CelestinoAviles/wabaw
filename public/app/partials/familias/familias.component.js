@@ -1,25 +1,29 @@
 //---------------------------------------------------------//
-// modulo **** ARTICULOS DETALLE *****
+// modulo **** FAMILIAS *****
 //---------------------------------------------------------//
-( function (){
+
+(function() {
+
+var auxEntidad = 'familias';
+var auxRuta = 'familias/api/v1/familias';
     
-angular.module('articulos')
-    .component('artDetail', {
-//        templateUrl: 'app/partials/articulos/art-detail.template.html',
-        template: 'TBD: Detail view for <span>{{$ctrl.phoneId}} == {{$ctrl.cuenta}} ==  {{$ctrl.familia}}</span>',
-        controller: function EntidadController($scope, $http, $routeParams, $location) {
+angular.module('familias')
+    .component('familias', {
+        templateUrl: 'app/partials/' + auxEntidad + '/' + auxEntidad + '.template.html',
+        controller: function ImagenesController($scope, $http, $routeParams, $location ) {
 
-            this.phoneId = $routeParams.Id;
-            this.cuenta = $routeParams.cuenta;
-            this.familia = $routeParams.familia;
+            $scope.texto = auxEntidad.toUpperCase();;
+            $scope.dat = [];
+            $scope.datSel = [];
+            $scope.showCategoria = false;
+            $scope.insert = false;
+            $scope.update = false;
 
+            mostrarDatos();
 
-            
-            var auxEntidad = 'articulos';
-            
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get('/articulos/api/v1/articulos')
+                $http.get(auxRuta)
                     .success((data) => {
                     $scope.dat = data;
                 })
@@ -97,11 +101,7 @@ angular.module('articulos')
                     $scope.insert = false;
                 };
             }
-        },
-  bindings: {
-    entidad: "=",
-    numero: "@"
-  }
-});
+        }
+    });
 
-    })();
+})();

@@ -4,12 +4,13 @@
     <div class="row">
         <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
     </div>
+    
 <!--
     <imagenescarrusel> </imagenescarrusel>
     <ofertasver001> </ofertasver001>
     <mesas> </mesas>
 -->
-
+    
     <div class="row"><br/></div>
     <div class="panel panel-primary" ng-show="!showCategoria">
         <div class="panel-heading">
@@ -34,6 +35,7 @@
                         <th class="col-md-2">Articulo</th>
                         <th class="col-md-2">Nombre</th>
                         <th class="col-md-1">Descripción</th>
+                        <th class="col-md-1">PVP</th>
                     </tr>
                 </thead>
 
@@ -56,6 +58,9 @@
                         </td>
                         <td>
                             {{ item.descripcion }}
+                        </td>
+                        <td>
+                            {{ item.pvp_venta }}
                         </td>
                     </tr>
                     <tbody>

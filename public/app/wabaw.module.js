@@ -29,6 +29,7 @@ angular.module('wabaw', [
     'moviles',
     'empleados',
     'articulos',
+    'familias',
     'articulosopiniones',
     'articulosimagenes',
     'imagenes',

@@ -7,11 +7,10 @@ angular.module('articulos')
     .component('articulos', {
         templateUrl: 'app/partials/articulos/articulos.template.html',
         controller: function EntidadController($scope, $http, $routeParams, $location) {
-
+            
             var auxEntidad = 'articulos';
             var auxRuta = '/articulos/api/v1/articulos';
             console.log('1 ' + auxEntidad);
-            
 
             $scope.texto = auxEntidad.toUpperCase();;
             $scope.dat = [];
@@ -102,6 +101,6 @@ angular.module('articulos')
                     $scope.insert = false;
                 };
             }
-        }
-    });
+    }
+})
 })();

@@ -69,17 +69,35 @@ angular.
           .when('/articulos', {
           template: '<articulos></articulos>'
         })
+          .when('/articulosVer/:id', {
+          template: '<articulos-ver></articulos-ver>'
+        })
+          .when('/familias', {
+          template: '<familias></familias>'
+        })
+          .when('/familiasVer', {
+          template: '<familias-ver></familias-ver>'
+        })
           .when('/artList', {
           template: '<art-list></art-list>'
         })
-          .when('/artDetail', {
+          .when('/artDetail/:Id', {
           template: '<art-detail></art-detail>'
         })
           .when('/articulosopiniones', {
           template: '<articulosopiniones></articulosopiniones>'
         })
+          .when('/articuloOpiniones/:id', {
+          template: '<articulo-opiniones></articulo-opiniones>'
+        })
           .when('/articulosimagenes', {
           template: '<articulosimagenes></articulosimagenes>'
+        })
+          .when('/articuloImagenes/:id', {
+          template: '<articulo-imagenes></articulo-imagenes>'
+        })
+          .when('/articuloDetalle/:id', {
+          template: '<articulo-detalle></articulo-detalle>'
         })
           .when('/art-total', {
           template: '<art-total></art-total>'

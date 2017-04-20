@@ -6,6 +6,11 @@
     color: black;
 }
 
+.art-pvp {
+    background-color: coral;
+    color: white;
+}
+
 .well {
     color: blueviolet;
     font-size: 20px;

@@ -1,0 +1,24 @@
+<div class="container-fluid">
+
+    <div class="panel panel-primary" ng-show="!show">
+        <div class="panel-heading">
+            <h3 class="panel-title"> {{ texto }}</h3>
+        </div>
+
+        <div class="panel-body">
+            
+            <div class="row" ng-repeat="item in dat | filter:filtroTexto" ng-click="verArticulos($index)" ng-style="{'background-color':'#81F79F'}">
+                    <div class="col-xs-1">
+                        <img ng-src= {{item.url}} class="img-rounded img-responsive" width="10px" height="100px" alt="Imagen">
+                    </div>
+                    <div class="col-xs-10">
+                        <h2>
+                            {{ item.descripcion }}
+                        </h2>
+                    </div>
+            </div>
+            <button class="btn-primary btn-block" ng-click="volver()"><h3>Volver</h3></button>
+        </div>
+    </div>
+
+</div> 

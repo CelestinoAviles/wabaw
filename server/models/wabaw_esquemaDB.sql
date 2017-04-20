@@ -145,11 +145,10 @@ FAMILIAS
 */
 
 CREATE TABLE wabaw.familias (
-    codigo_padre integer not null,
-    codigo      integer not null,
-    nombre      char(20) not null,
-    estado      char(1),
-    observaciones char(100),
+    codigo       integer not null,
+    descripcion  char(20) not null,
+    url          char(30) not null,
+    visible      boolean,
     CONSTRAINT familias_pkey PRIMARY KEY (codigo)
 );
 

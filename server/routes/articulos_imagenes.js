@@ -107,6 +107,45 @@ router.get( glbApi, (req, res, next) => {
   });
 });
 
+//
+// LEER DATOS IMAGENES DE UN ARTICULO
+//
+router.get( glbApi +'/:id', (req, res, next) => {
+    const results = [];
+    id = req.params.id;
+    console.log(id);
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, (err, client, done) => {
+    // Handle connection errors
+    if(err) {
+        done();
+        console.log(err);
+      return res.status(500).json({success: false, data: err});
+    }
+    // SQL Query > Select Data
+        var aux = 'SELECT AI.CODIGO, AI.CODIGO_ARTICULO, A.NOMBRE, AI.CODIGO_IMAGEN, I.URL, AI.NUMERO_ORDEN ' 
+        aux = aux + ' FROM wabaw.Articulos_IMAGENES AS AI, '
+        aux = aux + ' wabaw.articulos as A, '
+        aux = aux + ' wabaw.imagenes as I '
+        aux = aux + ' where AI.CODIGO_ARTICULO = A.CODIGO '
+        aux = aux + ' AND AI.CODIGO_IMAGEN = I.CODIGO '
+        aux = aux + ' AND AI.CODIGO_ARTICULO = ($1) '
+        aux = aux + ' ORDER BY codigo_articulo, numero_orden ASC'
+
+        const query = client.query( aux, [ id ] );
+
+        // Stream results back one row at a time
+    query.on('row', (row) => {
+      results.push(row);
+    });
+    // After all data is returned, close connection and return results
+    query.on('end', () => {
+      done();
+      return res.json(results);
+    });
+  });
+});
+
 
 //
 //  MODIFICA

@@ -1,0 +1,154 @@
+<div class="container">
+    <h2>Ficha de producto</h2>
+
+    <div class="col-xs-6">
+        <articulo-imagenes></articulo-imagenes>
+    </div>
+
+    <div class="col-xs-6">
+        <div class="row">
+            <h1>
+                {{ datosArticulo.nombre }}
+            </h1>
+            <h3>
+                {{ datosArticulo.descripcion }}
+            </h3>
+            <hr>
+
+            <div class="col-xs-4">
+                <div class="art-pvp">
+                    <h3>
+                        PVP: <strong>{{ datosArticulo.pvp_venta }} €</strong> 
+                    </h3>
+                </div>
+            </div>
+            
+            <div class="col-xs-4">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-default btn-lg" ng-click="count = count+1" ng-init="count=1"><span class="glyphicon glyphicon-plus"></span></button>
+                <button type="button" class="btn btn-default btn-lg">{{count}}</button>
+                <button type="button" class="btn btn-default btn-lg" ng-click="count = count-1"><span class="glyphicon glyphicon-minus"></span></button>
+            </div>
+            </div>
+            
+            <div class="col-xs-4">
+                <button class="btn-block btn-lg btn-primary">Pedir</button>
+            </div>
+    
+        </div>
+        <div class="row">
+            <hr>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <hr>
+    </div>
+    <div class="col-xs-12">
+        <hr>
+    </div>
+
+    <articulo-detalle-paneles></articulo-detalle-paneles>
+
+    
+    lll tab: {{ tab }}
+
+    <div>
+        <div ng-class="panel " ng-show="tab===0 ">
+            <h3>Características del producto</h3>
+            <p>Detalles del producto.</p>
+            {{ datosArticulo }}
+                        
+        </div>
+
+        <div ng-class="panel " ng-show="tab===1 ">
+            <p>Hola </p>
+            <div class="well ">
+                <h3>Ingredientessss</h3>
+            </div>
+
+            <div ng-class="well">
+                <h3>Información nutricional</h3>
+                <table class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>Información nutricional</th>
+                            <th>Por 100 gr.</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="ingrediente in productos[0].ingredientes">
+                        <tr>
+                            <td>{{ ingrediente.nombre}}</td>
+                            <td>{{ ingrediente.cantidad}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+            <div ng-class="well ">
+                <h3>Alérgenos</h3>
+                <table class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>Alérgenos</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="alergeno in productos[0].alergenos">
+                        <tr>
+                            <td>{{alergeno.nombre}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div id="relacionados " ng-show="tab===2 " class="panel ">
+            <h3>Productos relacionados</h3>
+            <p>Los siguientes artículos también te pueden interesar.</p>
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th class="col-xs-1 ">Imagen</th>
+                        <th class="col-xs-7 ">Producto</th>
+                        <th class="col-xs-4 ">Precio</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="relacionado in productos[0].relacionados">
+                    <tr>
+                        <td><img ng-src={{relacionado.relImg}} class="img-circle"></td>
+                        <td>{{relacionado.relNom}}</td>
+                        <td>{{relacionado.relPvp}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        
+        <!-- PREGUNTAS -->
+        <div id="preguntas " ng-show="tab===3" class="tab-pane fade ">
+            <h3>Preguntas de los clientes</h3>
+            <p>Aquí puedes ver las preguntas que han realizado los clientes, así como la respuesta que le hemos dado.  </p>
+            
+            <div class="panel panel-default ">  
+                <div class="panel-heading ">Pregunta 1</div>
+                <div class="panel-body ">Respuesta 1</div>
+            </div>
+            
+            <div class="panel panel-default ">
+                <div class="panel-heading ">Pregunta 2</div>
+                <div class="panel-body ">Respuesta 2</div>
+            </div>
+
+        </div>
+
+
+        <!-- OPINIONES -->
+        <div id="opiniones" ng-show="tab===4 " class="panel ">
+            <h3>Opiniones de los clientes que han consumido este producto</h3>
+                        
+            <articulo-opiniones></articulo-opiniones>
+
+        </div>
+    </div>
+
+</div>
