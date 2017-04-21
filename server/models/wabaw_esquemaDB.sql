@@ -83,7 +83,7 @@ CREATE TABLE wabaw.articulos (
     fecha_ultima_venta date,
     fecha_ultima_compra date,
     fecha_ultima_modificacion timestamp,
-    estado char(1),
+    estado char(10),
     ubicacion char(10),
     cod_tipo    integer,
     observaciones char(100),
@@ -100,12 +100,11 @@ CREATE TABLE wabaw.Articulos_Imagenes (
 
 
 CREATE TABLE wabaw.mesas (
-    id        integer not null default nextval('wabaw.sqgeneral'),
-    idmesa    char(10) not null,
-    nombremesa char(40) not null,
-    estado     char(03) null,
+    codigo     integer not null,
+    nombre     char(20) not null,
+    estado     char(10) null,
     llamada    char(10) null,
-    CONSTRAINT mesas_pkey PRIMARY KEY (id)
+    CONSTRAINT mesas_pkey PRIMARY KEY (codigo)
 );
 
 
@@ -134,7 +133,7 @@ insert into wabaw.estados (codigo, tipo, nombre, color) values (4, 'MES', 'RESER
 insert into wabaw.estados (codigo, tipo, nombre, color) values (5, 'MES', 'ANULADO',  'orange');
 insert into wabaw.estados (codigo, tipo, nombre, color) values (10, 'TKT', 'ABIERTO',   'green');
 insert into wabaw.estados (codigo, tipo, nombre, color) values (11, 'TKT', 'PAGADO', 'green');
-insert into wabaw.estados (codigo, tipo, nombre, color) values (21, 'TKL', 'PEDIDO', 'orange');
+insert into wabaw.estados (codigo, tipo, nombre, color) values (21, 'TKL', 'EN CURSO', 'orange');
 insert into wabaw.estados (codigo, tipo, nombre, color) values (22, 'TKL', 'SERVIDO', 'orange');
 
 
@@ -264,7 +263,7 @@ CREATE TABLE wabaw.tickets (
     total           decimal(12,2),
     total_entrega   decimal(12,2),
     total_cambio    decimal(12,2),
-    estado          varchar(3),
+    estado          varchar(10),
     llamada         varchar(10),
     CONSTRAINT tickets_pkey PRIMARY KEY (codigo)
 );
@@ -276,7 +275,7 @@ CREATE TABLE wabaw.tickets_lineas (
     cantidad        decimal(12,2) not null,
     pvu             decimal(12,2) not null,
     total           decimal(12,2) not null,
-    estado          varchar(3) null,
+    estado          varchar(10) null,
     CONSTRAINT tktlin_pkey PRIMARY KEY (codigo)
 );
 

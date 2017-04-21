@@ -32,7 +32,7 @@
             </div>
             
             <div class="col-xs-4">
-                <button class="btn-block btn-lg btn-primary">Pedir</button>
+                <button class="btn-block btn-lg btn-primary" ng-click="pedirArticulo()">Pedir</button>
             </div>
     
         </div>
@@ -50,7 +50,6 @@
 
     <articulo-detalle-paneles></articulo-detalle-paneles>
 
-    
     lll tab: {{ tab }}
 
     <div>
@@ -141,8 +140,8 @@
 
         </div>
 
-
         <!-- OPINIONES -->
+
         <div id="opiniones" ng-show="tab===4 " class="panel ">
             <h3>Opiniones de los clientes que han consumido este producto</h3>
                         
@@ -150,5 +149,4 @@
 
         </div>
     </div>
-
 </div>

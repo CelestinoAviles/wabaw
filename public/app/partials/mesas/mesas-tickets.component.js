@@ -12,12 +12,32 @@ angular.module('mesas-tickets')
             $scope.showEstado = false;
             //  We'll load our list of Customers from our JSON Web Service into this variable
             $scope.listOfCustomers = null;
+            $scope.anotarAtendida = anotarAtendida;
+            $scope.anotarPedido = anotarPedido;
 
             //  When the user selects a "Customer" from our MasterView list, we'll set this variable.
             $scope.selectedCustomer = null;
             $scope.codigoSeleccionado = null;
             
             mostrarDatos();
+            
+            function anotarAtendida(index) {
+                $scope.datSel = $scope.dat[index];
+                $scope.datSel.index = index;
+                $scope.datSel.llamada = null;
+                $scope.codigoSeleccionado = $scope.datSel.codigo;
+                console.log($scope.datSel);
+                $scope.grabar();
+                
+            };
+
+            function anotarPedido(index) {
+                $scope.datSel = $scope.dat[index];
+                $scope.codigoSeleccionado = $scope.datSel.codigo;
+                console.log($scope.datSel);
+                window.location = '#!/mesaTicketGeneral/' + $scope.codigoSeleccionado;
+                
+            };
 
             $scope.loadTickets = function () {
                 console.log('entro para cargar los datos de la mesa');
@@ -51,7 +71,7 @@ angular.module('mesas-tickets')
             }            
             
             $scope.seleccionaMesa = function (val) {
-                $scope.codigoSeleccionado = val.id;
+                $scope.codigoSeleccionado = val.codigo;
                 $scope.loadTickets();
             };
         
@@ -66,7 +86,7 @@ angular.module('mesas-tickets')
                 $http.get('/mesas/api/v1/mesas')
                     .success((data) => {
                     $scope.dat = data;
-                    $scope.codigoSeleccionado = $scope.dat[0].id;
+                    $scope.codigoSeleccionado = $scope.dat[0].codigo;
                     
                     console.log($scope.dat);
                     console.log($scope.codigoSeleccionado);
@@ -84,7 +104,7 @@ angular.module('mesas-tickets')
                     console.log('Error: ' + error);
                 });
                 
-            }
+            };
 
             
             $scope.ver = function(index) {
@@ -111,8 +131,8 @@ angular.module('mesas-tickets')
             
         
             $scope.delete = function(index) {
-                var auxId = $scope.dat[index].id;
-                $http.delete('mesas/api/v1/mesas/' + auxId)
+                var auxCodigo = $scope.dat[index].codigo;
+                $http.delete('mesas/api/v1/mesas/' + auxCodigo)
                     .success((data) => {
                     $scope.dat = data;
                 })
@@ -151,7 +171,7 @@ angular.module('mesas-tickets')
                     });
                 }
                  else {
-                     $http.put('/mesas/api/v1/mesas/' + $scope.datSel.id, $scope.datSel)
+                     $http.put('/mesas/api/v1/mesas/' + $scope.datSel.codigo, $scope.datSel)
                          .success((data) => {
                         $scope.datSel = {};
                     })

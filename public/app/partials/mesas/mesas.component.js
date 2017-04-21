@@ -1,8 +1,6 @@
 //---------------------------------------------------------//
 // modulo **** MESAS *****
 //---------------------------------------------------------//
-angular.module('mesas', []);
-
 angular.module('mesas')
     .component('mesas', {
         templateUrl: 'app/partials/mesas/mesas.template.html',
@@ -67,8 +65,8 @@ angular.module('mesas')
 
         
             $scope.delete = function(index) {
-                var auxId = $scope.dat[index].id;
-                $http.delete('mesas/api/v1/mesas/' + auxId)
+                var auxCodigo = $scope.dat[index].codigo;
+                $http.delete('mesas/api/v1/mesas/' + auxCodigo)
                     .success((data) => {
                     $scope.dat = data;
                 })
@@ -106,7 +104,7 @@ angular.module('mesas')
                     });
                 }
                  else {
-                     $http.put('/mesas/api/v1/mesas/' + $scope.datSel.id, $scope.datSel)
+                     $http.put('/mesas/api/v1/mesas/' + $scope.datSel.codigo, $scope.datSel)
                          .success((data) => {
                         $scope.datSel = {};
                     })

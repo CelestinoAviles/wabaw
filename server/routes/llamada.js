@@ -32,7 +32,7 @@ router.get('/api/v1/llamada', (req, res, next) => {
       return res.status(500).json({success: false, data: err});
     }
     // SQL Query > Select Data
-    const query = client.query('SELECT * FROM wabaw.mesas ORDER BY idMesa ASC;');
+    const query = client.query('SELECT * FROM wabaw.mesas ORDER BY CODIGO ASC;');
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
@@ -56,10 +56,10 @@ router.put('/api/v1/llamada/:id', (req, res, next) => {
     // Graba datos from http request
     
     
-    const data = {id:     req.body.id, 
-                  idMesa: req.body.idmesa, 
-                  llamada: req.body.llamada, 
-                  nombreMesa: req.body.nombremesa};
+    const data = {codigo:     req.body.codigo, 
+                  nombre:     req.body.nombre, 
+                  llamada:      req.body.llamada, 
+                  estado:  req.body.estado};
 
     console.log(id);
     console.log(data.llamada);
@@ -75,10 +75,10 @@ router.put('/api/v1/llamada/:id', (req, res, next) => {
 
         console.log('put 000');
         // SQL Query > Update Data
-        client.query('UPDATE wabaw.mesas SET llamada=($1) where idmesa=trim($2)',
-                     [ data.llamada, id ]);
+        client.query('UPDATE wabaw.mesas SET llamada=($2) where CODIGO=($1)',
+                     [  id, data.llamada]);
         // SQL Query > Select Data
-        const query = client.query("SELECT * FROM wabaw.mesas ORDER BY idMesa ASC");
+        const query = client.query("SELECT * FROM wabaw.mesas ORDER BY CODIGO ASC");
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);

@@ -1,0 +1,131 @@
+<div class="container">
+
+    <div class="panel panel-primary" ng-show="!showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title"> {{ texto }}</h3>
+        </div>
+        <table class="table table-hover">
+            <td class="col-md-6">
+                <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
+            </td>
+            <td class="col-md-6">
+                <input type="text" ng-model="filtroTexto">
+            </td>
+        </table>
+
+        <div class="panel-body">
+                <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-4">Acciones</th>
+                        <th class="col-md-1">Ticket</th>
+                        <th class="col-md-1">Cód.Artículo</th>
+                        <th class="col-md-2">Descripción</th>
+                        <th class="col-md-1">Precio</th>
+                        <th class="col-md-1">Cantidad</th>
+                        <th class="col-md-1">Total</th>
+                        <th class="col-md-1">Estado</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+                <tbody>
+                    <tr ng-repeat="item in dat | filter:filtroTexto">
+                        <td>
+                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary" ng-click="estado($index)"><i class="glyphicon glyphicon-random"></i></button>
+                            <button class="btn btn-primary" ng-click="anotarEnCurso($index)"><i class="glyphicon glyphicon-plane"></i></button>
+                            <button class="btn btn-primary" ng-click="anotarServida($index)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                        </td>
+                        <td>
+                            {{ item.cod_ticket }}
+                        </td>
+                        <td>
+                            {{ item.cod_articulo  }}
+                        </td>
+                        <td>
+                            {{ item.nombre  }}
+                        </td>
+                        <td>
+                            {{ item.pvu  }}
+                        </td>
+                        <td>
+                            {{ item.cantidad  }}
+                        </td>
+                        <td>
+                            {{ item.total  }}
+                        </td>
+                        <td>
+                            {{ item.estado }}
+                        </td>
+                    </tr>
+                <tbody>
+            </table>
+        </div>
+    </div>
+
+
+    
+    <div class="panel panel-primary" ng-show="showEstado">
+        <div class="panel-heading">
+            <h3 class="panel-title">Datos</h3>
+            <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()"><i class="glyphicon glyphicon-ok"></i></button>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-1"><label>Interno</label><input class="form-control" ng-readonly="true" ng-model="datSel.codigo"></div>
+                <div class="col-md-2"><label>Ticket</label><input class="form-control" ng-readonly="true" ng-model="datSel.cod_ticket"></div>
+                <div class="col-md-3"><label>Artículo</label><input class="form-control" ng-readonly="true" ng-model="datSel.cod_articulo"></div>
+                <div class="col-md-6"><label>Descripción</label><input class="form-control" ng-readonly="true" ng-model="datSel.cod.articulo"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6"><label>Estado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.estado"></div>
+            </div>
+        </div>
+    </div> 
+
+    
+    
+    <div class="panel panel-primary" ng-show="showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title">Datos</h3>
+            <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()"><i class="glyphicon glyphicon-ok"></i></button>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6"><label>Cód. Interno</label><input class="form-control" ng-readonly="true" ng-model="datSel.codigo"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Cód. Ticket</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cod_ticket"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Cód. Artículo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cod_articulo"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Precio Unitario</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.pvu"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Cantidad</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cantidad"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Total</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.total"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Estado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.estado"></div>
+            </div>
+        </div>
+    </div> 
+
+</div>

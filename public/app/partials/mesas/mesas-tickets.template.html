@@ -6,10 +6,10 @@
                 <thead>
                     <tr>
                         <th class="col-md-2">Acciones</th>
-                        <th class="col-md-1">Id</th>
                         <th class="col-md-1">Código </th>
-                        <th class="col-md-7">Descripción de la Mesa</th>
+                        <th class="col-md-7">Nombre</th>
                         <th class="col-md-1">Estado</th>
+                        <th class="col-md-1">Llamada</th>
                     </tr>
                 </thead>
                 <tfoot></tfoot>
@@ -18,18 +18,20 @@
                         <td>
                             <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
                             <button class="btn btn-primary" ng-click="cambiarEstado($index)"><i class="glyphicon glyphicon-tag"></i></button>
+                            <button class="btn btn-primary" ng-click="anotarAtendida($index)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                            <button class="btn btn-primary" ng-click="anotarPedido($index)"><i class="glyphicon glyphicon-shopping-cart"></i></button>
                         </td>
                         <td>
-                            {{ item.id }}
+                            {{ item.codigo }}
                         </td>
                         <td>
-                            {{ item.idmesa }}
-                        </td>
-                        <td>
-                            {{ item.nombremesa }}
+                            {{ item.nombre }}
                         </td>
                         <td>
                             {{ item.estado }}
+                        </td>
+                        <td>
+                            {{ item.llamada }}
                         </td>
                     </tr>
                                 0   {{dat.length}} MESAS(s) 1
@@ -173,13 +175,16 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-6"><label>ID</label><input class="form-control" ng-readonly="(insert || update)" ng-model="datSel.idmesa"></div>
+                    <div class="col-md-6"><label>Codigo</label><input class="form-control" ng-readonly="(insert || update)" ng-model="datSel.codigo"></div>
                 </div><br>
                 <div class="row">
-                    <div class="col-md-6"><label>NOMBRE</label><input class="form-control" ng-readonly="(insert || update)" ng-model="datSel.nombremesa"></div>
+                    <div class="col-md-6"><label>Nombre</label><input class="form-control" ng-readonly="(insert || update)" ng-model="datSel.nombre"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6"><label>Estado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.estado"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"><label>Llamada</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.llamada"></div>
                 </div>
             </div>
         </div> 

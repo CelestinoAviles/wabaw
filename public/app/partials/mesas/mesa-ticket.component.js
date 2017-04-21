@@ -26,9 +26,9 @@ angular.module('mesas-tickets')
                     var dispositivo = localStorage.getItem("dispositivo");
                     var preferencias = JSON.parse(dispositivo);
                     console.log('inicio: ' + preferencias);
-                    $scope.dispositivo = preferencias.nombre_dispositivo;
-                    $scope.espacio     = preferencias.codigo_espacio;
-                    $scope.idioma      = preferencias.idioma_dispositivo;
+                    $scope.nombre             = preferencias.nombre_dispositivo;
+                    $scope.codigo_espacio     = preferencias.codigo_espacio;
+                    $scope.idioma             = preferencias.idioma_dispositivo;
             
             $scope.showEstado = false;
             //  We'll load our list of Customers from our JSON Web Service into this variable
@@ -38,8 +38,8 @@ angular.module('mesas-tickets')
             $scope.selectedCustomer = null;
             $scope.codigoSeleccionado = null;
             
-            console.log($scope.espacio + 'espacio');
-            loadMiMesa($scope.espacio);
+            console.log($scope.codigo_espacio + ': espacio');
+            loadMiMesa($scope.codigo_espacio);
 
             loadTickets = $scope.loadTickets;
             loadLineasTicket = $scope.loadLineasTicket;
@@ -189,7 +189,7 @@ angular.module('mesas-tickets')
                     .success((data) => {
                     $scope.dat = data;
                     console.log(data);
-                    $scope.codigoSeleccionado = $scope.dat[0].id;
+                    $scope.codigoSeleccionado = $scope.dat[0].codigo;
                     
                     console.log($scope.dat);
                     console.log($scope.codigoSeleccionado);
@@ -269,7 +269,7 @@ angular.module('mesas-tickets')
                     codigo: 0, 
                     cod_cliente:   1,
                     cod_empleado:  1,
-                    cod_espacio:    $scope.espacio,
+                    cod_espacio:    $scope.codigo_espacio,
                     fecha_ticket:   new Date(),
                     fecha_modifica: '',
                     fecha_pago:     '',

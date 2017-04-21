@@ -26,18 +26,21 @@ angular.module('articulos')
 
             
             
-            console.log('Familia:' + this.codigoFamilia);
+            console.log('Familia: ' + this.codigoFamilia);
 
             mostrarDatos(this.codigoFamilia);
 
             function mostrarDatos(auxCodFam) {
-            console.log('Familia 1:' + this.codigoFamilia)
-            console.log('Familia 2:' + auxCodFam);
+            console.log('Familia 1: ' + this.codigoFamilia)
+            console.log('Familia 2: ' + auxCodFam);
                 $scope.dat = [];
                 $http.get('/articulos/api/v1/articulos-ver/' + auxCodFam)
                     .success((data) => {
                     $scope.dat = data;
-                console.log($scope.dat);
+                    console.log('entro en data');
+                    console.log($scope.dat);
+                    console.log('entro en dat');
+                    console.log(data);
                 })
                 .error((error) => {
                     console.log('Error: ' + error);
@@ -55,10 +58,13 @@ angular.module('articulos')
             }
             
             function verArticulo(index) {
+                console.log('verarticulo');
                 $scope.datSel = {};
                 $scope.datSel = $scope.dat[index];
 //                $scope.datSel.index = index;
-                window.location="#!/articuloDetalle/" + $scope.datSel.codigo_articulo; 
+                console.log($scope.datSel);
+//                window.location="#!/articuloDetalle/" + $scope.datSel.codigo_articulo; 
+                window.location="#!/articuloDetalle/" + $scope.datSel.codigo; 
             };
 
             

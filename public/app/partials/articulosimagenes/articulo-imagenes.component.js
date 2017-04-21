@@ -33,7 +33,12 @@ angular.module('articulosimagenes')
                     .success((data) => {
                     $scope.dat = data;
                     console.log($scope.dat);
-                    $scope.imagenSeleccionada = $scope.dat[0].url;
+                    console.log($scope.dat.length);
+                    if ( $scope.dat.length > 0 ) {
+                        $scope.imagenSeleccionada = $scope.dat[0].url;
+                        } else {
+                        $scope.imagenSeleccionada = '../img/imagenes/general.jpg';
+                        };
                 })
                 .error((error) => {
                     console.log('Error: ' + error);

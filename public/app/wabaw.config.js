@@ -21,6 +21,9 @@ angular.
         when('/menuMantenimientos', {
           template: '<menu-mantenimientos></menu-mantenimientos>'
         }).
+        when('/menuCamarero', {
+          template: '<menu-camarero></menu-camarero>'
+        }).
         when('/inicio', {
           template: '<inicio></inicio>'
         }).
@@ -132,11 +135,17 @@ angular.
           .when('/ticketsLineas', {
           template: '<tickets-lineas></tickets-lineas>'
         })
+          .when('/ticketsLineasCamarero', {
+          template: '<tickets-lineas-camarero></tickets-lineas-camarero>'
+        })
           .when('/mesasTickets', {
           template: '<mesas-tickets></mesas-tickets>'
         })
           .when('/mesaTicket0', {
           template: '<mesa-ticket></mesa-ticket>'
+        })
+          .when('/mesaTicketGeneral/:id', {
+          template: '<mesa-ticket-general></mesa-ticket-general>'
         })
           .when('/dispositivopreferencias', {
           template: '<dispositivopreferencias></dispositivopreferencias>'

@@ -23,10 +23,10 @@ var glbApi = '/api/v1/mesas';
 router.post( glbApi, (req, res, next) => {
     const results = [];
     // Graba datos from http request
-    const data = { idMesa: req.body.idmesa,
-                  nombreMesa: req.body.nombremesa,
-                  estado: req.body.estado,
-                  llamada: req.body.llamada
+    const data = {  codigo: req.body.codigo,
+                    nombre: req.body.nombre,
+                    estado: req.body.estado,
+                    llamada: req.body.llamada
                  };
 
     // Get a Postgres client from the connection pool
@@ -39,10 +39,10 @@ router.post( glbApi, (req, res, next) => {
         }
       
         // SQL Query > Insert Data
-        client.query('INSERT INTO wabaw.mesas(idMesa, nombreMesa, estado, llamada) values($1,$2, $3, $4)',
-                     [data.idMesa, data.nombreMesa, data.estado, data.llamada]);
+        client.query('INSERT INTO wabaw.mesas(codigo, nombre, estado, llamada) values($1,$2, $3, $4)',
+                     [data.codigo, data.nombre, data.estado, data.llamada]);
         // SQL Query > Select Data
-        const query = client.query('SELECT * FROM wabaw.mesas ORDER BY IdMesa ASC');
+        const query = client.query('SELECT * FROM wabaw.mesas ORDER BY codigo ASC');
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);
@@ -72,9 +72,9 @@ router.get( glbApi + '/:id', (req, res, next) => {
     }
       console.log('mesa -->'+codigo+'<---')
     // SQL Query > Select Data
-    client.query('SELECT * FROM  wabaw.mesas WHERE IDMESA=($1)',
+    client.query('SELECT * FROM  wabaw.mesas WHERE codigo=($1)',
                      [ codigo ] );
-    const query = client.query('SELECT * FROM wabaw.mesas WHERE IDMESA = ($1)', [codigo]);
+    const query = client.query('SELECT * FROM wabaw.mesas WHERE codigo = ($1)', [codigo]);
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
@@ -104,7 +104,7 @@ router.get(glbApi, (req, res, next) => {
       return res.status(500).json({success: false, data: err});
     }
     // SQL Query > Select Data
-    const query = client.query('SELECT * FROM wabaw.mesas ORDER BY idMesa ASC;');
+    const query = client.query('SELECT * FROM wabaw.mesas ORDER BY codigo ASC;');
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
@@ -124,13 +124,13 @@ router.get(glbApi, (req, res, next) => {
 router.put('/api/v1/mesas/:id', (req, res, next) => {
     const results = [];
     // Grab data from the URL parameters
-    const id = req.params.id;
+    const codigo = req.params.id;
     // Graba datos from http request
-    const data = {id: req.body.id, 
-                  idMesa: req.body.idmesa, 
+    const data = {codigo: req.body.codigo, 
+                  nombre: req.body.nombre, 
                   estado: req.body.estado, 
-                  llamada: req.body.llamada, 
-                  nombreMesa: req.body.nombremesa};
+                  llamada: req.body.llamada
+                 };
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
@@ -143,10 +143,10 @@ router.put('/api/v1/mesas/:id', (req, res, next) => {
 
         console.log('put 000');
         // SQL Query > Update Data
-        client.query('UPDATE wabaw.mesas SET idMesa=($1), nombreMesa=($2), estado=($3), llamada=($4) WHERE id=($5)',
-                     [data.idMesa, data.nombreMesa, data.estado, data.llamada, data.id]);
+        client.query('UPDATE wabaw.mesas SET nombre=($2), estado=($3), llamada=($4) WHERE codigo=($1)',
+                     [data.codigo, data.nombre, data.estado, data.llamada]);
         // SQL Query > Select Data
-        const query = client.query("SELECT * FROM wabaw.mesas ORDER BY idMesa ASC");
+        const query = client.query("SELECT * FROM wabaw.mesas ORDER BY codigo ASC");
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);
@@ -167,10 +167,9 @@ router.put('/api/v1/mesas/:id', (req, res, next) => {
 router.put('/api/v1/mesas/llamada/:id', (req, res, next) => {
     const results = [];
     // Grab data from the URL parameters
-    const id = req.params.id;
+    const codigo = req.params.id;
     // Graba datos from http request
-    const data = {id: req.body.idMesa, 
-                  idmesa: req.body.idmesa, 
+    const data = {codigo: req.body.codigo, 
                   llamada: req.body.llamada
                  };
 
@@ -183,12 +182,12 @@ router.put('/api/v1/mesas/llamada/:id', (req, res, next) => {
             return res.status(500).json({success: false, data: err});
         }
 
-        console.log('put mesa: ' + data.idmesa + ' llamada:' + data.llamada );
+        console.log('put mesa: ' + data.codigo + ' llamada:' + data.llamada );
         // SQL Query > Update Data
-        client.query('UPDATE wabaw.mesas SET llamada=($2) WHERE idMesa=($1)',
-                     [data.idmesa, data.llamada ]);
+        client.query('UPDATE wabaw.mesas SET llamada=($2) WHERE codigo=($1)',
+                     [data.codigo, data.llamada ]);
         // SQL Query > Select Data
-        const query = client.query("SELECT * FROM wabaw.mesas ORDER BY idMesa ASC");
+        const query = client.query("SELECT * FROM wabaw.mesas ORDER BY codigo ASC");
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);
@@ -210,7 +209,7 @@ router.put('/api/v1/mesas/llamada/:id', (req, res, next) => {
 router.delete('/api/v1/mesas/:id', (req, res, next) => {
     const results = [];
     // Grab data from the URL parameters
-    const id = req.params.id;
+    const codigo = req.params.id;
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
     // Handle connection errors
@@ -221,9 +220,9 @@ router.delete('/api/v1/mesas/:id', (req, res, next) => {
         }
 
         // SQL Query > Delete Data
-        client.query('DELETE FROM wabaw.mesas WHERE id=($1)', [id]);
+        client.query('DELETE FROM wabaw.mesas WHERE codigo=($1)', [codigo]);
         // SQL Query > Select Data
-        var query = client.query('SELECT * FROM wabaw.mesas ORDER BY idmesa ASC');
+        var query = client.query('SELECT * FROM wabaw.mesas ORDER BY codigo ASC');
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);

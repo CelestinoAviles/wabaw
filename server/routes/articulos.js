@@ -125,7 +125,7 @@ router.get( '/api/v1/articulos/:id', (req, res, next) => {
 router.get( '/api/v1/articulos-ver/:id', (req, res, next) => {
   const results = [];
     var codFami = req.params.id;
-    console.log('FAmilia:' + codFami)
+    console.log('Familia que llega:' + codFami)
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, (err, client, done) => {
     // Handle connection errors
@@ -135,27 +135,37 @@ router.get( '/api/v1/articulos-ver/:id', (req, res, next) => {
       return res.status(500).json({success: false, data: err});
     }
     // SQL Query > Select Data
-        var aux = 'SELECT AI.CODIGO, AI.CODIGO_ARTICULO, A.NOMBRE, A.PVP_VENTA, AI.CODIGO_IMAGEN, I.URL, AI.NUMERO_ORDEN ' 
-        aux = aux + ' FROM wabaw.Articulos_IMAGENES AS AI, '
-        aux = aux + ' wabaw.articulos as A, '
-        aux = aux + ' wabaw.imagenes as I '
-        aux = aux + ' where AI.CODIGO_ARTICULO = A.CODIGO '
-        aux = aux + ' AND AI.CODIGO_IMAGEN = I.CODIGO '
-        aux = aux + ' AND AI.NUMERO_ORDEN = 1 '
-        aux = aux + ' AND A.COD_FAMILIA = ($1) '
-        aux = aux + ' ORDER BY A.NOMBRE, A.PVP_VENTA ASC'
+//        var aux = 'SELECT AI.CODIGO, AI.CODIGO_ARTICULO, A.NOMBRE, A.PVP_VENTA, AI.CODIGO_IMAGEN, I.URL, AI.NUMERO_ORDEN ' 
+//        aux = aux + ' FROM wabaw.Articulos_IMAGENES AS AI, '
+//        aux = aux + ' wabaw.articulos as A, '
+//        aux = aux + ' wabaw.imagenes as I '
+//        aux = aux + ' where AI.CODIGO_ARTICULO = A.CODIGO '
+//        aux = aux + ' AND AI.CODIGO_IMAGEN = I.CODIGO '
+//        aux = aux + ' AND AI.NUMERO_ORDEN = 1 '
+//        aux = aux + ' AND A.COD_FAMILIA = ($1) '
+//       aux = aux + ' ORDER BY A.NOMBRE, A.PVP_VENTA ASC'
 
-
+        var aux = 'SELECT A.CODIGO, A.CODIGO_ARTICULO, A.NOMBRE, A.PVP_VENTA, AI.CODIGO_IMAGEN, AI.NUMERO_ORDEN, I.URL'
+        aux = aux + ' FROM wabaw.articulos as A';
+        aux = aux + ' left OUTER JOIN WABAW.ARTICULOS_IMAGENES AI';
+        aux = aux + ' ON (AI.CODIGO_ARTICULO = A.CODIGO )';
+        aux = aux + ' left OUTER JOIN WABAW.IMAGENES I';
+        aux = aux + ' ON (AI.CODIGO_IMAGEN = I.CODIGO )';
+        aux = aux + ' where  A.COD_FAMILIA = ($1) ';
+//        aux = aux + '   AND  AI.NUMERO_ORDEN = 1 ';
+        aux = aux + ' ORDER BY A.NOMBRE, A.PVP_VENTA ASC;';
+      
+        console.log(aux);  
         const query = client.query( aux, [ codFami ] );
-    // Stream results back one row at a time
-    query.on('row', (row) => {
-      results.push(row);
-    });
-    // After all data is returned, close connection and return results
-    query.on('end', () => {
-      done();
-      return res.json(results);
-    });
+      // Stream results back one row at a time
+        query.on('row', (row) => {
+        results.push(row);
+        });
+      // After all data is returned, close connection and return results
+        query.on('end', () => {
+            done();
+            return res.json(results);
+        });
   });
 });
 

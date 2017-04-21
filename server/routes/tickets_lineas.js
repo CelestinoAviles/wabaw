@@ -19,7 +19,7 @@ var bodyParser = require('body-parser');
 var glbApi = '/api/v1/ticketslineas';
 
 // 'SELECT * FROM wabaw.tickets_lineas ORDER BY codigo ASC;'
-var glbConsulta= 'select t.* , a.* from wabaw.tickets_lineas T, wabaw.articulos a where t.cod_articulo = a.codigo';
+var glbConsulta= 'select a.* , t.* from wabaw.tickets_lineas T, wabaw.articulos a where t.cod_articulo = a.codigo';
 var glbConsultaOrdenada = glbConsulta + ' order by t.codigo ASC';
 
 router.use(bodyParser.json());                          // for parsing application/json
@@ -73,6 +73,42 @@ router.post( glbApi, (req, res, next) => {
 router.get( glbApi, (req, res, next) => {
   const results = [];
   // Get a Postgres client from the connection pool
+  pg.connect(connectionString, (err, client, done) => {
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return res.status(500).json({success: false, data: err});
+    }
+    // SQL Query > Select Data
+    const query = client.query( glbConsultaOrdenada );
+    // Stream results back one row at a time
+    query.on('row', (row) => {
+      results.push(row);
+    });
+    // After all data is returned, close connection and return results
+    query.on('end', () => {
+      done();
+      return res.json(results);
+    });
+  });
+});
+
+//
+// LEER LINEAS PENDIENTES DE SERVIR
+//
+router.get( glbApi + '/camarero', (req, res, next) => {
+  const results = [];
+  // Get a Postgres client from the connection pool
+    
+    var glbConsulta= 'select l.codigo, l.cod_ticket, l.cod_articulo, l.cantidad, l.pvu, l.total, L.ESTADO, a.nombre, a.cod_familia' 
+    glbConsulta = glbConsulta + ' from wabaw.tickets T, wabaw.tickets_lineas L, wabaw.articulos A '
+    glbConsulta = glbConsulta + ' where L.cod_articulo = A.codigo';
+    glbConsulta = glbConsulta + ' and   L.cod_ticket   = T.codigo';
+    glbConsulta = glbConsulta + ' and   T.estado is null';
+    var glbConsultaOrdenada = glbConsulta + ' order by l.codigo ASC';
+    console.log(glbConsulta);
+    
   pg.connect(connectionString, (err, client, done) => {
     // Handle connection errors
     if(err) {

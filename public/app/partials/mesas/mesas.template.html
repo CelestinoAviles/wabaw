@@ -23,9 +23,8 @@
                 <thead>
                     <tr>
                         <th class="col-md-2">Acciones</th>
-                        <th class="col-md-1">Id</th>
-                        <th class="col-md-1">Código </th>
-                        <th class="col-md-6">Descripción de la Mesa</th>
+                        <th class="col-md-1">Código</th>
+                        <th class="col-md-4">Nombre del Espacio</th>
                         <th class="col-md-1">Estado</th>
                         <th class="col-md-1">Llamada</th>
                     </tr>
@@ -39,13 +38,10 @@
                             <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
                         </td>
                         <td>
-                            {{ item.id }}
+                            {{ item.codigo }}
                         </td>
                         <td>
-                            {{ item.idmesa }}
-                        </td>
-                        <td>
-                            <span><a href="#!/mesas/$">{{ item.nombremesa }}</a></span>
+                            <span><a href="#!/mesas/$">{{ item.nombre }}</a></span>
                         </td>
                         <td>
                             <span><a href="#!/mesas/$">{{ item.estado }}</a></span>
@@ -67,13 +63,10 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-6"><label>ID Interno</label><input class="form-control" ng-disabled=true ng-model="datSel.id"></div>
+                <div class="col-md-6"><label>Código</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo"></div>
             </div><br>
             <div class="row">
-                <div class="col-md-6"><label>ID</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.idmesa"></div>
-            </div><br>
-            <div class="row">
-                <div class="col-md-6"><label>NOMBRE</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.nombremesa"></div>
+                <div class="col-md-6"><label>Nombre</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.nombre"></div>
             </div>
             <div class="row">
                 <div class="col-md-6"><label>Estado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.estado"></div>

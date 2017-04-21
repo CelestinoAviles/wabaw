@@ -77,7 +77,7 @@ router.post( glbApi, (req, res, next) => {
 
 
 //
-// LEER TICKETS DE UNA MESA
+// LEER TICKETS DE UNA MESA NO CERRADOS
 //
 
 router.get( '/api/v1/mesa-tickets/:id', (req, res, next) => {
@@ -86,6 +86,8 @@ router.get( '/api/v1/mesa-tickets/:id', (req, res, next) => {
     // asigno la clave a la variable "id"
     const id = req.params.id;
 
+    console.log('123456');
+    console.log(id);
     // Conecto con postgresql
     pg.connect(connectionString, (err, client, done) => {
     // Handle connection errors
@@ -95,8 +97,8 @@ router.get( '/api/v1/mesa-tickets/:id', (req, res, next) => {
       return res.status(500).json({success: false, data: err});
     }
 
-        client.query('SELECT * FROM WABAW.tickets WHERE cod_espacio=($1)', [id]);
-        const query = client.query('SELECT * FROM WABAW.tickets WHERE cod_espacio=($1)', [id]);
+        client.query('SELECT * FROM WABAW.tickets WHERE ESTADO IS NULL AND cod_espacio=($1)', [id]);
+        const query = client.query('SELECT * FROM WABAW.tickets WHERE ESTADO IS NULL AND cod_espacio=($1) ', [id]);
         query.on('row', (row) => {
             results.push(row);
         });

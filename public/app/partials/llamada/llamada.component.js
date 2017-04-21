@@ -89,7 +89,7 @@ angular.module('llamada')
             $scope.llamar = function(prm) {
                     alert('Ha solicitado: ' + prm.toUpperCase() +`. En breve le atenderemos.`);
                     $scope.datSel = { "llamada": prm.toUpperCase(),
-                                      "idmesa" : $scope.espacio
+                                      "codigo" : $scope.espacio
                                     };
                     
                     var auxRuta = '/mesas/api/v1/mesas/llamada';
