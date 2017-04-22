@@ -1,10 +1,5 @@
 <div class="container" >
 
-    <div class="row" ng-show="showNivel1Equipos || showNivel1Solitario ">
-        <div class="col-xs-2">
-            <a ng-click="Volver()" class="btn btn-info btn-block" role="button">Volver</a>
-        </div>
-    </div>
     <div class="row"><br/></div>
 
     <div class="row" ng-show="showNivel0">
@@ -19,6 +14,11 @@
                 <h1>Juegos en Equipo</h1>
             </button>
             <img ng-src="../../../img/imagenes/equipos.jpg" class="img-responsive" alt="Cinque Terre" width="200" height="200" ng-click="Equipos()" alt="Equipos"> 
+        </div>
+        <div class="col-xs-12">
+            <button ng-click="volverInicio()" class="btn btn-info btn-block" role="button">
+                <h1>Volver</h1>
+            </button>
         </div>
     </div>
 
@@ -44,7 +44,14 @@
             <a href="https://ajedrez-online.es/" class="btn btn-info btn-block" role="button"><h1>Ajedrez</h1></a>
             <img ng-src="../../../img/imagenes/ajedrez.jpg" class="img-responsive" alt="Ajedrez" width="200" height="200" ng-click="Ajedrez()">
         </div>
+    </div>
 
+    <div class="row" ng-show="showNivel1Equipos || showNivel1Solitario ">
+        <div class="col-xs-12">
+            <a ng-click="Volver()" class="btn btn-info btn-block" role="button">
+                <h1>Volver</h1>
+            </a>
+        </div>
     </div>
 
 

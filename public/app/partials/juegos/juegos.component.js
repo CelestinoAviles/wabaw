@@ -32,6 +32,10 @@
                         $scope.showNivel1Solitario = false;
                         $scope.showNivel1Equipos   = false;
                     };
+
+                    $scope.volverInicio = function () {
+                        window.location = '/#!/inicio';
+                    };
                     
                     $scope.lanzar = function ( auxUrl ) {
                         servicio.abrirVentana( auxUrl );

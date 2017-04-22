@@ -5,7 +5,7 @@
 
 angular.module('posts')
     .component('postsCliente', {
-        templateUrl: 'app/partials/' + 'posts' + '/' + 'posts' + '.template.html',
+        templateUrl: 'app/partials/' + 'posts' + '/' + 'posts-cliente' + '.template.html',
         controller: function EntidadController($scope, $http, $routeParams, $location) {
 
             var auxRuta = '/posts/api/v1/posts';
