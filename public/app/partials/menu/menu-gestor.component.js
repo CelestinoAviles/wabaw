@@ -5,4 +5,9 @@
 		//---------------------------------------------------------//
 		//---------------------------------------------------------//
 		//---------------------------------------------------------//
-		angular.module('menu', [])
+		angular.module('menuGestor')
+		    .component('menuGestor', {
+		        templateUrl: 'app/partials/menu/menu-gestor.template.html',
+		        controller: function MenuController($routeParams, $location) {
+		        }
+		    });

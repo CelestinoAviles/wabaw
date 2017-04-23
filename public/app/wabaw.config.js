@@ -12,8 +12,8 @@ angular.
       $locationProvider.hashPrefix('!');
 
       $routeProvider
-          .when('/menu', {
-          template: '<menu></menu>'
+          .when('/menuGestor', {
+          template: '<menu-gestor></menu-gestor>'
       })
           .when('/juegos', {
           template: '<juegos></juegos>'

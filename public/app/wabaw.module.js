@@ -10,7 +10,7 @@ angular.module('wabaw', [
     'ngtweet',
     'ngTable',
     'general',
-    'menu',
+    'menuGestor',
     'menuMantenimientos',
     'menuCamarero',
     'inicio',

@@ -9,7 +9,6 @@ angular.module('mesas-tickets')
         controller: function MesasController($scope, $http, $routeParams, $location, servicio) {
 
             auxValor = $routeParams.id;
-            alert('Veo toda la información de la mesa:' + auxValor)
             $scope.texto = "Mesa y mi ticket";
             $scope.verDetalleTicket = false;
             
