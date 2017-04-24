@@ -21,7 +21,8 @@
                         <th class="col-md-2" ng-show="!{{opcionCliente}}">Acciones </th>
                         <th class="col-md-1">Fecha</th>
                         <th class="col-md-1">Usuario</th>
-                        <th class="col-md-2">Valoraciones</th>
+                        <th class="col-md-1">Aspectos</th>
+                        <th class="col-md-1">Valoraciones</th>
                         <th class="col-md-1">Redes</th>
                         <th class="col-md-5">Comentarios</th>
                     </tr>
@@ -42,12 +43,60 @@
                             {{ item.login }}
                         </td>
                         <td>
-                            General : {{ item.valor_general }} <br>
-                            Limpieza: {{ item.valor_limpieza }} <br>
-                            Servicio: {{ item.valor_servicio }} <br>
+                            General <br>
+                            Limpieza <br>
+                            Servicio <br>
                         </td>
                         <td>
-                            {{ item.redes_sociales }}
+<form>
+    <p class="clasificacion">
+        <input id="radio1" type="radio" name="estrellas" ng-model="item.valor_general" value="5"><!--
+    --><label for="radio1" title="maximo" data-toggle="tooltip">&#9733;</label><!--
+    --><input id="radio2" type="radio" name="estrellas" ng-model="item.valor_general" value="4"><!--
+    --><label for="radio2">&#9733;</label><!--
+    --><input id="radio3" type="radio" name="estrellas" ng-model="item.valor_general" value="3"><!--
+    --><label for="radio3">&#9733;</label><!--
+    --><input id="radio4" type="radio" name="estrellas" ng-model="item.valor_general" value="2"><!--
+    --><label for="radio4">&#9733;</label><!--
+    --><input id="radio5" type="radio" name="estrellas" ng-model="item.valor_general" value="1"><!--
+    --><label for="radio5">&#9733;</label>
+  </p>
+</form>
+                            
+<form>
+  <p class="clasificacion">
+    <input id="radio1" type="radio" name="estrellas" ng-model="item.valor_limpieza" value="5"><!--
+    --><label for="radio1" title="maximo" data-toggle="tooltip">&#9733;</label><!--
+    --><input id="radio2" type="radio" name="estrellas" ng-model="item.valor_limpieza" value="4"><!--
+    --><label for="radio2">&#9733;</label><!--
+    --><input id="radio3" type="radio" name="estrellas" ng-model="item.valor_limpieza" value="3"><!--
+    --><label for="radio3">&#9733;</label><!--
+    --><input id="radio4" type="radio" name="estrellas" ng-model="item.valor_limpieza" value="2"><!--
+    --><label for="radio4">&#9733;</label><!--
+    --><input id="radio5" type="radio" name="estrellas" ng-model="item.valor_limpieza" value="1"><!--
+    --><label for="radio5">&#9733;</label>
+  </p>
+</form>
+                            
+<form>
+  <p class="clasificacion">
+    <input id="radio1" type="radio" name="estrellas" ng-model="item.valor_servicio" value="5"><!--
+    --><label for="radio1" title="maximo" data-toggle="tooltip">&#9733;</label><!--
+    --><input id="radio2" type="radio" name="estrellas" ng-model="item.valor_servicio" value="4"><!--
+    --><label for="radio2">&#9733;</label><!--
+    --><input id="radio3" type="radio" name="estrellas" ng-model="item.valor_servicio" value="3"><!--
+    --><label for="radio3">&#9733;</label><!--
+    --><input id="radio4" type="radio" name="estrellas" ng-model="item.valor_servicio" value="2"><!--
+    --><label for="radio4">&#9733;</label><!--
+    --><input id="radio5" type="radio" name="estrellas" ng-model="item.valor_servicio" value="1"><!--
+    --><label for="radio5">&#9733;</label>
+  </p>
+</form>
+                            
+                            <br>
+                        </td>
+                        <td>
+                            {{ item.redes_sociales | checkmark }}
                         </td>
                         <td>
                             {{ item.observaciones }}
@@ -102,40 +151,68 @@
 
             <div class="row">
                 <div class="col-xs-3">
+                    
                     <label for="sel1">Valoración general del establecimiento:</label>
-                    <select class="form-control" id="sel1" ng-model="datSel.valor_general">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+<form>
+  <p class="clasificacion">
+    <input id="radio1" type="radio" name="estrellas" ng-model="datSel.valor_general" value="5"><!--
+    --><label for="radio1" title="maximo" data-toggle="tooltip">&#9733;</label><!--
+    --><input id="radio2" type="radio" name="estrellas" ng-model="datSel.valor_general" value="4"><!--
+    --><label for="radio2">&#9733;</label><!--
+    --><input id="radio3" type="radio" name="estrellas" ng-model="datSel.valor_general" value="3"><!--
+    --><label for="radio3">&#9733;</label><!--
+    --><input id="radio4" type="radio" name="estrellas" ng-model="datSel.valor_general" value="2"><!--
+    --><label for="radio4">&#9733;</label><!--
+    --><input id="radio5" type="radio" name="estrellas" ng-model="datSel.valor_general" value="1"><!--
+    --><label for="radio5">&#9733;</label>
+  </p>
+</form>
+                    
+                    
+                    
+                    
                 </div>
             </div><br>
 
             <div class="row">
                 <div class="col-xs-3">
                     <label for="sel1">Limpieza del local:</label>
-                    <select class="form-control" id="sel1" ng-model="datSel.valor_limpieza">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+<form>
+  <p class="clasificacion">
+    <input id="radio1" type="radio" name="estrellas" ng-model="datSel.valor_limpieza" value="5"><!--
+    --><label for="radio1" title="maximo" data-toggle="tooltip">&#9733;</label><!--
+    --><input id="radio2" type="radio" name="estrellas" ng-model="datSel.valor_limpieza" value="4"><!--
+    --><label for="radio2">&#9733;</label><!--
+    --><input id="radio3" type="radio" name="estrellas" ng-model="datSel.valor_limpieza" value="3"><!--
+    --><label for="radio3">&#9733;</label><!--
+    --><input id="radio4" type="radio" name="estrellas" ng-model="datSel.valor_limpieza" value="2"><!--
+    --><label for="radio4">&#9733;</label><!--
+    --><input id="radio5" type="radio" name="estrellas" ng-model="datSel.valor_limpieza" value="1"><!--
+    --><label for="radio5">&#9733;</label>
+  </p>
+</form>
                 </div>
             </div><br>
             
             <div class="row">
                 <div class="col-xs-3">
                     <label for="sel1">Servicio de los camareros:</label>
-                    <select class="form-control" id="sel1" ng-model="datSel.valor_servicio">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+<form>
+  <p class="clasificacion">
+    <input id="radio1" type="radio" name="estrellas" ng-model="datSel.valor_servicio" value="5"><!--
+    --><label for="radio1" title="maximo" data-toggle="tooltip">&#9733;</label><!--
+    --><input id="radio2" type="radio" name="estrellas" ng-model="datSel.valor_servicio" value="4"><!--
+    --><label for="radio2">&#9733;</label><!--
+    --><input id="radio3" type="radio" name="estrellas" ng-model="datSel.valor_servicio" value="3"><!--
+    --><label for="radio3">&#9733;</label><!--
+    --><input id="radio4" type="radio" name="estrellas" ng-model="datSel.valor_servicio" value="2"><!--
+    --><label for="radio4">&#9733;</label><!--
+    --><input id="radio5" type="radio" name="estrellas" ng-model="datSel.valor_servicio" value="1"><!--
+    --><label for="radio5">&#9733;</label>
+  </p>
+</form>
+                        
+                        
                 </div>
             </div><br>
             <div class="row">
