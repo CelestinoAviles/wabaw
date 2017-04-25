@@ -34,6 +34,7 @@ angular.module('articulos')
             }
 
             $scope.ver = function(index) {
+                console.log(index);
                 $scope.datSel = {};
                 $scope.datSel = $scope.dat[index];
                 $scope.datSel.index = index;
@@ -47,9 +48,9 @@ angular.module('articulos')
                 $scope.update = true;
             }
 
-        
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].codigo;
+                console.log(auxId);
                 $http.delete(auxRuta + '/' + auxId)
                     .success((data) => {
                     $scope.dat = data;
@@ -58,7 +59,6 @@ angular.module('articulos')
                     console.log('Error: ' + data);
                 });
             }
-
 
             $scope.newItem = function() {
                 $scope.datSel = {};

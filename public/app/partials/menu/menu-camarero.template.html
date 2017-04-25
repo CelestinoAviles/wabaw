@@ -1,87 +1,53 @@
-<div class="container">
+<div class="container-fluid" ng-show="!login_ok"> 
+    
+    <div class="row">
+                <div class="col-xs-12">
+                    <label>Login</label>
+                    <input type="text" class="form-control" ng-model="login">
+                </div>
+                <div class="col-xs-12">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" ng-model="password">
+                </div>
+        <div class="col-xs-6">
+            <button class="btn btn-primary btn-block" ng-click="cancelar()">Cancelar</button>
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-success btn-block" ng-click="validar()">Aceptar</button>
+        </div>
+    </div>
+    
+</div>
+
+<div class="container" ng-show="login_ok">
 
     <div class="list-group">
-        <a href="#!/mesasTickets" class="list-group-item ">
+        <a href="#!/mesasTickets" class="list-group-item list-group-item-primary ">
             <h4 class="list-group-item-heading">Mesas y Tickets</h4>
             <p class="list-group-item-text">Gestión de mesas y Tickets</p>
         </a>
-    </div>
-
-    <div class="list-group">
-        <a href="#!/ticketsLineasCamarero" class="list-group-item ">
+        <a href="#!/ticketsLineasCamarero" class="list-group-item list-group-item-success ">
             <h4 class="list-group-item-heading">Pendiente</h4>
             <p class="list-group-item-text">Productos pendientes de preparar o servir</p>
         </a>
     </div>
-
     <div class="list-group">
-        <a href="#!/tickets" class="list-group-item ">
-            <h4 class="list-group-item-heading">Tickets</h4>
-            <p class="list-group-item-text">Gestión de tickets</p>
+        <a href="#!/dispositivopreferencias" class="list-group-item list-group-danger ">
+            <h4 class="list-group-item-heading">Dispositivos. Asignar preferencia y mesa</h4>
+            <p class="list-group-item-text">Asignar los dispositivos a una mesa o cambiar preferencias.</p>
         </a>
     </div>
-    
+
      <hr/>
-      <h3>Default rating</h3>
-    <div class="ec-stars-wrapper">
-	<a href="#" data-value="1" title="Votar con 1 estrellas">&#9733;</a>
-	<a href="#" data-value="2" title="Votar con 2 estrellas">&#9733;</a>
-	<a href="#" data-value="3" title="Votar con 3 estrellas">&#9733;</a>
-	<a href="#" data-value="4" title="Votar con 4 estrellas">&#9733;</a>
-	<a href="#" data-value="5" title="Votar con 5 estrellas">&#9733;</a>
-</div>
-<noscript>Necesitas tener habilitado javascript para poder votar</noscript>
-    
-<form>
-  <p class="clasificacion" ng-init="valor=4">
-    <input id="radio1" type="radio" name="estrellas" ng-model="valor" value="5"><!--
-    --><label for="radio1" title="maximo" data-toggle="tooltip">&#9733;</label><!--
-    --><input id="radio2" type="radio" name="estrellas" ng-model="valor" value="4"><!--
-    --><label for="radio2">&#9733;</label><!--
-    --><input id="radio3" type="radio" name="estrellas" ng-model="valor" value="3"><!--
-    --><label for="radio3">&#9733;</label><!--
-    --><input id="radio4" type="radio" name="estrellas" ng-model="valor" value="2"><!--
-    --><label for="radio4">&#9733;</label><!--
-    --><input id="radio5" type="radio" name="estrellas" ng-model="valor" value="1"><!--
-    --><label for="radio5">&#9733;</label>
-  </p>
-      <tt>color = {{valor | json}}</tt><br/>
-</form>
-    
-    <input type="hidden" class="rating"/>
-    <input type="hidden" class="rating"/>
-      <h3>Half rating</h3>
-      <input type="hidden" class="rating" data-fractions="2"/>
-      <h3>Disabled rating</h3>
-      <input type="hidden" class="rating" disabled="disabled"/>
-      <h3>Readonly rating with a value</h3>
-      <input type="hidden" class="rating" data-readonly value="3"/>
-      <h3>Readonly rating with a fractional value</h3>
-      <input type="hidden" class="rating" data-readonly value="2.5"/>
-      <h3>Customized heart rating</h3>
-      <input type="hidden" class="rating" data-filled="glyphicon glyphicon-heart custom-heart" data-empty="glyphicon glyphicon-heart-empty custom-heart"/>
-      <h3>Only fill selected</h3>
-      <input type="hidden" class="rating" data-filled="glyphicon glyphicon-heart-empty" data-filled-selected="glyphicon glyphicon-heart" data-empty="glyphicon glyphicon-heart-empty"/>
-      <h3>Handle events</h3>
-      <input type="hidden" class="rating check" data-filled="glyphicon glyphicon-check" data-empty="glyphicon glyphicon-unchecked"/>
-    
-      <h3>Default rating</h3>
-    <input type="text"/>
-      <input type="hidden" class="rating"/>
-    aaa
-    <input type="hidden" class="rating"/>
-    aaa
+
     <div class="list-group">
+        <a href="#!/tickets" class="list-group-item list-group-item-warning ">
+            <h4 class="list-group-item-heading">Tickets</h4>
+            <p class="list-group-item-text">Gestión de todos los tickets</p>
+        </a>
         <a href="#!/ticketsLineas" class="list-group-item ">
             <h4 class="list-group-item-heading">Tickets Líneas</h4>
-            <p class="list-group-item-text">Gestión de las líneas de los tickets</p>
-        </a>
-    </div>
-
-    <div class="list-group">
-        <a href="#!/dispositivopreferencias" class="list-group-item ">
-            <h4 class="list-group-item-heading">Preferencias de dispositivos</h4>
-            <p class="list-group-item-text">Preferencias de dispositivos</p>
+            <p class="list-group-item-text">Gestión de todas las líneas de los tickets</p>
         </a>
     </div>
 

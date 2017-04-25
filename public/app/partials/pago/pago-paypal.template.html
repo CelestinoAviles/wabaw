@@ -1,15 +1,16 @@
 <div class="container">
   <h2>Pago por PayPal</h2>
 
-    <div class="panel-body">
-        <div class="col-xs-4">
-            <div class="well">Resumen del ticket</div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"> Resumen del ticket</h3>
         </div>
-        <div class="col-xs-4">
-            <div class="well">MESA: {{ espacio }}</div>
-        </div>
-        <div class="col-xs-4">
-            <div class="well">Total: {{ total }}</div>
+        <div class="panel-body">
+
+            <div class="well col-xs-12 col-md-4">MESA  : {{ codigo_espacio }}</div>
+            <div class="well col-xs-12 col-md-4">Ticket: {{ cod_ticket }}</div>
+            <div class="well col-xs-12 col-md-4">Total : {{ total }}</div>
+
         </div>
     </div>
     

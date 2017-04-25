@@ -33,7 +33,9 @@ router.post('/api/v1/articulos', (req, res, next) => {
     const data = { codigo_articulo: req.body.codigo_articulo, 
                    nombre: req.body.nombre,
                    descripcion: req.body.descripcion,
-                   pvp_venta: req.body.pvp_venta
+                   cod_familia: req.body.cod_familia,
+                   pvp_venta: req.body.pvp_venta,
+                   stock_actual: req.body.stock_actual
                  };
 
     // Get a Postgres client from the connection pool
@@ -46,8 +48,8 @@ router.post('/api/v1/articulos', (req, res, next) => {
         }
       
         // SQL Query > Insert Data
-        client.query('INSERT INTO wabaw.articulos(CODIGO_ARTICULO, NOMBRE, DESCRIPCION, COD_FAMILIA) values($1,$2,$3,$4)',
-                     [data.codigo_articulo, data.nombre, data.descripcion, 12 ]);
+        client.query('INSERT INTO wabaw.articulos(CODIGO_ARTICULO, NOMBRE, DESCRIPCION, COD_FAMILIA, PVP_VENTA, STOCK_ACTUAL) values($1,$2,$3,$4, $5, $6)',
+                     [data.codigo_articulo, data.nombre, data.descripcion, data.cod_familia, data.pvp_venta, data.stock_actual ]);
         // SQL Query > Select Data
         const query = client.query('SELECT * FROM wabaw.articulos ORDER BY nombre ASC');
         // Stream results back one row at a time
@@ -186,6 +188,8 @@ router.put( '/api/v1/articulos/:id', (req, res, next) => {
                   codigo_articulo: req.body.codigo_articulo, 
                   nombre: req.body.nombre, 
                   descripcion: req.body.descripcion,
+                  cod_familia: req.body.cod_familia,
+                  stock_actual: req.body.stock_actual,
                   pvp_venta: req.body.pvp_venta
                  };
 
@@ -201,8 +205,8 @@ router.put( '/api/v1/articulos/:id', (req, res, next) => {
 
         console.log('put 000');
         // SQL Query > Update Data
-        client.query('UPDATE wabaw.articulos SET codigo_articulo=($2), nombre=($3), descripcion=($4), PVP_VENTA=($5) WHERE codigo=($1)', 
-                     [data.codigo, data.codigo_articulo, data.nombre, data.descripcion, data.pvp_venta]);
+        client.query('UPDATE wabaw.articulos SET codigo_articulo=($2), nombre=($3), descripcion=($4), PVP_VENTA=($5), COD_FAMILIA = ($6), STOCK_ACTUAL = ($7) WHERE codigo=($1)', 
+                     [data.codigo, data.codigo_articulo, data.nombre, data.descripcion, data.pvp_venta, data.cod_familia, data.stock_actual]);
         // SQL Query > Select Data
         const query = client.query("SELECT * FROM wabaw.articulos ORDER BY nombre ASC");
         // Stream results back one row at a time

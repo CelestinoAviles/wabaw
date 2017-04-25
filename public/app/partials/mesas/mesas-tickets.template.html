@@ -34,50 +34,36 @@
                             {{ item.llamada }}
                         </td>
                     </tr>
-                                0   {{dat.length}} MESAS(s) 1
+                    {{dat.length}} MESAS(s)
 
                 <tbody>
-                                 0  {{dat.length}} MESAS(s) 2
-                        
         </table>
-                                  0 {{dat.length}} MESAS(s) 3
         <div class="cssOneOrderTotal">
            <div class="cssOneProductQty">
-              ==== 0 {{ dat.length }} MESAS(s)
            </div>
-                     0              {{dat.length}} MESAS(s) 4
            <div class="cssOneProductSubtotal"> 
            </div>
         </div>
     </div>
 </div>
 
-<div id="divDetailView">
-
+<!-- <div id="divDetailView"> -->
+<div class="container-fluid">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="col-md-3">Acciones</th>
-                        <th class="col-md-1">Ticket</th>
-                        <th class="col-md-1">Fecha</th>
-                        <th class="col-md-1">Mesa</th>
-                        <th class="col-md-1">Cliente</th>
-                        <th class="col-md-1">Empleado</th>
-                        <th class="col-md-1">Modifica</th>
-                        <th class="col-md-1">Estado</th>
-                        <th class="col-md-1">Total</th>
+                        <th class="col-xs-4 col-md-1">Ticket</th>
+                        <th class="col-xs-4 col-md-1">Fecha</th>
+                        <th class="col-xs-4 col-md-1">Mesa</th>
+                        <th class="col-xs-4 col-md-1">Modifica</th>
+                        <th class="col-xs-4 col-md-1">Estado</th>
+                        <th class="col-xs-4 col-md-1">Total</th>
                     </tr>
                 </thead>
 
                 <tfoot></tfoot>
                 <tbody>
                     <tr ng-repeat="item in datTickets | filter:filtroTexto" ng-click="seleccionaTicket(item);">
-                        <td>
-                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-primary" ng-click="estado($index)"><i class="glyphicon glyphicon-random"></i></button>
-                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
-                        </td>
                         <td>
                             {{ item.codigo }}
                         </td>
@@ -86,12 +72,6 @@
                         </td>
                         <td>
                             {{ item.cod_espacio  }}
-                        </td>
-                        <td>
-                            {{ item.cod_cliente  }}
-                        </td>
-                        <td>
-                            {{ item.cod_empleado  }}
                         </td>
                         <td>
                             {{ item.fecha_modifica  | date:'dd/MM/yyyy  hh:mm' }}
@@ -106,66 +86,8 @@
                     <tbody>
                             ====       {{datTickets.length}} TICKETS(s)
             </table>
-    
     </div>
 
-<div class="container" id"lineas">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th class="col-md-3">Acciones</th>
-                        <th class="col-md-1">Ticket</th>
-                        <th class="col-md-1">Cód.Artículo</th>
-                        <th class="col-md-3">Descripción</th>
-                        <th class="col-md-1">Precio</th>
-                        <th class="col-md-1">Cantidad</th>
-                        <th class="col-md-1">Total</th>
-                        <th class="col-md-1">Estado</th>
-                    </tr>
-                </thead>
-
-                <tfoot></tfoot>
-                <tbody>
-                    <tr ng-repeat="item in datLineasTickets | filter:filtroTexto" >
-                        <td>
-                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-primary" ng-click="estado($index)"><i class="glyphicon glyphicon-random"></i></button>
-                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
-                        </td>
-                        <td>
-                            {{ item.cod_ticket }}
-                        </td>
-                        <td>
-                            {{ item.cod_articulo  }}
-                        </td>
-                        <td>
-                            Descripcion
-                        </td>
-                        <td>
-                            {{ item.pvu  }}
-                        </td>
-                        <td>
-                            {{ item.cantidad  }}
-                        </td>
-                        <td>
-                            {{ item.total  }}
-                        </td>
-                        <td>
-                            {{ item.estado }}
-                        </td>
-                    </tr>
-<!--
-                    ==== ==== {{ datLineasTickets.length}} Lineas de tikect
-                    ==== {{  datLineasTickets | countItemsInOrder }} item(s),
-                    ==SBK== {{  datLineasTickets | filtroSumaClave:'cantidad' }} item(s),
-                    ==== {{  datLineasTickets | orderTotal }} Euros,
-                    ==FST== {{  datLineasTickets | filtroSumaTotal:'cantidad':'pvu' }} Euros,
--->
-                    <tbody>
-            </table>
-    
-</div>
     
         <div class="panel panel-primary" ng-show="showEstado">
             <div class="panel-heading">

@@ -1,6 +1,6 @@
-        <div class="panel-body">
+        <div class="container-fluid">
 
-            <div class="col-xs-6" >
+            <div class="col-xs-12">
                 <div class="row">
                     <img ng-src= {{imagenSeleccionada}} class="img-rounded img-responsive" alt="Imagen">
                 </div>
@@ -9,7 +9,7 @@
                     <br><br>
                 </div>
             
-                <div class="col-xs-3" ng-repeat="item in dat | filter:filtroTexto" ng-click="seleccionarImagen($index)">
+                <div class="col-xs-4" ng-repeat="item in dat | filter:filtroTexto" ng-click="seleccionarImagen($index)">
                         <img ng-src= {{item.url}} ng-click="seleccionarImagen($index)" class="img-rounded img-responsive" border="1" alt="Imagen">
                 </div>
             </div>

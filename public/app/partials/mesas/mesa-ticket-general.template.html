@@ -2,8 +2,6 @@
 
 <div class="container-fluid" ng-show="!showEstado">
 
-        <div class="well">
-
             <table class="table  table-inverse">
                 <thead class="thead-inverse">
                     <tr class="bg-primary">
@@ -15,7 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-success" ng-repeat="item in dat | filter:filtroTexto" ng-click="seleccionaMesa(item);">
+                    <tr class="bg-success" ng-repeat="item in datMesa">
                         <td>
                             <button class="btn btn-primary" ng-click="llamar($index)"><i class="glyphicon glyphicon-bell"></i></button>
                         </td>
@@ -34,7 +32,6 @@
                     </tr>
                 <tbody>
             </table>
-        </div>
 </div>
 
 <div id="well" class="bg-info">
@@ -59,11 +56,10 @@
                 <tbody>
                     <tr ng-repeat="item in datTickets | filter:filtroTexto" >
                         <td>
-                            <button class="btn btn-primary" ng-click="verTicket($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" ng-click="seleccionaTicket(item)"><i class="glyphicon glyphicon-th-list"></i> Productos</button>
-                            <button class="btn btn-primary" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-th-list"></i> Recalcular</button>
-                            <a href="#!/familiasVer" class="btn btn-success">Pedir</a>
-                            <a href="#!/pago" class="btn btn-primary">Pagar</a>
+                            <button class="btn btn-primary btn-block" ng-click="loadMiTicketLineas(item.codigo)"><i class="glyphicon glyphicon-th-list"></i> Productos</button>
+                            <button class="btn btn-primary btn-block" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-th-list"></i> Recalcular</button>
+                            <a href="#!/familiasVer" class="btn btn-success btn-block">Pedir</a>
+                            <a href="#!/pago" class="btn btn-primary btn-block">Pagar</a>
 
                         </td>
                         <td ng-click="seleccionaTicket(item);">
@@ -155,7 +151,7 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
                 <tbody>
                     <tr ng-repeat="item in datLineasTickets | filter:filtroTexto" >
                         <td>
-                            <button class="btn btn-primary" ng-click="copiarTicketLinea($index)"><i class="glyphicon glyphicon-plus"></i></button>
+                            <button class="btn btn-primary" ng-click="copiarTicketLinea($index)"><i class="glyphicon glyphicon-plus"><strong>1</strong></i></button>
                             <button class="btn btn-danger"  ng-click="borrarTicketLinea($index)"><i class="glyphicon glyphicon-remove"></i></button>
                             <button class="btn btn-primary"  ng-click="opinarTicketLinea($index)"><i class="glyphicon glyphicon-pushpin"></i></button>
 

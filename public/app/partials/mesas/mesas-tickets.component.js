@@ -153,6 +153,7 @@ angular.module('mesas-tickets')
             $scope.volver = function() {
                 $scope.datSel = {};
                 $scope.showCategoria = false;
+                $scope.showEstado = false;
                 mostrarDatos();
             }
 

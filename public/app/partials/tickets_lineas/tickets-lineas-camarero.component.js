@@ -77,7 +77,6 @@ angular.module('ticketsLineas')
                 $scope.update = true;
                 console.log('cambiando estado');
                 console.log($scope.datSel);
-                alert('1');
                 $scope.grabar();
             };
             

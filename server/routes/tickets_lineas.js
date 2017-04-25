@@ -53,7 +53,12 @@ router.post( glbApi, (req, res, next) => {
         client.query('INSERT INTO wabaw.tickets_lineas(COD_TICKET, COD_ARTICULO, CANTIDAD, PVU, TOTAL, ESTADO) values($1, $2, $3, $4, $5, $6 )',
                      [ data.cod_ticket, data.cod_articulo, data.cantidad, data.pvu, data.total, data.estado ]);
         // SQL Query > Select Data
-        const query = client.query(glbConsultaOrdenada);
+
+        aux = glbConsulta + ' and t.cod_ticket = ($1)'
+        console.log (aux);
+        console.log (data.cod_ticket);
+    
+        const query = client.query( aux, [data.cod_ticket] );
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);
@@ -219,6 +224,8 @@ router.delete( glbApi + '/:id', (req, res, next) => {
     const results = [];
     // Grab data from the URL parameters
     const id = req.params.id;
+    console.log('borro linea de ticket');
+    console.log(id);
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
     // Handle connection errors
@@ -231,7 +238,12 @@ router.delete( glbApi + '/:id', (req, res, next) => {
         // SQL Query > Delete Data
         client.query('DELETE FROM wabaw.tickets_lineas WHERE codigo=($1)', [id]);
         // SQL Query > Select Data
-        var query = client.query( glbConsultaOrdenada );
+        
+        aux = glbConsulta + ' and t.cod_ticket = ($1)'
+        console.log(aux);
+        console.log(id);
+        
+        var query = client.query( aux, [id] );
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);

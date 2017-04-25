@@ -153,6 +153,9 @@ angular.
           .when('/preferencias', {
           template: '<preferencias></preferencias>'
         })
+          .when('/dispositivoByod', {
+          template: '<dispositivo-byod></dispositivo-byod>'
+        })
           .when('/llamada', {
           template: '<llamada></llamada>'
         })

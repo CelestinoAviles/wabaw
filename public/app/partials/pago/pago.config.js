@@ -12,13 +12,13 @@ angular.
         when('/pago', {
           template: '<pago></pago>'
         }).
-        when('/pagoEfectivo', {
+        when('/pagoEfectivo/:idEspacio/:idTicket/:total', {
           template: '<pago-efectivo></pago-efectivo>'
         }).
-        when('/pagoPaypal', {
+        when('/pagoPaypal/:idEspacio/:idTicket/:total', {
           template: '<pago-paypal></pago-paypal>'
         }).
-        when('/pagoTarjeta', {
+        when('/pagoTarjeta/:idEspacio/:idTicket/:total', {
           template: '<pago-tarjeta></pago-tarjeta>'
         }).
       otherwise('/mesas');

@@ -86,7 +86,6 @@ router.get( '/api/v1/mesa-tickets/:id', (req, res, next) => {
     // asigno la clave a la variable "id"
     const id = req.params.id;
 
-    console.log('123456');
     console.log(id);
     // Conecto con postgresql
     pg.connect(connectionString, (err, client, done) => {
@@ -103,8 +102,6 @@ router.get( '/api/v1/mesa-tickets/:id', (req, res, next) => {
             results.push(row);
         });
         // After all data is returned, close connection and return results
-        
-        console.log(results);
         
         query.on('end', () => {
             done();
@@ -174,6 +171,52 @@ router.get( glbApi + '/:id', (req, res, next) => {
     });
 });
 
+
+//
+//  MODIFICA
+//
+router.put( glbApi + '/recalcular/:id', (req, res, next) => {
+    const results = [];
+    // Grab data from the URL parameters
+    const id = req.params.id;
+    // Graba datos from http request
+    const data = { codigo:         req.body.codigo 
+                 };
+
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, (err, client, done) => {
+        // Handle connection errors
+        if(err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        console.log('put recalculo' + id);
+        aux = 'update WABAW.tickets T ';
+        aux = aux + 'set total = (select sum( pvu * cantidad ) ';
+        aux = aux + 'from wabaw.tickets T, WABAW.tickets_lineas L  ';
+        aux = aux + 'where t.codigo = l.cod_ticket and l.cod_ticket = ($1)) where T.codigo = ($1)';
+        // SQL Query > Update Data
+        console.log(aux);
+        client.query( aux , [id ]);
+
+    
+        // SQL Query > Select Data
+        const query = client.query("SELECT * FROM wabaw.tickets WHERE codigo = ($1)", [ id ]);
+        // Stream results back one row at a time
+        query.on('row', (row) => {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+        console.log('put 001');
+        });
+});
 
 //
 //  MODIFICA
@@ -265,5 +308,54 @@ router.delete( glbApi + '/:id', (req, res, next) => {
         });
     });
 });
+
+//
+//  PAGAR
+//
+router.put( glbApi + '/pagar/:id', (req, res, next) => {
+    const results = [];
+    // Grab data from the URL parameters
+    const id = req.params.id;
+    // Graba datos from http request
+    
+    const data = {  codTicket:  req.body.codTicket,
+                    codEspacio:  req.body.codEspacio,
+                    total:  req.body.total,
+                    entrega: req.body.entrega,
+                    cambio: req.body.cambio,
+                    estado: req.body.estado
+                 };
+     
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, (err, client, done) => {
+        // Handle connection errors
+        if(err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+//estado = "PAG", 
+        console.log('a pagar');
+        // SQL Query > Update Data
+        client.query('UPDATE wabaw.tickets SET fecha_pago = current_timestamp, llamada = null, total = ($2), total_entrega =($3), total_cambio = ($4), estado=($5) WHERE codigo=($1)', [id, data.total, data.entrega, data.cambio, data.estado]);
+
+    
+        // SQL Query > Select Data
+        const query = client.query("SELECT * FROM wabaw.tickets ORDER BY codigo ASC");
+        // Stream results back one row at a time
+        query.on('row', (row) => {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            done();
+            return res.json(results);
+        });
+        console.log('put finalizo el ticket');
+        });
+});
+
+
 
 module.exports = router;
