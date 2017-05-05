@@ -106,6 +106,7 @@ DROP TABLE WABAW.MESAS;
 CREATE TABLE wabaw.mesas (
     codigo     integer not null,
     nombre     char(20) not null,
+    clave      char(10) null,
     estado     char(10) null,
     llamada    char(10) null,
     CONSTRAINT mesas_pkey PRIMARY KEY (codigo)

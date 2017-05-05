@@ -7,7 +7,8 @@
                     <tr>
                         <th class="col-md-2">Acciones</th>
                         <th class="col-md-1">Código </th>
-                        <th class="col-md-7">Nombre</th>
+                        <th class="col-md-6">Nombre</th>
+                        <th class="col-md-1">Clave</th>
                         <th class="col-md-1">Estado</th>
                         <th class="col-md-1">Llamada</th>
                     </tr>
@@ -16,6 +17,7 @@
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto" ng-click="seleccionaMesa(item);">
                         <td>
+                            <button class="btn btn-primary" ng-click="nuevaClave($index)"><i class="glyphicon glyphicon-new-window"></i></button>
                             <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
                             <button class="btn btn-primary" ng-click="cambiarEstado($index)"><i class="glyphicon glyphicon-tag"></i></button>
                             <button class="btn btn-primary" ng-click="anotarAtendida($index)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
@@ -26,6 +28,9 @@
                         </td>
                         <td>
                             {{ item.nombre }}
+                        </td>
+                        <td>
+                            {{ item.clave }}
                         </td>
                         <td>
                             {{ item.estado }}

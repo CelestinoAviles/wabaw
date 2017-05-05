@@ -14,6 +14,7 @@ angular.module('mesas-tickets')
             $scope.listOfCustomers = null;
             $scope.anotarAtendida = anotarAtendida;
             $scope.anotarPedido = anotarPedido;
+            $scope.nuevaClave = nuevaClave;
 
             //  When the user selects a "Customer" from our MasterView list, we'll set this variable.
             $scope.selectedCustomer = null;
@@ -74,7 +75,23 @@ angular.module('mesas-tickets')
                 $scope.codigoSeleccionado = val.codigo;
                 $scope.loadTickets();
             };
-        
+
+
+            function nuevaClave(index) {
+                $scope.datSel = $scope.dat[index];
+                $scope.codigoSeleccionado = $scope.datSel.codigo;
+                var auxCodigo = $scope.dat[index].codigo;
+                console.log('nueva clave:' + auxCodigo);
+                $http.put('mesas/api/v1/mesas/nuevaClave/' + auxCodigo)
+                    .success((data) => {
+                    $scope.dat = data;
+                })
+                    .error((data) => {
+                    console.log('Error: ' + data);
+                });
+            };
+
+            
             $scope.seleccionaTicket = function (val) {
                 $scope.ticketSeleccionado = val.codigo;
                 console.log($scope.ticketSeleccionado);

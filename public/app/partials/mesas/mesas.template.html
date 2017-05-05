@@ -25,6 +25,7 @@
                         <th class="col-md-2">Acciones</th>
                         <th class="col-md-1">Código</th>
                         <th class="col-md-4">Nombre del Espacio</th>
+                        <th class="col-md-1">Clave</th>
                         <th class="col-md-1">Estado</th>
                         <th class="col-md-1">Llamada</th>
                     </tr>
@@ -42,6 +43,9 @@
                         </td>
                         <td>
                             <span><a href="#!/mesas/$">{{ item.nombre }}</a></span>
+                        </td>
+                        <td>
+                            <span><a href="#!/mesas/$">{{ item.clave }}</a></span>
                         </td>
                         <td>
                             <span><a href="#!/mesas/$">{{ item.estado }}</a></span>
@@ -67,6 +71,9 @@
             </div><br>
             <div class="row">
                 <div class="col-md-6"><label>Nombre</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.nombre"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><label>Clave</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.clave"></div>
             </div>
             <div class="row">
                 <div class="col-md-6"><label>Estado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.estado"></div>
