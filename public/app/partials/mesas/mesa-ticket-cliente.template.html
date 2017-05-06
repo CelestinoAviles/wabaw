@@ -1,8 +1,8 @@
-<div class="col-xs-4 col-sm-4 col-md-4">
+<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 
-<div class="container-fluid">
+<!--    <div class="container"> -->
 
-            <table class="table  table-inverse table-bordered">
+            <table class="table table-bordered">
                 <thead class="thead-inverse">
                     <tr class="bg-primary">
                         <th class="col-xs-1">Acciones</th>
@@ -28,10 +28,10 @@
                     </tr>
                 <tbody>
             </table>
-</div>
+<!--    </div> -->
 
 <!-- <div id="well" class="bg-info"> -->
-<div class="container-fluid">
+<!--    <div class="container-fluid"> -->
                 <button class="btn btn-primary" ng-show="datTickets.length === 0" ng-click="newTicket()"><i class="glyphicon glyphicon-plus"></i> CREAR TICKET</button>
     
             <table class="table table-hover table-bordered">
@@ -64,49 +64,17 @@
                     </tr>
                     <tbody>
             </table>
+<!--    </div> -->
 </div>
 
-
-<div class="well" ng-show="verDetalleTicket">
-    <div class="container">
-        <p> 
-             Código: {{ datSelTicket.codigo }}
-        </p>
-        <p>
-            Fecha de alta: {{ datSelTicket.fecha_ticket  | date:'dd/MM/yyyy hh:mm' }}
-        </p>
-        <p>
-            Espacio: {{ datSelTicket.cod_espacio  }}
-        </p>
-        <p>
-            Codigo Cliente: {{ datSelTicket.cod_cliente  }}
-        </p>
-        <p>
-            Código Empleado: {{ datSelTicket.cod_empleado  }}
-        </p>
-        <p>
-            Fecha Modificación: {{ datSelTicket.fecha_modifica  | date:'dd/MM/yyyy  hh:mm' }}
-        </p>
-        <p>
-            Estado: {{ item.estado }}
-        </p>
-        <p>
-            Total: {{ item.total }}
-        </p>
-        <button class="btn btn-primary" ng-click="cerrarDetalleTicket()">Cerrar</button>
-    </div>
-</div>
-
-</div>
-
-<div class="col-xs-8 col-sm-8 col-md-8">
+<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 <!--
 LINEAS DE PEDIDO
 Las líneas quedan pendientes de confirmar. 
 Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
 -->
     
-<div class="container-fluid" id="lineas">
+<div class="container" id="lineas">
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr class="bg-info">
