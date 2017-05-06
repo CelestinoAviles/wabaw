@@ -1,0 +1,209 @@
+<div class="col-xs-4">
+
+<div class="container-fluid">
+
+            <table class="table  table-inverse table-bordered">
+                <thead class="thead-inverse">
+                    <tr class="bg-primary">
+                        <th class="col-xs-1">Acciones</th>
+                        <th class="col-xs-9">Descripción de la Mesa</th>
+                        <th class="col-xs-1">Estado</th>
+                        <th class="col-xs-1">Llamada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-success" ng-repeat="item in datMesa">
+                        <td>
+                            <button class="btn btn-primary" ng-click="llamar($index)" data-toggle="tooltip" title="Llamar al camarero"><i class="glyphicon glyphicon-bell"></i></button>
+                        </td>
+                        <td>
+                            {{ item.nombre }}
+                        </td>
+                        <td>
+                            {{ item.estado }}
+                        </td>
+                        <td>
+                            {{ item.llamada }}
+                        </td>
+                    </tr>
+                <tbody>
+            </table>
+</div>
+
+<!-- <div id="well" class="bg-info"> -->
+<div class="container-fluid">
+                <button class="btn btn-primary" ng-show="datTickets.length === 0" ng-click="newTicket()"><i class="glyphicon glyphicon-plus"></i> CREAR TICKET</button>
+    
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr class="bg-primary">
+                        <th class="col-md-3">Acciones</th>
+                        <th class="col-md-1">Ticket</th>
+                        <th class="col-md-1">Fecha</th>
+                        <th class="col-md-7">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-success" ng-repeat="item in datTickets | filter:filtroTexto" >
+                        <td>
+                            <button class="btn btn-primary btn-block" ng-click="loadMiTicketLineas(item.codigo)" data-toggle="tooltip" title="Ver productos"><i class="glyphicon glyphicon-th-list"></i> Productos</button>
+                            <button class="btn btn-primary btn-block" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-th-list" data-toggle="tooltip" title="Calcular cuenta"></i> Recalcular</button>
+                            <a href="#!/familiasVer" class="btn btn-success btn-block btn-lg"><h1>Pedir</h1></a>
+                            <a href="#!/pago" class="btn btn-primary btn-block btn-lg"><h1>Pagar</h1></a>
+
+                        </td>
+                        <td ng-click="seleccionaTicket(item);">
+                            {{ item.codigo }}
+                        </td>
+                        <td>
+                            {{ item.fecha_modifica  | date:'dd/MM/yyyy  hh:mm' }}
+                        </td>
+                        <td>
+                            <h1><center><strong> {{ item.total }} </strong></center></h1>
+                        </td>
+                    </tr>
+                    <tbody>
+            </table>
+</div>
+
+
+<div class="well" ng-show="verDetalleTicket">
+    <div class="container">
+        <p> 
+             Código: {{ datSelTicket.codigo }}
+        </p>
+        <p>
+            Fecha de alta: {{ datSelTicket.fecha_ticket  | date:'dd/MM/yyyy hh:mm' }}
+        </p>
+        <p>
+            Espacio: {{ datSelTicket.cod_espacio  }}
+        </p>
+        <p>
+            Codigo Cliente: {{ datSelTicket.cod_cliente  }}
+        </p>
+        <p>
+            Código Empleado: {{ datSelTicket.cod_empleado  }}
+        </p>
+        <p>
+            Fecha Modificación: {{ datSelTicket.fecha_modifica  | date:'dd/MM/yyyy  hh:mm' }}
+        </p>
+        <p>
+            Estado: {{ item.estado }}
+        </p>
+        <p>
+            Total: {{ item.total }}
+        </p>
+        <button class="btn btn-primary" ng-click="cerrarDetalleTicket()">Cerrar</button>
+    </div>
+</div>
+
+</div>
+
+<div class="col-xs-8">
+
+<!--
+LINEAS DE PEDIDO
+Las líneas quedan pendientes de confirmar. 
+Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
+-->
+    
+<div class="container-fluid" id"lineas">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr class="bg-info">
+                        <th class="col-xs-2">Acciones</th>
+                        <th class="col-xs-6">Descripción</th>
+                        <th class="col-xs-1">Ctd</th>
+                        <th class="col-xs-1">Precio</th>
+                        <th class="col-xs-1">Total</th>
+                        <th class="col-xs-1">Estado</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+                <tbody>
+                    <tr ng-repeat="item in datLineasTickets | filter:filtroTexto" >
+                        <td>
+                            <button class="btn btn-primary" ng-click="copiarTicketLinea($index)" data-toggle="tooltip" title="Pedir uno más"><i class="glyphicon glyphicon-plus"><strong>1</strong></i></button>
+                            <button class="btn btn-danger"  ng-click="borrarTicketLinea($index)" data-toggle="tooltip" title="Cancelar pedido"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary"  ng-click="opinarTicketLinea($index)" data-toggle="tooltip" title="Opinar"><i class="glyphicon glyphicon-pushpin"></i></button>
+
+                        </td>
+                        <td>
+                            {{ item.nombre  }}
+                        </td>
+                        <td>
+                            {{ item.cantidad  }}
+                        </td>
+                        <td>
+                            {{ item.pvu  }}
+                        </td>
+                        <td>
+                            {{ item.total  }}
+                        </td>
+                        <td>
+                            {{ item.estado }}
+                        </td>
+                    </tr>
+<!--
+                    ==== ==== {{ datLineasTickets.length}} Lineas de tikect
+                    ==== {{  datLineasTickets | countItemsInOrder }} item(s),
+                    ==SBK== {{  datLineasTickets | filtroSumaClave:'cantidad' }} item(s),
+                    ==== {{  datLineasTickets | orderTotal }} Euros,
+                    ==FST== {{  datLineasTickets | filtroSumaTotal:'cantidad':'pvu' }} Euros,
+-->
+                    <tbody>
+            </table>
+    
+</div>
+</div>
+    
+
+
+        <div class="panel panel-primary" ng-show="showEstado">
+            <div class="panel-heading">
+                <h3 class="panel-title">Cambiar estado</h3>
+                <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+                <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()"><i class="glyphicon glyphicon-ok"></i></button>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6"><label>ID</label><input class="form-control" ng-readonly="(insert || update)" ng-model="datSel.idmesa"></div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-6"><label>NOMBRE</label><input class="form-control" ng-readonly="(insert || update)" ng-model="datSel.nombremesa"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"><label>Estado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.estado"></div>
+                </div>
+            </div>
+        </div> 
+
+
+
+    <div class="row col-xs-6" ng-show="showTicketLineaOpinion">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6"><label>Código Artículo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSelArtOpi.codigo_articulo"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Indica tu nombre</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSelArtOpi.login"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <label for="sel1">Valoración de 1 a 5:</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSelArtOpi.valorgeneral">
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Comentarios</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSelArtOpi.observaciones"></div>
+            </div>
+        </div>
+        <div class="panel-heading">
+            <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabarArticuloOpinion()"><i class="glyphicon glyphicon-ok"></i></button>
+        </div>
+    </div> 

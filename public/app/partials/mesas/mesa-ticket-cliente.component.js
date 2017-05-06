@@ -4,8 +4,8 @@
 (function() {
 
 angular.module('mesas-tickets')
-    .component('mesaTicketGeneral', {
-        templateUrl: 'app/partials/mesas/mesa-ticket-general.template.html',
+    .component('mesaTicketCliente', {
+        templateUrl: 'app/partials/mesas/mesa-ticket-cliente.template.html',
         controller: function MesasController($scope, $http, $routeParams, $location, servicio, $window) {
 
             auxValor = $routeParams.id;
@@ -416,6 +416,7 @@ angular.module('mesas-tickets')
             $scope.volver = function() {
                 $scope.datSel = {};
                 $scope.showCategoria = false;
+                $scope.showTicketLineaOpinion = false;
                 mostrarDatos();
             }
 
@@ -428,7 +429,7 @@ angular.module('mesas-tickets')
                 console.log($scope.datSelTicketLinea);
                 $scope.datSelArtOpi = {
                     login : '-',
-                    codigoarticulo: $scope.datSelTicketLinea.cod_articulo,
+                    codigo_articulo: $scope.datSelTicketLinea.cod_articulo,
                     valorgeneral: 5,
                     observaciones: null
                 };
@@ -459,6 +460,13 @@ angular.module('mesas-tickets')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
+                    $http.post('/tickets/api/v1/tickets', $scope.datSel)
+                        .success((data) => {
+                        $scope.dat = data;
+                    })
+                        .error((error) => {
+                        console.log('Error: ' + error);
+                    });
                 }
                  else {
                      console.log('entro a modificar ticket');
