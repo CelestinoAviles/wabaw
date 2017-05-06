@@ -15,7 +15,7 @@
                 <tbody>
                     <tr class="bg-success" ng-repeat="item in datMesa">
                         <td>
-                            <button class="btn btn-primary" ng-click="llamar($index)"><i class="glyphicon glyphicon-bell"></i></button>
+                            <button class="btn btn-primary" ng-click="llamar($index)" data-toggle="tooltip" title="Llamar al camarero"><i class="glyphicon glyphicon-bell"></i></button>
                         </td>
                         <td>
                             {{ item.codigo }}
@@ -39,9 +39,9 @@
     
                 <button class="btn btn-primary" ng-show="datTickets.length === 0" ng-click="newTicket()"><i class="glyphicon glyphicon-plus"></i> CREAR TICKET</button>
     
-            <table class="table table-hover">
+            <table class="table table-hover table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="bg-primary">
                         <th class="col-md-3">Acciones</th>
                         <th class="col-md-1">Ticket</th>
                         <th class="col-md-1">Fecha</th>
@@ -56,8 +56,8 @@
                 <tbody>
                     <tr ng-repeat="item in datTickets | filter:filtroTexto" >
                         <td>
-                            <button class="btn btn-primary btn-block" ng-click="loadMiTicketLineas(item.codigo)"><i class="glyphicon glyphicon-th-list"></i> Productos</button>
-                            <button class="btn btn-primary btn-block" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-th-list"></i> Recalcular</button>
+                            <button class="btn btn-primary btn-block" ng-click="loadMiTicketLineas(item.codigo)" data-toggle="tooltip" title="Ver productos"><i class="glyphicon glyphicon-th-list"></i> Productos</button>
+                            <button class="btn btn-primary btn-block" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-th-list" data-toggle="tooltip" title="Calcular cuenta"></i> Recalcular</button>
                             <a href="#!/familiasVer" class="btn btn-success btn-block">Pedir</a>
                             <a href="#!/pago" class="btn btn-primary btn-block">Pagar</a>
 
@@ -133,14 +133,14 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
 -->
     
 <div class="container-fluid" id"lineas">
-            <table class="table table-hover">
+            <table class="table table-hover table-bordered">
                 <thead>
-                    <tr>
-                        <th class="col-xs-3">Acciones</th>
+                    <tr class="bg-info">
+                        <th class="col-xs-2">Acciones</th>
                         <th class="col-xs-1">Ticket</th>
-                        <th class="col-xs-1">Cód.Artículo</th>
-                        <th class="col-xs-3">Descripción</th>
-                        <th class="col-xs-1">Cantidad</th>
+                        <th class="col-xs-1">Código</th>
+                        <th class="col-xs-4">Descripción</th>
+                        <th class="col-xs-1">Ctd</th>
                         <th class="col-xs-1">Precio</th>
                         <th class="col-xs-1">Total</th>
                         <th class="col-xs-1">Estado</th>

@@ -13,7 +13,8 @@
 
         </div>
     </div>
-    
+
+<!--    
     <div class="panel panel-primary">
         <div class="panel-body">
             <div class="row">
@@ -25,12 +26,22 @@
         </div>
     </div> 
       
+-->
 	<div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="button" class="btn btn-primary" ng-click="$ctrl.volver()">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="$ctrl.pagarPayPal()">Pagar</button>
+        <div class="col-xs-6 col-sm-6">
+            <center>
+            <button type="button" class="btn btn-primary btn-lg" ng-click="$ctrl.volver()">Cancelar</button>
+            </center>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <center>
+            <div id="paypal-button"></div>
+            </center>
+<!--            <button type="button" class="btn btn-primary" ng-click="$ctrl.pagarPayPal()">Pagar</button> -->
         </div>
     </div>
+    
+    
+
 
 </div>
-

@@ -51,7 +51,7 @@ angular.module('articulosopiniones')
 
         
             $scope.delete = function(index) {
-                var auxId = $scope.dat[index].codigo;
+                var auxId = $scope.dat[index].id;
                 $http.delete(auxRuta + '/' + auxId)
                     .success((data) => {
                     $scope.dat = data;

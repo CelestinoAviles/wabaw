@@ -181,11 +181,13 @@ CREATE TABLE wabaw.usuarios (
 );
 
 
-CREATE TABLE wabaw.ArticulosOpiniones (
+DROP TABLE wabaw.ArticulosOpiniones; 
+DROP TABLE wabaw.Articulos_Opiniones; 
+CREATE TABLE wabaw.Articulos_Opiniones (
     id                integer  not null default nextval('wabaw.sqgeneral'),
-    fecha               timestamp,
+    fecha             timestamp,
     login             char(20) not null,
-    codigoArticulo    char(10) not null,
+    codigo_Articulo   integer not null,
     valorGeneral      integer not null,
     observaciones     char(200),
     CONSTRAINT ArticulosOpiniones_pkey PRIMARY KEY (id)
