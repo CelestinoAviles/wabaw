@@ -26,6 +26,10 @@
     }
 }
 
+.ancho {
+    color: white;
+    text-overflow: ellipsis;
+}
 
 .navbar {
     margin-top: 0;
@@ -34,15 +38,19 @@
 }
 
 body {
-    font-size: 100%;
+    font-size: 1,5em;
     padding-top: 60px;
+}
+
+table{
+  table-layout: fixed;
 }
 
 td {
   font-size: 100%;
   border: solid 1px gray;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: wrap;
   text-overflow: ellipsis;
 }
 
@@ -70,8 +78,8 @@ header {
 
 .btn-xxl {
     padding: 20px 26px;
-    font-size: 35px;
-    border-radius: 8px;
+    font-size: 100%;
+    border-radius: 1px;
 }
 
 
@@ -101,6 +109,5 @@ img {
     top: 20px;
     margin-left: -200px;
 }
-
 
 
