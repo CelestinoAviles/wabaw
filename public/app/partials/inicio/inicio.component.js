@@ -13,7 +13,7 @@
 		        templateUrl: 'app/partials/inicio/inicio.template.html',
 		        controller: function InicioController($scope, $routeParams, $location, servicio) {
                     
-                    CargarFacebook();
+//                    CargarFacebook();
                     
                     $scope.servicio = servicio;
 //                    alert($scope.servicio);

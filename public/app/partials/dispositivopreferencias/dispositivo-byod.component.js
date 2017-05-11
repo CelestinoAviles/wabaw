@@ -29,6 +29,7 @@ angular.module('preferencias')
                 var preferencias = JSON.parse(dispositivo);
                 console.log(preferencias); //true
                 $scope.datSel = preferencias;
+                $scope.datSel.idioma_dispositivo = 'ES';
 
                 
             }
