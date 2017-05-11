@@ -60,12 +60,10 @@
                         <tbody>
                             <tr class="bg-success" ng-repeat="item in datTickets" >
                                 <td>
-                                    <div><button class="btn btn-primary btn-block" ng-click="loadMiTicketLineas(item.codigo)" data-toggle="tooltip" title="Ver   productos"><i class="glyphicon glyphicon-th-list"></i>Ver</button></div>
-
-                                    <div><button class="btn btn-primary btn-block" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-th-list" data-    toggle="tooltip" title="Calcular cuenta"></i>Calcula</button></div>
-                    
                                     <div><a href="#!/familiasVer" class="btn btn-success btn-block btn-lg">Pedir</a>
                                     </div>
+                    
+                                    <div><button class="btn btn-primary btn-block" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-refresh" data-toggle="tooltip" title="Calcular cuenta"></i>Calcula</button></div>
                     
                                     <div><a href="#!/pago" class="btn btn-primary btn-block btn-lg">Pagar</a></div>
                                 </td>
@@ -159,27 +157,27 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
     </div>
 </div> 
 
-
-
 <div class="row col-xs-6" ng-show="showTicketLineaOpinion">
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-6"><label>Código Artículo</label><input class="form-control" ng-readonly="!(insert || update)" ng-   model="datSelArtOpi.codigo_articulo"></div>
-                </div><br>
+            <div class="col-md-6">
+                <label>Indica tu nombre</label>
+                <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSelArtOpi.login">
+            </div>
+        </div>
         
         <div class="row">
-            <div class="col-md-6"><label>Indica tu nombre</label><input class="form-control" ng-readonly="!(insert || update)" ng-  model="datSelArtOpi.login"></div>
-                </div><br>
-        
-        <div class="row">
-            <div class="col-xs-3">
+            <div class="col-md-6">
                 <label for="sel1">Valoración de 1 a 5:</label>
                 <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSelArtOpi.valorgeneral">
-                    </div>
-            </div><br>
+            </div>
+        </div><br>
         
         <div class="row">
-            <div class="col-md-6"><label>Comentarios</label><input class="form-control" ng-readonly="!(insert || update)" ng-   model="datSelArtOpi.observaciones"></div>
+            <div class="col-md-12">
+                <label>Comentarios</label>
+                <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSelArtOpi.observaciones">
+            </div>
         </div>
     </div>
     <div class="panel-heading">

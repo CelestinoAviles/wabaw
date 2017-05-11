@@ -417,7 +417,6 @@ angular.module('mesas-tickets')
                 $scope.datSel = {};
                 $scope.showCategoria = false;
                 $scope.showTicketLineaOpinion = false;
-                mostrarDatos();
             }
 
             function opinarTicketLinea(index) {

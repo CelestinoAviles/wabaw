@@ -9,7 +9,7 @@ angular.module('posts')
         controller: function EntidadController($scope, $http, $routeParams, $location) {
 
             var auxRuta = '/posts/api/v1/posts';
-            var auxEntidad = 'Opiniones sobre los servicios y productos';
+            var auxEntidad = 'Opiniones sobre el local y sus servicios';
     
             $scope.opcionCliente = true;
             $scope.verFacebook = true;

@@ -106,10 +106,11 @@ router.get( glbApi + '/camarero', (req, res, next) => {
   const results = [];
   // Get a Postgres client from the connection pool
     
-    var glbConsulta= 'select l.codigo, l.cod_ticket, l.cod_articulo, l.cantidad, l.pvu, l.total, L.ESTADO, a.nombre, a.cod_familia' 
-    glbConsulta = glbConsulta + ' from wabaw.tickets T, wabaw.tickets_lineas L, wabaw.articulos A '
+    var glbConsulta= 'select m.nombre nombre_mesa, l.codigo, l.cod_ticket, l.cod_articulo, l.cantidad, l.pvu, l.total, L.ESTADO, a.nombre, a.cod_familia' 
+    glbConsulta = glbConsulta + ' from wabaw.mesas M, wabaw.tickets T, wabaw.tickets_lineas L, wabaw.articulos A '
     glbConsulta = glbConsulta + ' where L.cod_articulo = A.codigo';
     glbConsulta = glbConsulta + ' and   L.cod_ticket   = T.codigo';
+    glbConsulta = glbConsulta + ' and   M.codigo       = T.cod_espacio';
     glbConsulta = glbConsulta + ' and   T.estado is null';
     var glbConsultaOrdenada = glbConsulta + ' order by l.codigo ASC';
     console.log(glbConsulta);

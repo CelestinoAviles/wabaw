@@ -18,6 +18,7 @@
                 <thead>
                     <tr>
                         <th class="col-md-4">Acciones</th>
+                        <th class="col-md-1">Mesa</th>
                         <th class="col-md-1">Ticket</th>
                         <th class="col-md-1">Cód.Artículo</th>
                         <th class="col-md-2">Descripción</th>
@@ -32,12 +33,15 @@
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto">
                         <td>
-                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
-                            <button class="btn btn-primary" ng-click="estado($index)"><i class="glyphicon glyphicon-random"></i></button>
-                            <button class="btn btn-primary" ng-click="anotarEnCurso($index)"><i class="glyphicon glyphicon-plane"></i></button>
-                            <button class="btn btn-primary" ng-click="anotarServida($index)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="Ver" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="Modificar" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" data-toggle="tooltip" title="Borrar" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="Cambiar estado" ng-click="estado($index)"><i class="glyphicon glyphicon-random"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="En curso" ng-click="anotarEnCurso($index)"><i class="glyphicon glyphicon-plane"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="Servida" ng-click="anotarServida($index)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                        </td>
+                        <td>
+                            {{ item.nombre_mesa }}
                         </td>
                         <td>
                             {{ item.cod_ticket }}

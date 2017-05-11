@@ -8,10 +8,10 @@ angular.module('ofertas')
 
             var auxEntidad = 'ofertas';
             var auxRuta = '/ofertas/api/v1/ofertas';
-            console.log('1 ' + auxEntidad);
+            console.log('Entro en ' + auxEntidad);
             
 
-            $scope.texto = auxEntidad.toUpperCase();;
+            $scope.texto = auxEntidad.toUpperCase();
             $scope.dat = [];
             $scope.datSel = [];
             $scope.showCategoria = false;

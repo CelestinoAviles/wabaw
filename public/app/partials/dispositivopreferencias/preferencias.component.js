@@ -47,6 +47,7 @@ angular.module('preferencias')
                 $scope.showCategoria = false;
                 $scope.showPreferencias = false;
                 mostrarDatos();
+                window.location = "#!/";    
             }
 
 
@@ -68,6 +69,7 @@ angular.module('preferencias')
 
                 $scope.preferencias = dispositivo;
                 $scope.showPreferencias = false;
+                window.location = "#!/";    
             }
         }
     });

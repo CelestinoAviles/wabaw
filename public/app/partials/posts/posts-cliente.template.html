@@ -21,10 +21,11 @@
                         <th class="col-md-2" ng-show="!{{opcionCliente}}">Acciones </th>
                         <th class="col-md-1">Fecha</th>
                         <th class="col-md-1">Usuario</th>
-                        <th class="col-md-1">Aspectos</th>
-                        <th class="col-md-1">Valoraciones</th>
+                        <th class="col-md-1">General</th>
+                        <th class="col-md-1">Limpieza</th>
+                        <th class="col-md-1">Servicio</th>
                         <th class="col-md-1">Redes</th>
-                        <th class="col-md-5">Comentarios</th>
+                        <th class="col-md-6">Comentarios</th>
                     </tr>
                 </thead>
 
@@ -42,20 +43,17 @@
                         <td>
                             {{ item.login }}
                         </td>
-                        <td>
-                            General <br>
-                            Limpieza <br>
-                            Servicio <br>
-                        </td>
-                        <td>
+                        <td class="text-center">
                             {{ item.valor_general }}
-                            {{ item.valor_servicio }}
+                        </td>
+                        <td class="text-center">
                             {{ item.valor_limpieza }}
-                            
+                        </td>
+                        <td class="text-center">
+                            {{ item.valor_servicio }}
                         </td>
                         <td align="center">
                             {{ item.redes_sociales | checkmark }} 
-                            {{ item.redes_sociales  }}
                         </td>
                         <td>
                             {{ item.observaciones }}
@@ -96,51 +94,67 @@
 
     
     <div class="panel panel-primary" ng-show="showCategoria">
+    <form name="entidadForm">
         <div class="panel-heading">
             <h3 class="panel-title">Datos</h3>
             <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
-            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()" ng-disabled="userForm.$invalid"><i class="glyphicon glyphicon-ok"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()" ng-disabled="entidadForm.$invalid"><i class="glyphicon glyphicon-ok"></i></button>
         </div>
-        
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12">
                     <label>Nombre con el que quiere aparecer</label>
                     <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.login" required>
                  </div>
-            </div><br>
-
-            <div class="col-xs-12">
-                <label for="sel1">Valoración general del establecimiento:</label>
-                <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.valor_general" required>
             </div>
 
             <div class="row">
                 <div class="col-xs-12">
-                    <label for="sel1">Limpieza del local:</label>
-                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.valor_limpieza" required>
+                    <label for="gen">Valoración general del establecimiento:</label><br>
+                    <input name="gen" type="radio" ng-model="datSel.valor_general" value="1" />1
+                    <input name="gen" type="radio" ng-model="datSel.valor_general" value="2" />2
+                    <input name="gen" type="radio" ng-model="datSel.valor_general" value="3" />3
+                    <input name="gen" type="radio" ng-model="datSel.valor_general" value="4" />4
+                    <input name="gen" type="radio" ng-model="datSel.valor_general" value="5" />5
+
                 </div>
-            </div><br>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-12">
+                    <label for="lim">Limpieza del local:</label><br>
+                    <input name="lim" type="radio" ng-model="datSel.valor_limpieza" value="1" />1
+                    <input name="lim" type="radio" ng-model="datSel.valor_limpieza" value="2" />2
+                    <input name="lim" type="radio" ng-model="datSel.valor_limpieza" value="3" />3
+                    <input name="lim" type="radio" ng-model="datSel.valor_limpieza" value="4" />4
+                    <input name="lim" type="radio" ng-model="datSel.valor_limpieza" value="5" />5
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-xs-12">
-                    <label for="sel1">Servicio del local:</label>
-                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.valor_servicio" required>
+                    <label for="ser">Servicio del local:</label><br>
+                    <input name="ser" type="radio" ng-model="datSel.valor_servicio" value="1" />1
+                    <input name="ser" type="radio" ng-model="datSel.valor_servicio" value="2" />2
+                    <input name="ser" type="radio" ng-model="datSel.valor_servicio" value="3" />3
+                    <input name="ser" type="radio" ng-model="datSel.valor_servicio" value="4" />4
+                    <input name="ser" type="radio" ng-model="datSel.valor_servicio" value="5" />5
                 </div>
-            </div><br>
+            </div>
             
+            <div class="row">
+                <div class="col-md-6"><label>Comentarios</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.observaciones" required></div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6"><label>Publicar en redes sociales :</label>
+                    <input type="checkbox" ng-readonly="!(insert || update)" ng-model="datSel.redes_sociales">
+                </div>
+            </div>
 
         </div>
-    </div><br>
-    <div class="row">
-        <div class="col-md-6"><label>Publicar en redes sociales :</label>
-            <input type="checkbox" ng-readonly="!(insert || update)" ng-model="datSel.redes_sociales">
-        </div>
+    </form>
     </div>
-    <div class="row">
-        <div class="col-md-6"><label>Comentarios</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.observaciones"></div>
-    </div>
-
 </div>
 
 

@@ -37,6 +37,9 @@ router.post( glbApi, (req, res, next) => {
                    valorgeneral: req.body.valorgeneral,
                    observaciones: req.body.observaciones
                  };
+    console.log('Art.Opi');
+    console.log(data);
+    
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {

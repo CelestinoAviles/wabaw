@@ -26,9 +26,11 @@
                         <th class="col-md-2" ng-show="!{{opcionCliente}}">Acciones </th>
                         <th class="col-md-1">Fecha</th>
                         <th class="col-md-1">Usuario</th>
-                        <th class="col-md-2">Valoraciones</th>
+                        <th class="col-md-1">Gral</th>
+                        <th class="col-md-1">Limpio</th>
+                        <th class="col-md-1">Servicio</th>
                         <th class="col-md-1">Redes</th>
-                        <th class="col-md-5">Comentarios</th>
+                        <th class="col-md-6">Comentarios</th>
                     </tr>
                 </thead>
 
@@ -47,9 +49,13 @@
                             {{ item.login }}
                         </td>
                         <td>
-                            General : {{ item.valor_general }} <br>
-                            Limpieza: {{ item.valor_limpieza }} <br>
-                            Servicio: {{ item.valor_servicio }} <br>
+                            {{ item.valor_general }}
+                        </td>
+                        <td>
+                            {{ item.valor_limpieza }}
+                        </td>
+                        <td>
+                            {{ item.valor_servicio }}
                         </td>
                         <td>
                             {{ item.redes_sociales }}

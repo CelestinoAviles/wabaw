@@ -9,7 +9,7 @@ angular.module('dispositivopreferencias')
         controller: function EntidadController($scope, $http, $routeParams, $location) {
 
             var auxRuta = '/dispositivopreferencias/api/v1/dispositivopreferencias';
-            var auxEntidad = 'dispositivopreferencias';
+            var auxEntidad = 'Gestionar dispositivos y asignar a espacios';
             
             $scope.rate = 1;
             $scope.max = 5;

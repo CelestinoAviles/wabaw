@@ -24,18 +24,25 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <label>Código Espacio (está en su mesa)</label>
-                    <input class="form-control" ng-model="datSel.codigo_espacio" data-toggle="tooltip" title="Código que aparece en su espacio">
+                    <label>Código Espacio</label>
+                    <input class="form-control" ng-readonly="true" ng-model="datSel.codigo_espacio" data-toggle="tooltip" title="Código que aparece en su espacio">
                 </div>
             </div>
             <br>
 
             <div class="row">
-                <div class="col-xs-3">
-                    <label for="sel1">Idioma:</label>
-                    <input class="form-control" ng-model="datSel.idioma_dispositivo">
+                <div class="col-xs-12">
+                    <label for="gen">Idioma:</label><br>
+            <div class="row">
+                <div class="col-xs-4">
+                    <input name="gen" type="radio" ng-model="datSel.idioma_dispositivo" value="ES" /><img src="../../../img/lang/es.png" alt="Description"/ width="100px">Español
+                    </div>
+                <div class="col-xs-4">
+                    <input name="gen" type="radio" ng-model="datSel.idioma_dispositivo" value="EN" /><img src="../../../img/lang/uk.png" width="100px"> Inglés
+                    </div>
                 </div>
-            </div><br>
+                </div>
+            </div>
 
         </div>
     </div> 

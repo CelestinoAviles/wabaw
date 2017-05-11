@@ -17,7 +17,7 @@ angular.module('general')
             };
 
             var ccc = new Mensaje();
-            ccc.simple('hola 222');
+//            ccc.simple('hola 222');
             
         }
     })
