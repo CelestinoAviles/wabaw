@@ -15,6 +15,7 @@
     <!-- Scripts -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-translate/angular-translate.js"></script>
     <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
@@ -44,6 +45,7 @@
     <script src="./app/partials/juegos/juegos.component.js"></script>
     <script src="./app/partials/dispositivopreferencias/preferencias.module.js"></script>
     <script src="./app/partials/dispositivopreferencias/preferencias.component.js"></script>
+    <script src="./app/partials/dispositivopreferencias/preferencias.factory.js"></script>
     <script src="./app/partials/dispositivopreferencias/dispositivo-byod.component.js"></script>
     <script src="./app/partials/dispositivopreferencias/dispositivopreferencias.module.js"></script>
     <script src="./app/partials/dispositivopreferencias/dispositivopreferencias.component.js"></script>
@@ -170,6 +172,9 @@
     </div>
 
     <footer>
+        <h1>{{'HEADLINE' | translate}}</h1>
+        <h1 translate>HEADLINE</h1>
+        <h2 translate>{{ 'HEADLINE' }}</h2>
         @ 2017
     </footer>
 </body>

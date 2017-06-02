@@ -3,10 +3,10 @@
 //---------------------------------------------------------//
 (function() {
     
-angular.module('general')
-.factory("camarero", camarero);
+angular.module('preferencias')
+.factory("preferencias_factory", preferencias);
       
-function camarero () {
+function preferencias ($translate) {
 	var ret = function(){}
 //  Extraido de 
 //    http://blog.marcnuri.com/angularjs-compartir-datos-entre-controladores-empleando-servicios/
@@ -34,6 +34,12 @@ function camarero () {
         console.log('limpio login');
         return ret.login;
     };
+
+    ret.changeLanguage = function (langKey) {
+        $translate.use(langKey);
+        $translate.fallbackLanguage(['es', 'en', 'fr']);
+    };
+
     
   return ret;
 };

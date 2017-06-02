@@ -1,4 +1,4 @@
-DROP SCHEMA wabaw;
+SCHEMA wabaw;
 
 CREATE SCHEMA wabaw;
 
@@ -74,7 +74,6 @@ ARTICULOS
 DROP TABLE WABAW.ARTICULOS;
 CREATE TABLE wabaw.articulos (
     codigo    integer not null default nextval('wabaw.sqgeneral'),
-    codigo_articulo    char(10) not null,
     nombre    char(30) not null,
     descripcion char(100) not null,
     cod_familia integer not null,
@@ -400,3 +399,12 @@ CREATE TABLE wabaw.config_local (
 );
 
 
+To export:
+\connect database_name;
+\copy my_table to 'my_table.csv' csv;
+\q
+
+To import:
+\connect database_name;
+COPY my_table FROM 'my_table.csv' DELIMITER ',' CSV;
+\q

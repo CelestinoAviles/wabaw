@@ -5,6 +5,53 @@
 
 // Defino las rutas en el fichero de configuración
 'use strict';
+var translations_en = {
+    JUGAR: 'Play',
+    OPINAR: 'Post',
+    LLAMAR: 'Call',
+    PEDIR: 'Order',
+    PREFERENCIAS: 'Preferences',
+    MICUENTA: 'My Bill',
+    ESPACIO: 'Area',
+    IDIOMA: 'Language',
+    HEADLINE: 'What cool!',
+    OFERTAS: 'Offers',
+    PARAGRAPH: 'Srsly!',
+    NAMESPACE: {
+    PARAGRAPH: 'And it comes with awesome features!'
+  }
+};
+var translations_es = {
+    JUGAR: 'Jugar',
+    OPINAR: 'Opinar',
+    LLAMAR: 'Llamar',
+    PEDIR: 'Pedir',
+    PREFERENCIAS: 'Preferencias',
+    MICUENTA: 'Mi cuenta',
+    ESPACIO: 'Espacio',
+    IDIOMA: 'Idioma',
+    HEADLINE: 'Vaya lio!',
+    OFERTAS: 'Ofertas',
+    PARAGRAPH: 'Serio!',
+    NAMESPACE: {
+        PARAGRAPH: 'Y qué!'
+    }
+};
+
+angular.module('wabaw')
+    .config(['$translateProvider', function ($translateProvider) {
+  // add translation table
+        $translateProvider
+            .translations('en', translations_en);
+
+        $translateProvider
+            .translations('es', translations_es)
+            .preferredLanguage('es');
+
+        
+}]);
+
+
 angular.
   module('wabaw').
   config(['$locationProvider' ,'$routeProvider', '$httpProvider',

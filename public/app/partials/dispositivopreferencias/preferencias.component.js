@@ -6,7 +6,7 @@
 angular.module('preferencias')
     .component('preferencias', {
         templateUrl: 'app/partials/' + 'dispositivopreferencias' + '/' + 'preferencias' + '.template.html',
-        controller: function EntidadController($scope, $http, $routeParams, $location) {
+        controller: function EntidadController($scope, $http, $routeParams, $location, $translate, preferencias_factory) {
 
             var auxRuta = '/preferencias/api/v1/preferencias';
             var auxEntidad = 'preferencias';
@@ -20,9 +20,11 @@ angular.module('preferencias')
             $scope.insert = false;
             $scope.update = true;
             $scope.showPreferencias = true ;
-
+            $scope.changeLanguage = preferencias_factory.changeLanguage;
+            
             mostrarDatos();
 
+    
             function mostrarDatos() {
 
                 var dispositivo = localStorage.getItem("dispositivo");
@@ -52,6 +54,10 @@ angular.module('preferencias')
 
 
             $scope.grabar = function() {
+
+                console.log('idioma:'+ $scope.datSel.idioma_dispositivo);
+                
+                preferencias_factory.changeLanguage($scope.datSel.idioma_dispositivo);
 
                 var dispositivo = {
                     codigo_dispositivo: $scope.datSel.codigo_dispositivo,

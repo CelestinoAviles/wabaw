@@ -6,7 +6,7 @@
 angular.module('dispositivopreferencias')
     .component('dispositivopreferencias', {
         templateUrl: 'app/partials/' + 'dispositivopreferencias' + '/' + 'dispositivopreferencias' + '.template.html',
-        controller: function EntidadController($scope, $http, $routeParams, $location) {
+        controller: function EntidadController($scope, $http, $routeParams, $location, $translate ) {
 
             var auxRuta = '/dispositivopreferencias/api/v1/dispositivopreferencias';
             var auxEntidad = 'Gestionar dispositivos y asignar a espacios';
@@ -19,7 +19,8 @@ angular.module('dispositivopreferencias')
             $scope.showCategoria = false;
             $scope.insert = false;
             $scope.update = false;
-
+            $scope.changeLanguage = preferencias_factory.changeLanguage;
+    
             mostrarDatos();
 
             function mostrarDatos() {
@@ -67,6 +68,7 @@ angular.module('dispositivopreferencias')
                     codigo_espacio    : $scope.datSel.codigo_espacio,
                 };
 
+                
                 // Guardamos directo el JSON al localStorage:
 
                 var dispositivoAGuardar = JSON.stringify(dispositivo);
@@ -105,6 +107,9 @@ angular.module('dispositivopreferencias')
 
 
             $scope.grabar = function() {
+
+                console.log('idioma: '+ $scope.datSel.idioma_dispositivo);
+                
                 if ($scope.insert) {
                     $scope.showCategoria = false;
                     $scope.insert = false;

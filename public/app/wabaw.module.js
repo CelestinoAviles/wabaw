@@ -7,6 +7,7 @@ angular.module('wabaw', [
     'ui.grid',
     'ui.grid.edit',
     'ui.bootstrap',
+    'pascalprecht.translate',
     'ngtweet',
     'ngTable',
     'general',

@@ -11,7 +11,7 @@
     angular.module('inicio')
 		    .component('inicio', {
 		        templateUrl: 'app/partials/inicio/inicio.template.html',
-		        controller: function InicioController($scope, $routeParams, $location, servicio) {
+		        controller: function InicioController($translate, $scope, $routeParams, $location, servicio) {
                     
 
 //                    CargarFacebook();
@@ -31,6 +31,7 @@
                     $scope.dispositivo = preferencias.nombre_dispositivo;
                     $scope.espacio     = preferencias.codigo_espacio;
                     $scope.idioma      = preferencias.idioma_dispositivo;
+                    $translate.use($scope.idioma);
                     
 //                    srvGeneral.miFuncion('Hola');
 //                    aux = srvGeneral.calculoIVA(10, 12);

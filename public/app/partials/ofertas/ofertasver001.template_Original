@@ -3,16 +3,16 @@
     <div class="row"><br/></div>
     <div class="panel panel-primary" ng-show="!showOfertas">
         <div class="panel-heading">
-            <h3 class="panel-title" translate> {{ texto }}</h3>
+            <h3 class="panel-title"> {{ texto }}</h3>
         </div>
 
         <div class="panel-body">
             <div ng-repeat="item in dat | filter:filtroTexto">
                 <div class="col-xs-3">
                     <div class="oferta">
-                        <div class="image">
-                            <img ng-src= {{item.url}} alt="Imagen" class="object-fit_contain">
-                        </div>
+                    <div class="img-oferta">
+                        <img ng-src= {{item.url}} alt="Imagen">
+                    </div>
                         <div class="caption">
                             <h3>{{ item.nombre }}</h3>
                             <p> Finaliza: {{ item.fechafin  | date: 'dd/MM/yyyy hh:mm' }} </p>
@@ -29,7 +29,6 @@
             </div>
         </div>
     </div>
-
 
     
     <div class="panel panel-primary" ng-show="showCategoria">
@@ -62,30 +61,3 @@
 
 
 </div>
-
-<!-- Pruebas de imagenes
-    <div class="original-image">
-        <p>original image</p>
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14179/image.png"> 
-    </div>
-    <div class="image">
-        <p>object-fit: fill</p>
-        <img class="object-fit_fill" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14179/image.png">
-    </div>
-    <div class="image"> 
-        <p>object-fit: contain</p>
-        <img class="object-fit_contain" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14179/image.png">
-    </div>
-    <div class="image">
-        <p>object-fit: cover</p>
-        <img class="object-fit_cover" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14179/image.png">
-    </div>
-    <div class="image">
-        <p>object-fit: none</p>
-        <img class="object-fit_none" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14179/image.png">
-    </div>
-    <div class="image"> 
-        <p>object-fit: scale-down</p>
-        <img class="object-fit_scale-down" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14179/image.png">
-    </div>    
--->

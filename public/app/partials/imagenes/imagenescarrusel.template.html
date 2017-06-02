@@ -2,11 +2,15 @@
     <div>
       <carousel interval="myInterval">
         <slide ng-repeat="item in dat" active="item.active">
-          <img ng-src="{{item.url}}">
-          <div class="carousel-caption">
-              <h4>{{ item.descripcion }} </h4>
-              <h5>{{$index+1}}</h5>
-          </div>
+            <div>
+                <div class="image">
+                    <img ng-src="{{item.url}}" class="object-fit_contain">
+                </div>
+                <div class="carousel-caption">
+                    <h4>{{ item.descripcion }} </h4>
+                    <h5>{{$index+1}}</h5>
+                </div>
+            </div>
         </slide>
       </carousel>
     </div>

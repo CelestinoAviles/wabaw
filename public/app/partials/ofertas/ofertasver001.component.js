@@ -23,7 +23,7 @@ angular.module('ofertas')
 
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get(auxRuta)
+                $http.get('/ofertas/api/v1/ofertas-ver')
                     .success((data) => {
                     $scope.dat = data;
                 })

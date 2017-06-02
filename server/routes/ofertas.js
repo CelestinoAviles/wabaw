@@ -62,7 +62,7 @@ router.post('/api/v1/ofertas', (req, res, next) => {
 //
 // LEER DATOS
 //
-router.get( '/api/v1/ofertas', (req, res, next) => {
+router.get( '/api/v1/ofertas-ver', (req, res, next) => {
   const results = [];
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, (err, client, done) => {
@@ -79,6 +79,39 @@ router.get( '/api/v1/ofertas', (req, res, next) => {
       aux = aux + ' LEFT OUTER JOIN WABAW.ARTICULOS_IMAGENES  ON ARTICULOS.CODIGO = ARTICULOS_IMAGENES.CODIGO_ARTICULO '
       aux = aux + ' LEFT OUTER JOIN WABAW.IMAGENES  ON ARTICULOS_IMAGENES.CODIGO_IMAGEN =  WABAW.IMAGENES.CODIGO '
       aux = aux + ' WHERE WABAW.ARTICULOS_IMAGENES.NUMERO_ORDEN = 1'
+      aux = aux + ' ORDER BY id DESC'
+    const query = client.query( aux );
+    // Stream results back one row at a time
+    query.on('row', (row) => {
+      results.push(row);
+    });
+    // After all data is returned, close connection and return results
+    query.on('end', () => {
+      done();
+      return res.json(results);
+    });
+  });
+});
+
+
+
+//
+// LEER DATOS
+//
+router.get( '/api/v1/ofertas', (req, res, next) => {
+  const results = [];
+  // Get a Postgres client from the connection pool
+  pg.connect(connectionString, (err, client, done) => {
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return res.status(500).json({success: false, data: err});
+    }
+    // SQL Query > Select Data
+      var aux = 'SELECT ID, O.CODIGO_ARTICULO, A.NOMBRE, O.FECHAINICIO, O.FECHAFIN, O.PVP '
+      aux = aux + ' FROM wabaw.ofertas O, wabaw.articulos A'
+      aux = aux + ' WHERE O.CODIGO_ARTICULO = A.CODIGO'
       aux = aux + ' ORDER BY id DESC'
     const query = client.query( aux );
     // Stream results back one row at a time

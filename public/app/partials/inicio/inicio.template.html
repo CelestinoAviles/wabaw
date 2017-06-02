@@ -3,15 +3,16 @@
         <a href="#!/juegos" class="btn btn-primary btn-block" role="button">
             <h1>
                 <span class="glyphicon glyphicon-knight"></span> 
-                Jugar
+                {{ 'JUGAR' | translate }}
             </h1>
         </a>
+        
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
         <a href="#!/postsCliente" class="btn btn-primary btn-block" role="button">
             <h1>
                 <span class="glyphicon glyphicon-pencil"></span> 
-                Opinar
+                {{ 'OPINAR' | translate }}
             </h1>
         </a>
     </div>
@@ -19,14 +20,15 @@
         <a href="#!/llamada" class="btn btn-primary btn-block" role="button">
             <h1>
                 <span class="glyphicon glyphicon-bell"></span> 
-                Llamar
+                {{ 'LLAMAR' | translate }}
             </h1>
         </a>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
         <a href="#!/preferencias" class="btn btn-primary btn-block" role="button">
             <h1>
-                <span class="glyphicon glyphicon-cog"></span> Preferencias
+                <span class="glyphicon glyphicon-cog"></span> 
+                {{ 'PREFERENCIAS' | translate }}
             </h1>
         </a>
     </div>
@@ -39,7 +41,7 @@
         <a href="#!/familiasVer" class="btn btn-success btn-block" role="button">
             <h1>
                 <span class="glyphicon glyphicon-shopping-cart"></span> 
-                Pedir
+                {{ 'PEDIR' | translate }}
             </h1>
         </a>
     </div>
@@ -47,16 +49,17 @@
 <!--        <a href="#!/mesaTicket0" class="btn btn-primary btn-block" role="button"> -->
         <a href="#!/mesaTicketCliente/{{espacio}}" class="btn btn-primary btn-block" role="button">
             <h1>
-                <span class="glyphicon glyphicon-euro"></span> Mi cuenta
+                <span class="glyphicon glyphicon-euro"></span>
+                {{ 'MICUENTA' | translate }}
             </h1>
         </a>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
         <div class="col-xs-6">
-            Espacio: {{ espacio }}
+            {{ 'ESPACIO' | translate }}: {{ espacio }}
         </div>
         <div class="col-xs-6">
-            Idioma: {{ idioma }}
+            {{ 'IDIOMA' | translate }}: {{ idioma }}
         </div>
     </div>
 </div>

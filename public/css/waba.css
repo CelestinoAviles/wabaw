@@ -108,6 +108,20 @@ header {
     border-radius: 1px;
 }
 
+/* Imagenes ofertas */
+.img-oferta {
+    object-fit: fill;
+    max-width: 300px;
+    max-height: 300px;
+    border-bottom-color: blue;
+    background-color: lightblue;
+    overflow: hidden;
+}
+
+.oferta {
+    border-bottom-color: blue;
+    background-color: lightblue;
+}
 
 /* Para validación de campos */
 
@@ -126,10 +140,45 @@ header {
 #slides_control {
     position: relative;
     text-align: center;
-    width: 300px;
+    width: 100%;
+    float: left;
+    left: 20%;
+    max-width: 300px;
     height: 300px;
-    left: 40%;
     top: 20px;
 }
 
 
+/* */
+.object-fit_fill { object-fit: fill }
+.object-fit_contain { object-fit: contain }
+.object-fit_cover { object-fit: cover }
+.object-fit_none { object-fit: none }
+.object-fit_scale-down { object-fit: scale-down }
+
+html { 
+  color: #eee; 
+  font-size: 200%;
+  padding: 30px;
+  font-family: 'Source Code Pro', Monaco;
+  background-color: lightblue;
+}
+
+p { font-weight: 200; font-size: 100%; margin-bottom: 10px; margin-top: 0;}
+
+img { height: 200px; background-color: lightblue;}
+
+img[class] { 
+  width: 100%;
+}
+
+.original-image {
+  margin-bottom: 50px;
+}
+
+.image {
+  float: left;
+  width: 100%;
+  margin: 0 30px 20px 0;
+  
+}
