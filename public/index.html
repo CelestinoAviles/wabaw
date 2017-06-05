@@ -24,6 +24,8 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
     <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
     <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>    
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="bower_components/angular-socialshare/dist/angular-socialshare.js"></script>    
 
     <script src="./bower_components/bootstrap-rating.js"></script>    
 
@@ -127,6 +129,8 @@
     <script src="./app/partials/pago/pago-paypal.component.js"></script>
     <script src="./app/partials/pago/pago-tarjeta.module.js"></script>
     <script src="./app/partials/pago/pago-tarjeta.component.js"></script>
+    <script src="./app/partials/rrss/rrss.module.js"></script>
+    <script src="./app/partials/rrss/rrss.component.js"></script>
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>    
@@ -172,9 +176,7 @@
     </div>
 
     <footer>
-        <h1>{{'HEADLINE' | translate}}</h1>
-        <h1 translate>HEADLINE</h1>
-        <h2 translate>{{ 'HEADLINE' }}</h2>
+        <rrss></rrss>
         @ 2017
     </footer>
 </body>

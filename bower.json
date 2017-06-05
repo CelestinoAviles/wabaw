@@ -14,7 +14,8 @@
     "angular-route": "1.5.x",
     "angular-resource": "1.5.x",
     "angular-rating": "^3.1.0",
-    "ngtweet": "^0.6.1"
+    "ngtweet": "^0.6.1",
+    "angular-socialshare": "angularjs-socialshare#^2.3.8"
   },
   "resolutions": {
     "angular": "^1.6.2"

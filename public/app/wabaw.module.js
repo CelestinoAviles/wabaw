@@ -8,8 +8,8 @@ angular.module('wabaw', [
     'ui.grid.edit',
     'ui.bootstrap',
     'pascalprecht.translate',
-    'ngtweet',
     'ngTable',
+    '720kb.socialshare',
     'general',
     'menuGestor',
     'menuMantenimientos',
@@ -43,6 +43,7 @@ angular.module('wabaw', [
     'dispositivopreferencias',
     'preferencias',
     'juegos',
-    'llamada'
+    'llamada',
+    'rrss'
 ]);
 
