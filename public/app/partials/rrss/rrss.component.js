@@ -9,6 +9,34 @@ angular.module('rrss')
         templateUrl: 'app/partials/rrss/rrss.template.html',
         controller: function RrssController($scope, $http, $routeParams, $location) {
 
+            console.log('1 ' + this.parametro + ' 1');
+            
+            $scope.verTwitterEmpresa = false;
+
+            $scope.textoTwitter = "Un sitio estupendo para tomar cualquier cosanooo";
+            $scope.urlTwitter = "http://www.pensionsegura.es/index.php?section=catalogo&idioma=es"
+            if (this.parametro == "empresa") {
+                $scope.verTwitterEmpresa = true;
+                $scope.textoTwitter = "";
+                $scope.urlTwitter = "https://twitter.com/river97";
+                $scope.tagTwitter = "HeladeriaAlfonso, PensionSegura"
+            };
+            if (this.parametro == "general") {
+                $scope.textoTwitter = "Un sitio estupendo para tomar cualquier cosa";
+                $scope.urlTwitter = "http://www.pensionsegura.es/index.php?section=catalogo&idioma=es";
+                $scope.tagTwitter = "HeladeriaAlfonso, PensionSegura"
+            };
+            if (this.parametro == "pie") {
+                $scope.textoTwitter = "Un sitio estupendo para relajarte";
+                $scope.urlTwitter = "http://www.pensionsegura.es/"
+                $scope.tagTwitter = "HeladeriaAlfonso, PensionSegura"
+            };
+            if (this.parametro == "producto") {
+                $scope.textoTwitter = "Es interesante probar este producto";
+                $scope.urlTwitter = "http://www.pensionsegura.es/"
+                $scope.tagTwitter = "HeladeriaAlfonso"
+            };
+
             $scope.texto = "Redes Sociales";
             $scope.dat = [];
             $scope.datSel = [];
@@ -21,14 +49,16 @@ angular.module('rrss')
 
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get('/empleados/api/v1/empleados')
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
+                
+                $http({
+                    method: 'GET',
+                    url: '/empleados/api/v1/empleados'
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
-            
+
             }
 
             $scope.ver = function(index) {
@@ -48,12 +78,13 @@ angular.module('rrss')
         
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].codigo;
-                $http.delete('empleados/api/v1/empleados/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+                $http({
+                    method: 'DELETE',
+                    url: 'empleados/api/v1/empleados/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
             }
 
@@ -76,32 +107,39 @@ angular.module('rrss')
                 if ($scope.insert) {
                     $scope.showCategoria = false;
                     $scope.insert = false;
-                    
-                    $http.post('/empleados/api/v1/empleados', $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: '/empleados/api/v1/empleados', 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
+                
                 }
-                 else {
-                     var auxId = $scope.datSel.codigo;
-                     console.log($scope.datSel);
-                     $http.put('/empleados/api/v1/empleados/' + auxId, $scope.datSel)
-                         .success((data) => {
+                else {
+                    var auxId = $scope.datSel.codigo;
+                    console.log($scope.datSel);
+                    $http({
+                        method: 'PUT',
+                        url: '/empleados/api/v1/empleados/' + auxId, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
                         $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
 
                     $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;
                     $scope.insert = false;
                 };
             }
-        }
+        },
+    bindings: {
+        parametro: '@'
+    }
     });
 
 })();

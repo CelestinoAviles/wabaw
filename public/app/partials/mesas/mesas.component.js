@@ -24,27 +24,34 @@ angular.module('mesas')
             $scope.update = false;
 
             $scope.mesas = [];
-            $http.get('app/partials/mesas/mesas.json')
-                .success(function(data) {
-                    $scope.dat = data;
-                })
-                .error(function(data) {
-                    alert("error");
-                });
+            
+            $scope.nomTipos = [{
+                id: 'B',
+                nomTipo: 'Barra'
+            }, {
+                id: 'S',
+                nomTipo: 'Salón'
+            }, {
+                id: 'T',
+                nomTipo: 'Terraza'
+            }];
+            
+
             mostrarDatos();
 
             //            $scope.entity = {}
 
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get('/mesas/api/v1/mesas')
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
+                $http({
+                    method: 'GET',
+                    url: '/mesas/api/v1/mesas'
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
-            
+
             }
 
             $scope.ver = function(index) {
@@ -66,12 +73,13 @@ angular.module('mesas')
         
             $scope.delete = function(index) {
                 var auxCodigo = $scope.dat[index].codigo;
-                $http.delete('mesas/api/v1/mesas/' + auxCodigo)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+                $http({
+                    method: 'DELETE',
+                    url: 'mesas/api/v1/mesas/' + auxCodigo
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
             }
 
@@ -95,22 +103,26 @@ angular.module('mesas')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post('/mesas/api/v1/mesas', $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: '/mesas/api/v1/mesas', 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
                 }
                  else {
-                     $http.put('/mesas/api/v1/mesas/' + $scope.datSel.codigo, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
+                    $http({
+                        method: 'PUT',
+                        url: '/mesas/api/v1/mesas/' + $scope.datSel.codigo,
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
 
                     $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;

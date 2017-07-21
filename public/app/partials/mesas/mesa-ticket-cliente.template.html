@@ -15,7 +15,7 @@
         <tbody>
             <tr class="bg-success" ng-repeat="item in datMesa">
                 <td>
-                    <button class="btn btn-primary" ng-click="llamar($index)" data-toggle="tooltip" title="Llamar al camarero"><i   class="glyphicon glyphicon-bell"></i></button>
+                    <button class="btn btn-primary" ng-click="llamar(item)" data-toggle="tooltip" title="Llamar al camarero"><i   class="glyphicon glyphicon-bell"></i></button>
                 </td>
                 <td>
                     {{ item.nombre }}
@@ -110,9 +110,9 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
         <tbody>
             <tr ng-repeat="item in datLineasTickets | filter:filtroTexto" >
                 <td>
-                    <button class="btn btn-primary" ng-click="copiarTicketLinea($index)" data-toggle="tooltip" title="Pedir uno más"><i     class="glyphicon glyphicon-plus"></i></button>
-                    <button class="btn btn-danger"  ng-click="borrarTicketLinea($index)" data-toggle="tooltip" title="Cancelar pedido"><i   class="glyphicon glyphicon-remove"></i></button>
-                    <button class="btn btn-primary"  ng-click="opinarTicketLinea($index)" data-toggle="tooltip" title="Opinar"><i   class="glyphicon glyphicon-pushpin"></i></button>
+                    <button class="btn btn-primary" ng-click="copiarTicketLinea(item)" data-toggle="tooltip" title="Pedir uno más"><i     class="glyphicon glyphicon-plus"></i></button>
+                    <button class="btn btn-danger"  ng-click="borrarTicketLinea(item)" data-toggle="tooltip" title="Cancelar pedido"><i   class="glyphicon glyphicon-remove"></i></button>
+                    <button class="btn btn-primary"  ng-click="opinarTicketLinea(item)" data-toggle="tooltip" title="Opinar"><i   class="glyphicon glyphicon-pushpin"></i></button>
                     
                 </td>
                 <td>
@@ -165,10 +165,14 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
                 <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSelArtOpi.login">
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-6">
-                <label for="sel1">Valoración de 1 a 5:</label>
+                <label for="sel1">Valoración general (1-5):</label>
+                <select ng-options="h.valor as h.nomvalor for h in valoraciones"
+                        ng-model="datSelArtOpi.valorgeneral"
+                        class="form-control">
+                </select>
                 <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSelArtOpi.valorgeneral">
             </div>
         </div><br>

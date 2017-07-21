@@ -8,7 +8,7 @@ angular.module('usuarios')
         templateUrl: 'app/partials/usuarios/usuarios.template.html',
         controller: function UsuariosController($scope, $http, $routeParams, $location) {
 
-            $scope.texto = "Usuarios";
+            $scope.texto = "Usuarios / Clientes";
             $scope.dat = [];
             $scope.datSel = [];
             $scope.showCategoria = false;
@@ -20,11 +20,12 @@ angular.module('usuarios')
 
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get('/usuarios/api/v1/usuarios')
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
+                $http({
+                    method: 'GET',
+                    url: '/usuarios/api/v1/usuarios'
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
             
@@ -43,16 +44,16 @@ angular.module('usuarios')
                 $scope.ver(index);
                 $scope.update = true;
             }
-
         
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].codigo;
-                $http.delete('usuarios/api/v1/usuarios/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+                $http({
+                    method: 'DELETE',
+                    url: 'usuarios/api/v1/usuarios/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
             }
 
@@ -76,22 +77,26 @@ angular.module('usuarios')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post('/usuarios/api/v1/usuarios', $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: '/usuarios/api/v1/usuarios', 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
                 }
                  else {
-                     $http.put('/usuarios/api/v1/usuarios/' + $scope.datSel.codigo, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
+                    $http({
+                        method: 'PUT',
+                        url: '/usuarios/api/v1/usuarios/' + $scope.datSel.codigo, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
 
                     $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;

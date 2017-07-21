@@ -33,12 +33,12 @@
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto">
                         <td>
-                            <button class="btn btn-primary" data-toggle="tooltip" title="Ver" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" data-toggle="tooltip" title="Modificar" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-danger" data-toggle="tooltip" title="Borrar" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
-                            <button class="btn btn-primary" data-toggle="tooltip" title="Cambiar estado" ng-click="estado($index)"><i class="glyphicon glyphicon-random"></i></button>
-                            <button class="btn btn-primary" data-toggle="tooltip" title="En curso" ng-click="anotarEnCurso($index)"><i class="glyphicon glyphicon-plane"></i></button>
-                            <button class="btn btn-primary" data-toggle="tooltip" title="Servida" ng-click="anotarServida($index)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="Ver" ng-click="ver(item)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="Modificar" ng-click="edit(item)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" data-toggle="tooltip" title="Borrar" ng-click="delete(item)"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="Cambiar estado" ng-click="estado(item)"><i class="glyphicon glyphicon-random"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="En curso" ng-click="anotarEnCurso(item)"><i class="glyphicon glyphicon-plane"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="Servida" ng-click="anotarServida(item)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
                         </td>
                         <td>
                             {{ item.nombre_mesa }}

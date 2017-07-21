@@ -26,7 +26,7 @@ angular.module('mesas-tickets')
             $scope.loadMiTicketLineas     = loadMiTicketLineas;
 
             $scope.showTicketLineaOpinion = false;
-            $scope.codigo_espacio     = auxValor;
+            $scope.codigo_mesa     = auxValor;
 
             // Actualizo el fichero local con el código de la mesa.
             pref = actualizoPreferencias(auxValor);
@@ -37,32 +37,18 @@ angular.module('mesas-tickets')
             //  When the user selects a "Customer" from our MasterView list, we'll set this variable.
             $scope.selectedCustomer = null;
             $scope.codigoMesaSeleccionado = null;
-            console.log('Cargo los datos de la mesa del espacio:' + $scope.codigo_espacio );
-            loadMiMesa($scope.codigo_espacio);
+            console.log('Cargo los datos de la mesa del espacio:' + $scope.codigo_mesa );
+            loadMiMesa($scope.codigo_mesa);
 
 
             // Cargo el ticket que hay asociado a la mesa, si es que lo hay.
             var auxCodTicket= null;
-            auxCodTicket = loadMiTicket($scope.codigo_espacio);
+            auxCodTicket = loadMiTicket($scope.codigo_mesa);
             console.log("Código ticket:" + auxCodTicket);
-            console.log("Código ticket:" + auxCodTicket);
-            console.log("Código ticket:" + auxCodTicket);
-            console.log("Código ticket:" + auxCodTicket);
-            
-
-            
-            
-            
-            
-            
-            
+        
             $scope.showEstado = false;
             //  We'll load our list of Customers from our JSON Web Service into this variable
             $scope.listOfCustomers = null;
-
-            
-
-
 
             // 
             // Mesa que solicita asistencia de un camarero.
@@ -83,7 +69,7 @@ angular.module('mesas-tickets')
                     codigo_dispositivo: preferencias.codigo_dispositivo,
                     nombre_dispositivo: preferencias.nombre_dispositivo,
                     idioma_dispositivo: preferencias.idioma_dispositivo,
-                    codigo_espacio    : auxPrm
+                    codigo_mesa       : auxPrm
                 };
 
                 // Guardamos directo el JSON al localStorage:
@@ -100,11 +86,14 @@ angular.module('mesas-tickets')
             // Cargo los datos de la mesa
             //
             function loadMiMesa(auxPrm) {
-                $http.get('/mesas/api/v1/mesas/' + auxPrm )
-                    .success((data) => {
-                    $scope.datMesa = data;
+
+                $http({
+                    method: 'GET',
+                    url: '/mesas/api/v1/mesas/' + auxPrm
+                }).then( function( response ) {
+                    $scope.datMesa = response.data;
                     console.log('datos de la mesa seleccionada:' + auxPrm);
-                    console.log(data);
+                    console.log(response.data);
 
                     $scope.codigoMesaSeleccionado = $scope.datMesa[0].codigo;
                     
@@ -112,10 +101,8 @@ angular.module('mesas-tickets')
                     console.log('Codigo Mesa Seleccionado:' + auxPrm);
                     console.log($scope.codigoMesaSeleccionado);
                     
-                    $scope.listOfCustomers = data.GetAllCustomersResult;
-
-                })
-                .error((error) => {
+                    $scope.listOfCustomers = response.data.GetAllCustomersResult;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
                 
@@ -128,16 +115,17 @@ angular.module('mesas-tickets')
                 console.log('entro para cargar los datos del ticket de la mesa: ' + auxMesa);
                 console.log('entro para cargar los datos del ticket de la mesa: ' + $scope.codigoMesaSeleccionado);
                 var codTicket = null;
-                $http.get('/tickets/api/v1/mesa-tickets/' + auxMesa )
-                    //  The user has selected a Customer from our Drop Down List.  Let's load this Customer's records.
                 
-                    .success(function (data) {
-                        $scope.listOfOrders = data.GetBasketsForCustomerResult;
-                        $scope.datTickets = data;
+                $http({
+                    method: 'GET',
+                    url: '/tickets/api/v1/mesa-tickets/' + auxMesa
+                }).then( function( response ) {
+                        $scope.listOfOrders = response.data.GetBasketsForCustomerResult;
+                        $scope.datTickets = response.data;
                         console.log('saco los tickets');
-                        console.log(data);
-                        console.log(data.length);
-                        if (data.length > 0 ) {
+                        console.log(response.data);
+                        console.log(response.data.length);
+                        if (response.data.length > 0 ) {
                             codTicket = $scope.datTickets[0].codigo;
                             $scope.cod_ticket = codTicket;
                         }
@@ -150,12 +138,12 @@ angular.module('mesas-tickets')
 //                        recalcularTicket();
                         recalculo(codTicket);
                         loadMiTicketLineas(codTicket);
-                    })
-                    .error(function (data, status, headers, config) {
+                }, function (error) {
                         $scope.errorMessage = "Couldn't load the list of Orders, error # " + status;
                         codTicket = 0;
                         $scope.cod_ticket = codTicket;
-                    });
+                });
+
                 return codTicket;
             }            
 
@@ -163,106 +151,116 @@ angular.module('mesas-tickets')
             function loadMiTicketLineas(auxCodTicket) {
                 console.log('entro para cargar los datos de la mesa');
                 console.log(auxCodTicket);
-                $http.get('/ticketslineas/api/v1/ticketslineas/' + auxCodTicket )
-                    .success(function (data) {
-                        $scope.listOfOrders = data.GetBasketsForCustomerResult;
-                        $scope.datLineasTickets = data;
-                        console.log('saco las lineas de los tickets');
-                        console.log($scope.datLineasTickets);
-                        // Recalculo el ticket
-//                        recalcularTicket();
-                    })
-                    .error(function (data, status, headers, config) {
-                        $scope.errorMessage = "Couldn't load the list of Orders, error # " + status;
-                    });
+                
+                $http({
+                    method: 'GET',
+                    url: '/ticketslineas/api/v1/ticketslineas/' + auxCodTicket
+                }).then( function( response ) {
+                    $scope.listOfOrders = response.data.GetBasketsForCustomerResult;
+                    $scope.datLineasTickets = response.data;
+                    console.log('saco las lineas de los tickets');
+                    console.log($scope.datLineasTickets);
+                    // Recalculo el ticket
+                    //                        recalcularTicket();
+                }, function (error) {
+                    $scope.errorMessage = "Couldn't load the list of Orders, error # " + status;
+                });
+
             };
             
             
             $scope.loadLineasTicket = function () {
                 console.log('entro para cargar los datos de la mesa');
                 console.log($scope.ticketSeleccionado);
-                $http.get('/ticketslineas/api/v1/ticketslineas/' + $scope.ticketSeleccionado )
-                    .success(function (data) {
-                        $scope.listOfOrders = data.GetBasketsForCustomerResult;
-                        $scope.datLineasTickets = data;
-                        console.log('saco las lineas de los tickets');
-                        console.log($scope.datLineasTickets);
-                        // Recalculo el ticket
-                        recalcularTicket();
-                    })
-                    .error(function (data, status, headers, config) {
-                        $scope.errorMessage = "Couldn't load the list of Orders, error # " + status;
-                    });
+                
+                $http({
+                    method: 'GET',
+                    url: '/ticketslineas/api/v1/ticketslineas/' + $scope.ticketSeleccionado
+                }).then( function( response ) {
+                    $scope.listOfOrders = response.data.GetBasketsForCustomerResult;
+                    $scope.datLineasTickets = response.data;
+                    console.log('saco las lineas de los tickets');
+                    console.log($scope.datLineasTickets);
+                    // Recalculo el ticket
+                    recalcularTicket();
+                }, function (error) {
+                    $scope.errorMessage = "Couldn't load the list of Orders, error # " + status;
+                });
+                
             }
 
             // Borrando linea de ticket   ////
-            function borrarTicketLinea (index) {
+            function borrarTicketLinea (item) {
                 console.log('entro para borrar una linea. Ticket seleccionado');
                 console.log($scope.ticketSeleccionado);
-                $scope.datSelTicketLinea = $scope.datLineasTickets[index];
+                $scope.datSelTicketLinea = item;
                 console.log($scope.datSelTicketLinea);
                 console.log($scope.datSelTicketLinea.codigo);
                 if (!$scope.datSelTicketLinea.estado) {
 
-                        var auxId = $scope.datSelTicketLinea.codigo;
-                        var auxCodTicket = $scope.datSelTicketLinea.cod_ticket;
-                        console.log(auxId);
-                        console.log(auxCodTicket);
-                    
-                        $http.delete('/ticketslineas/api/v1/ticketslineas/' + auxId)
-                            .success((data) => {
-                            $scope.datLineasTickets = data;
-                            console.log('Borrando: ' + auxCodTicket);
-                            loadMiTicketLineas(auxCodTicket);
-                            $scope.datLineasTickets = data;
-                        })
-                            .error((data) => {
-                            console.log('Error: ' + data);
-                        });
-                    
-                    } else {
-                        alert('No se puede borrar porque tiene estado definido: ' + $scope.datSelTicketLinea.estado);
-                    }
+                    var auxId = $scope.datSelTicketLinea.codigo;
+                    var auxCodTicket = $scope.datSelTicketLinea.cod_ticket;
+                    console.log(auxId);
+                    console.log(auxCodTicket);
 
-                return;
-                
-                $http.get('/ticketslineas/api/v1/ticketslineas/' + $scope.ticketSeleccionado )
-                    //  The user has selected a Customer from our Drop Down List.  Let's load this Customer's records.
-                    .success(function (data) {
-                        $scope.listOfOrders = data.GetBasketsForCustomerResult;
-                        $scope.datLineasTickets = data;
-                        console.log('saco las lineas de los tickets');
-                    })
-                    .error(function (data, status, headers, config) {
-                        $scope.errorMessage = "Couldn't load the list of Orders, error # " + status;
+                    $http({
+                        method: 'DELETE',
+                        url: '/ticketslineas/api/v1/ticketslineas/' + auxId
+                    }).then( function( response ) {
+                        $scope.datLineasTickets = response.data;
+                        console.log('Borrando: ' + auxCodTicket);
+                        loadMiTicketLineas(auxCodTicket);
+                        $scope.datLineasTickets = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
                     });
+                    
+                    
+                } else {
+                    alert('No se puede borrar porque tiene estado definido: ' + $scope.datSelTicketLinea.estado);
+                }
+                
+                return;
+
+                $http({
+                    method: 'GET',
+                    url: '/ticketslineas/api/v1/ticketslineas/' + $scope.ticketSeleccionado
+                }).then( function( response ) {
+                    $scope.listOfOrders = response.data.GetBasketsForCustomerResult;
+                    $scope.datLineasTickets = response.data;
+                    console.log('saco las lineas de los tickets');
+                }, function (error) {
+                    $scope.errorMessage = "Couldn't load the list of Orders, error # " + status;
+                });
             }            
             
 
            // Copiar una linea para pedir otro producto igual
-            function copiarTicketLinea (index) {
+            function copiarTicketLinea (item) {
                 console.log('Copiar una linea y pedir una unidad');
                 console.log($scope.datLineasTickets);
                 console.log('Copiar esta y pedir una unidad');
-                console.log($scope.datLineasTickets[index]);
+                console.log(item);
                 console.log('Este codigo de ticket');
-                console.log($scope.datLineasTickets[index].cod_ticket);
-                $scope.datSelTicketLinea = $scope.datLineasTickets[index];
+                console.log(item.cod_ticket);
+                $scope.datSelTicketLinea = item;
                 $scope.datSelTicketLinea.estado = null;
                 $scope.datSelTicketLinea.cantidad = 1;
                 $scope.datSelTicketLinea.total = $scope.datSelTicketLinea.pvu;
                 console.log('Este ticket');
                 console.log($scope.datSelTicketLinea);
                 
-                $http.post('/ticketslineas/api/v1/ticketslineas', $scope.datSelTicketLinea)
-                        .success((data) => {
-                        $scope.datLineasTickets = data;
+                $http({
+                    method: 'POST',
+                    url: '/ticketslineas/api/v1/ticketslineas', 
+                    data: $scope.datSelTicketLinea
+                }).then( function( response ) {
+                        $scope.datLineasTickets = response.data;
                         recalcularTicket($scope.datTickets[0])
-                    })
-                        .error((error) => {
-                        console.log('Error: ' + error);
-                    });
-                
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
+
                 return;
                 
             }            
@@ -312,7 +310,7 @@ angular.module('mesas-tickets')
             };
 
 
-            function verTicket(index) {
+            function verTicket(item) {
                 console.log($scope.datTickets);
                 $scope.datSelTicket = $scope.datTickets[0];
                 console.log($scope.datSelTicket);
@@ -325,24 +323,21 @@ angular.module('mesas-tickets')
                 $scope.verDetalleTicket = false;
             }
             
-            $scope.ver = function(index) {
+            $scope.ver = function(item) {
                 $scope.datSel = {};
-                $scope.datSel = $scope.dat[index];
-                $scope.datSel.index = index;
+                $scope.datSel = item;
                 $scope.showCategoria = true;
                 $scope.insert = false;
                 $scope.upate = false;
             }
 
-            $scope.edit = function(index) {
-                //                $scope.entity = $scope.mesas[index];
-                //                $scope.entity.index = index;
-                $scope.ver(index);
+            $scope.edit = function(item) {
+                $scope.ver(item);
                 $scope.update = true;
             }
 
-            $scope.cambiarEstado = function(index) {
-                $scope.ver(index);
+            $scope.cambiarEstado = function(item) {
+                $scope.ver(item);
                 $scope.showEstado = true;
                 $scope.update = true;
             }
@@ -354,27 +349,31 @@ angular.module('mesas-tickets')
             function recalculo(auxCod) {
                     console.log('entro a recalculo en bbdd:' + auxCod );
                     console.log(auxCod);
-                    $http.put('/tickets/api/v1/tickets/recalcular/' + auxCod)
-                        .success((data) => {
-                        $scope.datTickets = data;
-                    })
-                        .error((error) => {
+                
+                    $http({
+                        method: 'PUT',
+                        url: '/tickets/api/v1/tickets/recalcular/' + auxCod, 
+                    }).then( function( response ) {
+                        $scope.datTickets = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
-  
+                
             };
 
             
-            $scope.delete = function(index) {
-                var auxId = $scope.dat[index].id;
-                
-                $http.delete('mesas/api/v1/mesas/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+            $scope.delete = function(item) {
+                var auxId = item.id;
+
+                $http({
+                    method: 'DELETE',
+                    url: 'mesas/api/v1/mesas/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
+                
                 
             }
 
@@ -391,7 +390,7 @@ angular.module('mesas-tickets')
                     codigo: 0, 
                     cod_cliente:   1,
                     cod_empleado:  1,
-                    cod_espacio:    $scope.codigo_espacio,
+                    cod_espacio:    $scope.codigo_mesa,
                     fecha_ticket:   new Date(),
                     fecha_modifica: '',
                     fecha_pago:     '',
@@ -407,6 +406,8 @@ angular.module('mesas-tickets')
                 };
                     
                 $scope.insert = true;
+                console.log('voy a grabar un nuevo ticket');
+                console.log($scope.datSel);
                 $scope.grabar();
 //
                 $window.location.reload();
@@ -419,12 +420,12 @@ angular.module('mesas-tickets')
                 mostrarDatos();
             }
 
-            function opinarTicketLinea(index) {
+            function opinarTicketLinea(item) {
                 $scope.showTicketLineaOpinion = true;
                 $scope.insert = true;
                 console.log('entro para opinar sobre una linea');
                 console.log($scope.ticketSeleccionado);
-                $scope.datSelTicketLinea = $scope.datLineasTickets[index];
+                $scope.datSelTicketLinea = item;
                 console.log($scope.datSelTicketLinea);
                 $scope.datSelArtOpi = {
                     login : '-',
@@ -442,13 +443,16 @@ angular.module('mesas-tickets')
                     $scope.insert = false;
                     $scope.showTicketLineaOpinion = false;
 
-                    $http.post('/articulosopiniones/api/v1/articulosopiniones', $scope.datSelArtOpi)
-                        .success((data) => {
-                        $scope.datSelArtOpi = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url : '/articulosopiniones/api/v1/articulosopiniones', 
+                        data: $scope.datSelArtOpi
+                    }).then( function( response ) {
+                        $scope.datSelArtOpi = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
+                    
                 };
             };
 
@@ -458,20 +462,32 @@ angular.module('mesas-tickets')
                 if ($scope.insert) {
                     $scope.showCategoria = false;
                     $scope.insert = false;
+                    $http({
+                        method: 'POST',
+                        url: '/tickets/api/v1/tickets', 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.datSel = {};
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
                     
                 }
                  else {
                      console.log('entro a modificar ticket');
                      console.log($scope.datSel);
-                     $http.put('/tickets/api/v1/tickets/' + $scope.datSel.codigo, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
 
-//                    $scope.dat[$scope.index] = $scope.datSel;
+                    $http({
+                        method: 'PUT',
+                        url: '/tickets/api/v1/tickets/' + $scope.datSel.codigo, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.datSel = {};
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
+                     
+                     
                     $scope.showCategoria = false;
                     $scope.insert = false;
                 };

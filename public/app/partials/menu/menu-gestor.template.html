@@ -1,19 +1,24 @@
 <div class="container-fluid" ng-show="!login_ok"> 
     
     <div class="row">
-                <div class="col-xs-12">
-                    <label>Login</label>
-                    <input type="text" class="form-control" ng-model="login">
-                </div>
-                <div class="col-xs-12">
-                    <label>Contraseña</label>
-                    <input type="password" class="form-control" ng-model="password">
-                </div>
-        <div class="col-xs-6">
+        <div class="col-xs-12">
+            <label>Login</label>
+            <input type="text" class="form-control" ng-model="login">
+        </div>
+        <div class="col-xs-12">
+            <label>Contraseña</label>
+            <input type="password" class="form-control" ng-model="password">
+        </div>
+        <div>_</div>
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-4">
             <button class="btn btn-primary btn-block" ng-click="cancelar()">Cancelar</button>
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-4">
             <button class="btn btn-success btn-block" ng-click="validar()">Aceptar</button>
+        </div>
+        <div class="col-xs-2">
         </div>
     </div>
     
@@ -22,24 +27,53 @@
 <div class="container"  ng-show="login_ok">
 
 <div class="list-group">
-    <a href="#!/mesas" class="list-group-item ">
-        <h4 class="list-group-item-heading">Gestión de Mesas y espacios</h4>
-        <p class="list-group-item-text">Mesas y espacios del establecimiento </p>
+    <a href="#!/dispositivos" class="list-group-item ">
+        <h4 class="list-group-item-heading">Gestión de dispositivos (Tablets) del establecimiento</h4>
+        <p class="list-group-item-text">Dispositivos (Tablets) del establecimiento </p>
     </a>
 
-    <a href="#!/empleados" class="list-group-item ">
-        <h4 class="list-group-item-heading">Gestión de empleados</h4>
-        <p class="list-group-item-text">Empleados del establecimiento </p>
+
+    <a href="#!/mesas" class="list-group-item ">
+        <h4 class="list-group-item-heading">Gestión de espacios para clientes: Barra, Mesas</h4>
+        <p class="list-group-item-text">Barra y Mesas del establecimiento </p>
     </a>
     
-    <a href="#!/usuarios" class="list-group-item ">
-        <h4 class="list-group-item-heading">Gestión de Usuarios</h4>
-        <p class="list-group-item-text">Usuarios </p>
+    <a href="#!/dispositivopreferencias" class="list-group-item list-group-danger ">
+        <h4 class="list-group-item-heading">Dispositivos. Asignar a una mesa</h4>
+        <p class="list-group-item-text">Asignar los dispositivos a una mesa o cambiar preferencias.</p>
     </a>
-    
+
     <a href="#!/posts" class="list-group-item">
         <h4 class="list-group-item-heading">Opiniones del local</h4>
         <p class="list-group-item-text">Últimas opiniones que se han escrito sobre el establecimiento</p>
+    </a>
+
+    
+</div>
+
+    <div></div>
+
+    <div class="list-group">
+
+        <a href="#!/empleados" class="list-group-item ">
+            <h4 class="list-group-item-heading">Gestión de empleados</h4>
+            <p class="list-group-item-text">Empleados del establecimiento </p>
+        </a>
+    
+        <a href="#!/usuarios" class="list-group-item ">
+            <h4 class="list-group-item-heading">Gestión de Usuarios / Clientes</h4>
+            <p class="list-group-item-text">Usuarios y Clientes del establecimiento</p>
+        </a>
+
+    </div>
+
+    <div></div>
+
+    <div class="list-group">
+
+    <a href="#!/imagenes" class="list-group-item">
+        <h4 class="list-group-item-heading">Imágenes</h4>
+        <p class="list-group-item-text">Imágenes de  ellos</p>
     </a>
 
     <a href="#!/articulos" class="list-group-item">
@@ -47,19 +81,14 @@
         <p class="list-group-item-text">Artículos</p>
     </a>
 
-    <a href="#!/articulosopiniones" class="list-group-item">
-        <h4 class="list-group-item-heading">Artículos Opiniones</h4>
-        <p class="list-group-item-text">Artículos y opiniones sobre ellos</p>
-    </a>
-
     <a href="#!/articulosimagenes" class="list-group-item">
         <h4 class="list-group-item-heading">Artículos Imágenes</h4>
         <p class="list-group-item-text">Artículos e imágenes de  ellos</p>
     </a>
 
-    <a href="#!/imagenes" class="list-group-item">
-        <h4 class="list-group-item-heading">Imágenes</h4>
-        <p class="list-group-item-text">Imágenes de  ellos</p>
+    <a href="#!/articulosopiniones" class="list-group-item">
+        <h4 class="list-group-item-heading">Artículos Opiniones</h4>
+        <p class="list-group-item-text">Artículos y opiniones sobre ellos</p>
     </a>
 
     <a href="#!/ofertas" class="list-group-item">
@@ -67,12 +96,6 @@
         <p class="list-group-item-text">Ofertas de productos</p>
     </a>
     
-    <a href="#!menuMantenimientos" class="list-group-item">
-        <h4 class="list-group-item-heading">Mantenimientos</h4>
-        <p class="list-group-item-text">Mantenimientos internos</p>
-    </a>
-
-
     <div class="list-group">
     <a href="#!/" class="list-group-item " ng-click="window.history.back()">
         <h4 class="list-group-item-heading">Volver</h4>

@@ -20,16 +20,14 @@ app.directive('productoPaneles', function() {
         controller: ['$http','$scope', function ProductoDetalleController($http, $scope) {
             
             $scope.ofertas = [];
-            $http({ method: 'GET', url: 'app/partials/productos/ofertas.json'});
 
-            $http.get('app/partials/productos/ofertas.json')
-            .success(function(data) {
-                alert('Hola');
-                console.log(data);
-                $scope.ofertas = data;
-            })
-            .error(function(data){
-                alert("error");
+            $http({
+                method: 'GET',
+                url:  'app/partials/productos/ofertas.json'
+            }).then( function( response ) {
+                $scope.dat = response.data;
+            }, function (error) {
+                console.log('Error: ' + error);
             });
 
 

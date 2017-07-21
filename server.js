@@ -26,6 +26,7 @@ var tickets = require('./server/routes/tickets');
 var ticketslineas = require('./server/routes/tickets_lineas');
 var dispositivopreferencias = require('./server/routes/dispositivo_preferencias');
 var llamada = require('./server/routes/llamada');
+var dispositivos = require('./server/routes/dispositivos');
 
 // Express
 var app = express();
@@ -41,6 +42,7 @@ app.use('/posts', posts);
 app.use('/ofertas', ofertas);
 app.use('/tickets', tickets);
 app.use('/ticketsLineas', ticketslineas);
+app.use('/dispositivos', dispositivos);
 app.use('/dispositivopreferencias', dispositivopreferencias);
 app.use('/llamada', llamada);
 

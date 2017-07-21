@@ -22,18 +22,37 @@ angular.module('articulosopiniones')
             $scope.insert = false;
             $scope.update = false;
 
+                $scope.valoraciones = [{
+                    'valor': 1,
+                    'nomvalor': 'Malo'
+                }, {
+                    'valor': 2,
+                    'nomvalor': 'Regular'
+                }, {
+                    'valor': 3,
+                    'nomvalor': 'Ni bueno ni malo'
+                }, {
+                    'valor': 4,
+                    'nomvalor': 'Bueno'
+                }, {
+                    'valor': 5,
+                    'nomvalor': 'Muy bueno'
+                }];
+            
             cargarDatos(codArticulo);
 
             function cargarDatos(auxPrm) {
                 $scope.dat = [];
-                $http.get( auxRuta + '/' + auxPrm )
-                    .success((data) => {
-                    $scope.dat = data;
-                    console.log($scope.dat);
-                })
-                .error((error) => {
+                
+                $http({
+                    method: 'GET',
+                    url: auxRuta + '/' + auxPrm
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
+            
             
             }
 
@@ -54,13 +73,15 @@ angular.module('articulosopiniones')
         
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].codigo;
-                $http.delete(auxRuta + '/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+                $http({
+                    method: 'DELETE',
+                    url: auxRuta + '/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
+
             }
 
 
@@ -92,23 +113,31 @@ angular.module('articulosopiniones')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post(auxRuta, $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: auxRuta, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
+
                 }
                  else {
-                     $http.put(auxRuta + '/' + $scope.datSel.id, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
 
+
+                    $http({
+                        method: 'PUT',
+                        url: auxRuta + '/' + $scope.datSel.id, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
+
+                     
                     $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;
                     $scope.insert = false;

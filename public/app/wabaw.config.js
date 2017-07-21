@@ -197,6 +197,9 @@ angular.
           .when('/mesaTicketCliente/:id', {
           template: '<mesa-ticket-cliente></mesa-ticket-cliente>'
         })
+          .when('/dispositivos', {
+          template: '<dispositivos></dispositivos>'
+        })
           .when('/dispositivopreferencias', {
           template: '<dispositivopreferencias></dispositivopreferencias>'
         })

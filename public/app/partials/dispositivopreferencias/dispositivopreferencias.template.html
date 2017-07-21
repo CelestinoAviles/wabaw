@@ -24,10 +24,11 @@
                     <tr>
                         <th class="col-md-3">Acciones</th>
                         <th class="col-md-1">Dispositivo</th>
-                        <th class="col-md-3">Nombre</th>
-                        <th class="col-md-1">Espacio</th>
+                        <th class="col-md-2">Nombre</th>
+                        <th class="col-md-1">Mesa</th>
+                        <th class="col-md-2">Nombre</th>
                         <th class="col-md-1">Idioma</th>
-                        <th class="col-md-3"></th>
+                        <th class="col-md-2"></th>
                     </tr>
                 </thead>
 
@@ -37,7 +38,7 @@
                         <td>
                             <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
                             <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-primary" ng-click="asignar($index)"><i class="glyphicon glyphicon-download-alt"></i></button>
+                            <button class="btn btn-primary" ng-click="asignar($index)"><i class="glyphicon glyphicon-download-alt"  data-toggle="tooltip" title="Asignar al dispositivo que se está utilizando"></i></button>
                             <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
                         </td>
 
@@ -45,13 +46,33 @@
                             {{ item.codigo_dispositivo }}
                         </td>
                         <td>
-                            {{ item.nombre_dispositivo }}
+                            <select ng-disabled="true" 
+                                    ng-readonly="!(insert || update)" ng-options="g.codigo_dispositivo as g.nombre for g in dispositivos"
+                                ng-model="item.codigo_dispositivo"
+                                    class="form-control">
+                            </select>
                         </td>
                         <td>
-                            {{ item.codigo_espacio }}
+                            {{ item.codigo_mesa }}
+                        </td>
+                        <td>
+                            <select ng-disabled="true"
+                                    ng-readonly="!(insert || update)" ng-options="g.codigo as g.nombre for g in mesas"
+                                ng-model="item.codigo_mesa"
+                                class="form-control">
+                                <option value="">- Seleccione -</option>
+                    </select>
                         </td>
                         <td>
                             {{ item.idioma_dispositivo }}
+                        </td>
+                        <td>
+                            <select ng-disabled="true"
+                                    ng-readonly="!(insert || update)" ng-options="g.id as g.nom for g in idiomas"
+                                    ng-model="item.idioma_dispositivo"
+                                    class="form-control">
+                                <option value="">- Seleccione -</option>
+                            </select>
                         </td>
                     </tr>
                     <tbody>
@@ -68,22 +89,37 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-6"><label>Código Dispositivo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo_dispositivo"></div>
+                <div class="col-md-6"><label>Código Dispositivo</label>
+                    <select ng-readonly="!(insert || update)" ng-options="g.codigo_dispositivo as g.nombre for g in dispositivos"
+                            ng-model="datSel.codigo_dispositivo"
+                            class="form-control">
+                        <option value="">- Seleccione -</option>
+                    </select>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo_dispositivo">
+                </div>
             </div><br>
+                    <!-- ESTO ES LO QUE QUIERO http://plnkr.co/edit/fbfmpPht7ENkWrlfT8c4?p=preview  -->
 
             <div class="row">
-                <div class="col-md-6"><label>Nombre Dispositivo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.nombre_dispositivo"></div>
-            </div><br>
-
-            <div class="row">
-                <div class="col-md-6"><label>Código Espacio</label>
-                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo_espacio">
+                <div class="col-md-6">
+                    <label>Código Mesa</label>
+                    <select ng-readonly="!(insert || update)" ng-options="g.codigo as g.nombre for g in mesas"
+                            ng-model="datSel.codigo_mesa"
+                            class="form-control">
+                        <option value="">- Seleccione -</option>
+                    </select>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo_mesa">
                 </div>
             </div><br>
 
             <div class="row">
                 <div class="col-xs-3">
                     <label for="sel1">Idioma:</label>
+                    <select ng-readonly="!(insert || update)" ng-options="g.id as g.nom for g in idiomas"
+                            ng-model="datSel.idioma_dispositivo"
+                            class="form-control">
+                        <option value="">- Seleccione -</option>
+                    </select>
                     <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.idioma_dispositivo">
                 </div>
             </div><br>

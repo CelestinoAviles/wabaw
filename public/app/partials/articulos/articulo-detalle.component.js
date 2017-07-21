@@ -42,15 +42,18 @@ angular.module('articulos')
 
             // Tengo los datos del ticket
             console.log('Traigo los datos del ticket asociado a este espacio');
-            cargoTicket(preferencias.codigo_espacio);
+            cargoTicket(preferencias.codigo_mesa);
             console.log('He terminado de traer las cosas del ticket');
 
             
             function cargarDatosArticulo(auxPrm) {
                 $scope.datosArticulo = [];
-                $http.get( auxRutaArticulo + '/' + auxPrm )
-                    .success((data) => {
-                    $scope.datosArticulo = data[0];
+                
+                $http({
+                    method: 'GET',
+                    url:  auxRutaArticulo + '/' + auxPrm
+                }).then( function( response ) {
+                    $scope.datosArticulo = response.data[0];
                     console.log('saco los datos del artículo');
                     console.log($scope.datosArticulo);
                     $scope.texto_stock = 'Articulo en stock';
@@ -63,13 +66,10 @@ angular.module('articulos')
                         $scope.datosArticulo.pvp_venta = pvp_venta;
                         console.log('Pongo el precio que me han traido de la oferta');
                     };
-            
-
-                })
-                .error((error) => {
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
-            
+                
             };
 
             // Pido el artículo
@@ -103,13 +103,17 @@ angular.module('articulos')
             function graboTicketLinea() {
                 console.log('datos de la linea que voy a grabar')
                 console.log($scope.datSelTicketLinea);
-                $http.post('/ticketslineas/api/v1/ticketslineas', $scope.datSelTicketLinea)
-                        .success((data) => {
-                        $scope.datLineasTickets = data;
-                    })
-                        .error((error) => {
-                        console.log('Error: ' + error);
-                    });
+
+                $http({
+                    method: 'POST',
+                    url: '/ticketslineas/api/v1/ticketslineas', 
+                    data: $scope.datSelTicketLinea
+                }).then( function( response ) {
+                    $scope.datLineasTickets = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
+                
             };
             
             function cargoTicket(auxEspacio) {
@@ -117,9 +121,12 @@ angular.module('articulos')
                 ////
                 console.log('Cargo el ticket de este espacio: ' + auxEspacio);
                 $scope.datTickets = [];
-                $http.get( '/tickets/api/v1/mesa-tickets/' + auxEspacio )
-                    .success((data) => {
-                    auxData = data;
+
+                $http({
+                    method: 'GET',
+                    url: '/tickets/api/v1/mesa-tickets/' + auxEspacio
+                }).then( function( response ) {
+                    auxData = response.data;
                     $scope.datTickets = auxData[0];
                     console.log($scope.datTickets);
 
@@ -129,11 +136,8 @@ angular.module('articulos')
                     } else {
                         console.log($scope.datTickets);
                         console.log('lo que traigo del ticket...');
-                        
                     };
-                    
-                })
-                .error((error) => {
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
             };
@@ -169,21 +173,26 @@ angular.module('articulos')
                     total_cambio:   0
                 };
                     
-                $http.post('/tickets/api/v1/tickets', $scope.datSel)
-                    .success((data) => {
+                $http({
+                    method: 'POST',
+                    url:   '/tickets/api/v1/tickets',
+                    data: $scope.datSel
+                }).then( function( response ) {
 //                    $scope.dat = data;
-                    $http.get( '/tickets/api/v1/mesa-tickets/' + prmEspacio )
-                        .success((data) => {
-                        auxData = data;
+                    
+                    $http({
+                        method: 'GET',
+                        url: '/tickets/api/v1/mesa-tickets/' + prmEspacio
+                    }).then( function( response ) {
+                        auxData = response.data;
                         $scope.datTickets = auxData[0];
                         console.log($scope.datTickets);
+                    }, function (error) {
+                        console.log('Error: ' + error);
                     });
-                })
-                    .error((error) => {
-                    console.log('Error: ' + error);
-                });
 //
 //                $window.location.reload();
+            });
             };
             
             

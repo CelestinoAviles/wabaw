@@ -3,7 +3,9 @@
     <div class="row">
         <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
     </div>
+
     <div class="row"><br/></div>
+
     <div class="panel panel-primary" ng-show="!showCategoria">
         <div class="panel-heading">
             <h3 class="panel-title"> {{ texto }}</h3>
@@ -49,7 +51,7 @@
                             {{ item.login }}
                         </td>
                         <td>
-                            {{ item.pwd }}
+                            <a ng-show="false">{{ item.pwd }}</a>********
                         </td>
                         <td>
                             {{ item.email }}

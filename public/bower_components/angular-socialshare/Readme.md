@@ -137,28 +137,24 @@ Please use them all in lowercase (`socialshare-provider="delicious"`)
 
 (`socialshare-provider="facebook"`)
 
-`share` = [Facebook Dialog Share](https://developers.facebook.com/docs/sharing/reference/share-dialog),    `feed` = [Facebook Dialog Feed](https://developers.facebook.com/docs/sharing/reference/feed-dialog), `send` = [Facebook Dialog Send](https://developers.facebook.com/docs/sharing/reference/send-dialog),  `sharer` = [Facebook simple share](https://developers.facebook.com/docs/plugins/share-button)
+> As of April 2017 - If you want to share a photo and customize the previews you must use [Open Graph Metas](https://developers.facebook.com/docs/sharing/webmasters#markup)
+
+`simple sharer` = [Facebook simple share](https://developers.facebook.com/docs/plugins/share-button) , `share` = [Facebook Dialog Share](https://developers.facebook.com/docs/sharing/reference/share-dialog),    `feed` = [Facebook Dialog Feed](https://developers.facebook.com/docs/sharing/reference/feed-dialog), `send` = [Facebook Dialog Send](https://developers.facebook.com/docs/sharing/reference/send-dialog)
 
 Method | Option | Type | Default | Description
 ------------- | ------------- | ------------- | ------------- | -------------
-share,feed,send,sharer|socialshare-url=""|page URL|false|Set the url to share
-feed|socialshare-text=""|String|false|Set the headline to share
-share|socialshare-title=""|String|false|Set the title headline to share
-feed,share|socialshare-description=""|String|false|Set the content to share
-feed, share|socialshare-media=""|URL|false|Set the media source to share
-feed, send, share|socialshare-type=""|String('feed', 'send', 'share')|share|facebook share dialog - [info](https://developers.facebook.com/docs/sharing/reference/share-dialog), facebook feed dialog - [info](https://developers.facebook.com/docs/sharing/reference/feed-dialog) and send dialog  - [info](https://developers.facebook.com/docs/sharing/reference/send-dialog)
+share, feed, send, **simple sharer**|socialshare-url=""|page URL|false|Set the url/link to share
+feed, send, share|socialshare-type=""|String('feed' or 'send' or 'share')|**simple sharer**|Use a **simple sharer** or Dialog Send or Dialog Share or Dialog Feed
 feed, send, share|socialshare-via=""|String|false|Set the FB APP ID value
 feed, send|socialshare-to=""|String|false|Set the to value
-feed| socialshare-from=""|String|false|Set the from to value
+feed | socialshare-from=""|String|false|Set the from to value
 feed, send|socialshare-ref=""|String('comma,separated')|false|Set the ref value
 feed, send, share|socialshare-display=""|String('popup')|false|Set the display value
-feed, share|socialshare-quote=""|String|false|Set the display text
-feed, share|socialshare-hashtags=""|String|false|Set the display value along with # Eg:#facebook
-feed|socialshare-source=""|URL|false|Set the source value
-feed, share|socialshare-caption=""|String|false|Set the caption to share
+share|socialshare-quote=""|String|false|Set the display text
+share|socialshare-hashtags=""|String|false|Set the display value along with # Eg:#facebook (one only hashtag)
+feed|socialshare-source=""|URL|false| Set the URL of a media file (either SWF or MP3) attached to this post
 feed, send|socialshare-redirect-uri=""|URL|false|Set the redirect URI
 share|socialshare-mobileiframe=""|boolean|false|If set to true the share button will open the share dialog in an iframe on top of your website. This option is only available for mobile, not desktop.
-
 
 #### Facebook Messenger
 `mobile only` - (works only for `<a>` elements, it is a direct link)

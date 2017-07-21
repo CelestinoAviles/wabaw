@@ -20,11 +20,12 @@ angular.module('empleados')
 
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get('/empleados/api/v1/empleados')
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
+                $http({
+                    method: 'GET',
+                    url: '/empleados/api/v1/empleados'
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
             
@@ -47,12 +48,14 @@ angular.module('empleados')
         
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].codigo;
-                $http.delete('empleados/api/v1/empleados/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+                
+                $http({
+                    method: 'DELETE',
+                    url: 'empleados/api/v1/empleados/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
             }
 
@@ -76,24 +79,28 @@ angular.module('empleados')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post('/empleados/api/v1/empleados', $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: '/empleados/api/v1/empleados', 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
                 }
                  else {
                      var auxId = $scope.datSel.codigo;
                      console.log($scope.datSel);
-                     $http.put('/empleados/api/v1/empleados/' + auxId, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
+                    $http({
+                        method: 'PUT',
+                        url: '/empleados/api/v1/empleados/' + auxId, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
 
                     $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;

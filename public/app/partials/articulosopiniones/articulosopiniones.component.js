@@ -25,40 +25,78 @@ angular.module('articulosopiniones')
 
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get( auxRuta )
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
+                $http({
+                    method: 'GET',
+                    url: auxRuta
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
-            
+                
+                $http({
+                    method: 'GET',
+                    url: '/articulos/api/v1/articulos'
+                }).then( function( response ) {
+                    $scope.articulos = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
+                
+                $scope.valoraciones = [{
+                    'valor': 1,
+                    'nomvalor': 'Malo'
+                }, {
+                    'valor': 2,
+                    'nomvalor': 'Regular'
+                }, {
+                    'valor': 3,
+                    'nomvalor': 'Ni bueno ni malo'
+                }, {
+                    'valor': 4,
+                    'nomvalor': 'Bueno'
+                }, {
+                    'valor': 5,
+                    'nomvalor': 'Muy bueno'
+                }];
+                
+                console.log($scope.valoraciones);
+
+
+                
             }
 
-            $scope.ver = function(index) {
+            $scope.ver = function(item) {
+                console.log(item);
                 $scope.datSel = {};
-                $scope.datSel = $scope.dat[index];
-                $scope.datSel.index = index;
+                $scope.datSel = item;
                 $scope.showCategoria = true;
                 $scope.insert = false;
                 $scope.upate = false;
             }
 
-            $scope.edit = function(index) {
-                $scope.ver(index);
+            $scope.edit = function(item) {
+                $scope.ver(item);
                 $scope.update = true;
             }
 
+
         
-            $scope.delete = function(index) {
-                var auxId = $scope.dat[index].id;
-                $http.delete(auxRuta + '/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+            $scope.delete = function(item) {
+                $scope.datSel = item;
+                
+                var auxId = item.codigo;
+                console.log(auxId);
+                
+                $http({
+                    method: 'DELETE',
+                    url: auxRuta + '/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
+
             }
 
 
@@ -76,13 +114,6 @@ angular.module('articulosopiniones')
             }
 
 
-            $scope.valoraciones=[
-                { id:1, valor:1 },
-                { id:2, valor:2 },
-                { id:3, valor:3 },
-                { id:4, valor:4 },
-                { id:5, valor:5 }
-                ];
             $scope.miValorSeleccionado= null;
             
             $scope.grabar = function() {
@@ -90,24 +121,29 @@ angular.module('articulosopiniones')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post(auxRuta, $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: auxRuta, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
+
                 }
                  else {
-                     $http.put(auxRuta + '/' + $scope.datSel.id, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
+                    $http({
+                        method: 'PUT',
+                        url: auxRuta + '/' + $scope.datSel.id, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
 
-                    $scope.dat[$scope.index] = $scope.datSel;
+//                    $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;
                     $scope.insert = false;
                 };

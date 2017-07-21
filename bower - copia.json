@@ -1,0 +1,23 @@
+{
+  "name": "Wabaw2",
+  "description": "WABAW AngularJS",
+  "version": "0.0.0",
+  "homepage": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.6.2",
+    "angular-mocks": "1.5.x",
+    "angular-animate": "1.5.x",
+    "bootstrap": "3.3.x",
+    "jquery": "1.9.1 - 3",
+    "angular-route": "1.5.x",
+    "angular-resource": "1.5.x",
+    "angular-rating": "^3.1.0",
+    "ngtweet": "^0.6.1",
+    "angular-socialshare": "angularjs-socialshare#^2.3.8"
+  },
+  "resolutions": {
+    "angular": "^1.6.2"
+  }
+}

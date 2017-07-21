@@ -43,9 +43,9 @@
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto">
                         <td>
-                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary" ng-click="ver(item)">   <i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit(item)">  <i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger"  ng-click="delete(item)"><i class="glyphicon glyphicon-remove"></i></button>
                         </td>
                         <td>
                            {{ $index }} == {{ item.codigo }}
@@ -67,7 +67,6 @@
             </table>
         </div>
     </div>
-
     
     <div class="panel panel-primary" ng-show="showCategoria">
         <div class="panel-heading">

@@ -1,4 +1,4 @@
-SCHEMA wabaw;
+DROP SCHEMA wabaw;
 
 CREATE SCHEMA wabaw;
 
@@ -21,12 +21,24 @@ CREATE SEQUENCE wabaw.sqempleados
   INCREMENT BY 1
   CACHE 1;
 
+
+DROP TABLE WABAW.dispositivos;
+CREATE TABLE wabaw.dispositivos (
+    codigo_dispositivo integer not null,
+    nombre char(20) not null,
+    marca  char(20) not null,
+    modelo char(20),
+    fecha_compra date,
+    observaciones char(200),
+    CONSTRAINT dispositivos_pkey PRIMARY KEY (codigo_dispositivo)
+);
+
+
 DROP TABLE WABAW.dispositivo_preferencias;
 CREATE TABLE wabaw.dispositivo_preferencias (
-    codigo_dispositivo char(3) not null,
-    nombre_dispositivo char(20) not null,
-    codigo_espacio integer null,
-    idioma_dispositivo char(6) not null,
+    codigo_dispositivo integer not null,
+    codigo_mesa        integer null,
+    idioma_dispositivo char(2) not null,
     CONSTRAINT dispositivo_preferencias_pkey PRIMARY KEY (codigo_dispositivo)
 );
 
@@ -104,6 +116,7 @@ CREATE TABLE wabaw.Articulos_Imagenes (
 DROP TABLE WABAW.MESAS;
 CREATE TABLE wabaw.mesas (
     codigo     integer not null,
+    tipo       char(1) not null
     nombre     char(20) not null,
     clave      char(10) null,
     estado     char(10) null,
@@ -283,8 +296,11 @@ CREATE TABLE wabaw.agenda (
     CONSTRAINT agenda_pkey PRIMARY KEY (codigo)
 );
 
+DROP TABLE wabaw.empleados;
 CREATE TABLE wabaw.empleados (
     codigo          integer  not null default nextval('wabaw.sqempleados'),
+    pwd             char(20),
+    perfil          char(1),
     numdoc          char(9), 
     nombre          char(20) not null,
     apellidos       char(40) not null,

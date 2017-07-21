@@ -24,6 +24,7 @@
                     <tr>
                         <th class="col-md-2">Acciones</th>
                         <th class="col-md-1">Código</th>
+                        <th class="col-md-1">Tipo</th>
                         <th class="col-md-4">Nombre del Espacio</th>
                         <th class="col-md-1">Clave</th>
                         <th class="col-md-1">Estado</th>
@@ -42,13 +43,20 @@
                             {{ item.codigo }}
                         </td>
                         <td>
-                            <span><a href="#!/mesas/$">{{ item.nombre }}</a></span>
+                            {{ item.tipo }}
+                            <select ng-disabled="true"
+                                    ng-model="item.tipo"
+                                    ng-options="g.id as g.nomTipo for g in nomTipos">
+                            </select>
                         </td>
                         <td>
-                            <span><a href="#!/mesas/$">{{ item.clave }}</a></span>
+                            <span><a ng-click="ver($index)">{{ item.nombre }}</a></span>
                         </td>
                         <td>
-                            <span><a href="#!/mesas/$">{{ item.estado }}</a></span>
+                            <span>{{ item.clave }}</span>
+                        </td>
+                        <td>
+                            <span>{{ item.estado }}</span>
                         </td>
                         <td>
                             <span>{{ item.llamada }}</span>
@@ -69,6 +77,9 @@
             <div class="row">
                 <div class="col-md-6"><label>Código</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo"></div>
             </div><br>
+            <div class="row">
+                <div class="col-md-6"><label>Tipo (B=Barra, S=Salón, T=Terraza)</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.tipo"></div>
+            </div>
             <div class="row">
                 <div class="col-md-6"><label>Nombre</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.nombre"></div>
             </div>

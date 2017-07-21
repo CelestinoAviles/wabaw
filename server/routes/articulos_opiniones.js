@@ -41,6 +41,14 @@ router.post( glbApi, (req, res, next) => {
     console.log(data);
     
 
+    if(data.login == null){
+        data.login='Anonimo';
+    } else {
+        if(data.login.length=0){
+            data.login='Anonimo';
+        }
+    };
+    
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
     // Handle connection errors

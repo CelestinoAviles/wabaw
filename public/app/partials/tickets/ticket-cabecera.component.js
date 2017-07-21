@@ -51,20 +51,21 @@ angular.module('tickets')
                     var preferencias = JSON.parse(dispositivo);
                     console.log('inicio: ' + preferencias);
                     $scope.dispositivo = preferencias.nombre_dispositivo;
-                    $scope.espacio     = preferencias.codigo_espacio;
+                    $scope.espacio     = preferencias.codigo_mesa;
                     $scope.idioma      = preferencias.idioma_dispositivo;
             };
 
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get( auxRuta )
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
+                $http({
+                    method: 'GET',
+                    url: auxRuta
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
-                
+            
                 $scope.verCabecera();
 
             
@@ -96,12 +97,13 @@ angular.module('tickets')
         
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].codigo;
-                $http.delete(auxRuta + '/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+                $http({
+                    method: 'DELETE',
+                    url: auxRuta + '/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
             }
 
@@ -125,22 +127,27 @@ angular.module('tickets')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post(auxRuta, $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: auxRuta, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
+
                 }
                  else {
-                     $http.put(auxRuta + '/' + $scope.datSel.codigo, $scope.datSel)
-                         .success((data) => {
+                    $http({
+                        method: 'PUT',
+                        url: auxRuta + '/' + $scope.datSel.codigo, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
                         $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
 
                     $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;

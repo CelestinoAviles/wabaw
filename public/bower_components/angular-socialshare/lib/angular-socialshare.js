@@ -362,7 +362,8 @@
       var urlString;
 
       if (attrs.socialshareType && attrs.socialshareType === 'feed') {
-        // if user specifies that they want to use the Facebook feed dialog (https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.4)
+        // if user specifies that they want to use the Facebook feed dialog
+        //(https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.4)
         urlString = 'https://www.facebook.com/dialog/feed?';
 
         if (attrs.socialshareVia) {
@@ -380,14 +381,6 @@
           urlString += '&to=' + encodeURIComponent(attrs.socialshareTo);
         }
 
-        if (attrs.socialshareQuote) {
-          urlString += '&quote=' + encodeURIComponent(attrs.socialshareQuote);
-        }
-
-        if (attrs.socialshareHashtags) {
-          urlString += '&hashtag=' + encodeURIComponent(attrs.socialshareHashtags);
-        }
-
         if (attrs.socialshareDisplay) {
           urlString += '&display=' + encodeURIComponent(attrs.socialshareDisplay);
         }
@@ -400,22 +393,6 @@
           urlString += '&from=' + encodeURIComponent(attrs.socialshareFrom);
         }
 
-        if (attrs.socialshareDescription) {
-          urlString += '&description=' + encodeURIComponent(attrs.socialshareDescription);
-        }
-
-        if (attrs.socialshareText) {
-          urlString += '&name=' + encodeURIComponent(attrs.socialshareText);
-        }
-
-        if (attrs.socialshareCaption) {
-          urlString += '&caption=' + encodeURIComponent(attrs.socialshareCaption);
-        }
-
-        if (attrs.socialshareMedia) {
-          urlString += '&picture=' + encodeURIComponent(attrs.socialshareMedia);
-        }
-
         if (attrs.socialshareSource) {
           urlString += '&source=' + encodeURIComponent(attrs.socialshareSource);
         }
@@ -426,14 +403,16 @@
           + ',top=' + ($window.innerHeight - attrs.socialsharePopupHeight) / 2 + ',left=' + ($window.innerWidth - attrs.socialsharePopupWidth) / 2);
 
       } else if (attrs.socialshareType && attrs.socialshareType === 'share') {
-       // if user specifies that they want to use the Facebook feed dialog (https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.4)
+       // if user specifies that they want to use the Facebook share dialog
+       //(https://developers.facebook.com/docs/sharing/reference/share-dialog)
        urlString = 'https://www.facebook.com/dialog/share?';
 
        if (attrs.socialshareVia) {
          urlString += '&app_id=' + encodeURIComponent(attrs.socialshareVia);
        }
-       if (attrs.socialshareTitle) {
-         urlString += '&title=' + encodeURIComponent(attrs.socialshareTitle);
+
+       if (attrs.socialshareRedirectUri) {
+         urlString += '&redirect_uri=' + encodeURIComponent(attrs.socialshareRedirectUri);
        }
 
        if (attrs.socialshareUrl) {
@@ -452,21 +431,10 @@
        urlString += '&mobile_iframe=' + encodeURIComponent(attrs.socialshareMobileiframe);
        }
 
-      if (attrs.socialshareDescription) {
-         urlString += '&description=' + encodeURIComponent(attrs.socialshareDescription);
-       }
-
        if (attrs.socialshareHashtags) {
          urlString += '&hashtag=' + encodeURIComponent(attrs.socialshareHashtags);
        }
 
-       if (attrs.socialshareCaption) {
-         urlString += '&caption=' + encodeURIComponent(attrs.socialshareCaption);
-       }
-
-       if (attrs.socialshareMedia) {
-         urlString += '&picture=' + encodeURIComponent(attrs.socialshareMedia);
-       }
 
        $window.open(
          urlString,
@@ -474,7 +442,8 @@
          + ',top=' + ($window.innerHeight - attrs.socialsharePopupHeight) / 2 + ',left=' + ($window.innerWidth - attrs.socialsharePopupWidth) / 2);
 
       } else if (attrs.socialshareType && attrs.socialshareType === 'send') {
-        // if user specifies that they want to use the Facebook send dialog (https://developers.facebook.com/docs/sharing/reference/send-dialog)
+        // if user specifies that they want to use the Facebook send dialog
+        //(https://developers.facebook.com/docs/sharing/reference/send-dialog)
         urlString = 'https://www.facebook.com/dialog/send?';
 
         if (attrs.socialshareVia) {
@@ -495,10 +464,6 @@
 
         if (attrs.socialshareDisplay) {
           urlString += '&display=' + encodeURIComponent(attrs.socialshareDisplay);
-        }
-
-        if (attrs.socialshareRef) {
-          urlString += '&ref=' + encodeURIComponent(attrs.socialshareRef);
         }
 
         $window.open(
@@ -823,7 +788,7 @@
     }
     , manageWhatsappShare = function manageWhatsappShare($window, attrs, element) {
 
-      var href = 'whatsapp://send?text=' + encodeURIComponent(attrs.socialshareText) + encodeURIComponent(attrs.socialshareUrl || $window.location.href);
+      var href = 'whatsapp://send?text=' + encodeURIComponent(attrs.socialshareText) + '%0A' + encodeURIComponent(attrs.socialshareUrl || $window.location.href);
 
       element.attr('href', href);
       element.attr('target', '_top');

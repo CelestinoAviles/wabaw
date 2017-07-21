@@ -24,6 +24,7 @@ router.post( glbApi, (req, res, next) => {
     const results = [];
     // Graba datos from http request
     const data = {  codigo: req.body.codigo,
+                    tipo  : req.body.tipo,
                     nombre: req.body.nombre,
                     estado: req.body.estado,
                     clave:  req.body.clave,
@@ -40,8 +41,8 @@ router.post( glbApi, (req, res, next) => {
         }
       
         // SQL Query > Insert Data
-        client.query('INSERT INTO wabaw.mesas(codigo, nombre, clave, estado, llamada) values($1,$2, $3, $4, $5)',
-                     [data.codigo, data.nombre, data.clave, data.estado, data.llamada]);
+        client.query('INSERT INTO wabaw.mesas(codigo, tipo, nombre, clave, estado, llamada) values($1, $2, $3, $4, $5, $6)',
+                     [data.codigo, data.tipo, data.nombre, data.clave, data.estado, data.llamada]);
         // SQL Query > Select Data
         const query = client.query('SELECT * FROM wabaw.mesas ORDER BY codigo ASC');
         // Stream results back one row at a time
@@ -128,6 +129,7 @@ router.put('/api/v1/mesas/:id', (req, res, next) => {
     const codigo = req.params.id;
     // Graba datos from http request
     const data = {codigo: req.body.codigo, 
+                  tipo  : req.body.tipo,
                   nombre: req.body.nombre, 
                   clave:  req.body.clave, 
                   estado: req.body.estado, 
@@ -145,8 +147,8 @@ router.put('/api/v1/mesas/:id', (req, res, next) => {
 
         console.log('put 000');
         // SQL Query > Update Data
-        client.query('UPDATE wabaw.mesas SET nombre=($2), clave=($3), estado=($4), llamada=($5) WHERE codigo=($1)',
-                     [data.codigo, data.nombre, data.clave, data.estado, data.llamada]);
+        client.query('UPDATE wabaw.mesas SET tipo=($2), nombre=($3), clave=($4), estado=($5), llamada=($6) WHERE codigo=($1)',
+                     [data.codigo, data.tipo, data.nombre, data.clave, data.estado, data.llamada]);
         // SQL Query > Select Data
         const query = client.query("SELECT * FROM wabaw.mesas ORDER BY codigo ASC");
         // Stream results back one row at a time

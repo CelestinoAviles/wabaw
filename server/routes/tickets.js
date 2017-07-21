@@ -61,7 +61,7 @@ router.post( glbApi, (req, res, next) => {
         client.query('INSERT INTO wabaw.tickets(COD_CLIENTE, COD_EMPLEADO, COD_ESPACIO, FECHA_TICKET, FECHA_MODIFICA, OBSERVACIONES) values($1, $2, $3, current_timestamp, current_timestamp, $4)',
                      [ data.cod_cliente, data.cod_empleado, data.cod_espacio, data.observaciones ]);
         // SQL Query > Select Data
-        const query = client.query('SELECT * FROM wabaw.tickets ORDER BY codigo ASC');
+        const query = client.query('SELECT * FROM wabaw.tickets ORDER BY codigo DESC');
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);
@@ -126,7 +126,7 @@ router.get( glbApi, (req, res, next) => {
       return res.status(500).json({success: false, data: err});
     }
     // SQL Query > Select Data
-    const query = client.query('SELECT * FROM wabaw.tickets ORDER BY codigo ASC;');
+    const query = client.query('SELECT * FROM wabaw.tickets ORDER BY codigo DESC;');
     // Stream results back one row at a time
     query.on('row', (row) => {
       results.push(row);
@@ -260,7 +260,7 @@ router.put( glbApi + '/:id', (req, res, next) => {
 
     
         // SQL Query > Select Data
-        const query = client.query("SELECT * FROM wabaw.tickets ORDER BY codigo ASC");
+        const query = client.query("SELECT * FROM wabaw.tickets ORDER BY codigo DESC");
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);
@@ -295,7 +295,7 @@ router.delete( glbApi + '/:id', (req, res, next) => {
         // SQL Query > Delete Data
         client.query('DELETE FROM wabaw.tickets WHERE codigo=($1)', [id]);
         // SQL Query > Select Data
-        var query = client.query('SELECT * FROM wabaw.tickets ORDER BY codigo ASC');
+        var query = client.query('SELECT * FROM wabaw.tickets ORDER BY codigo DESC');
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);
@@ -341,7 +341,7 @@ router.put( glbApi + '/pagar/:id', (req, res, next) => {
 
     
         // SQL Query > Select Data
-        const query = client.query("SELECT * FROM wabaw.tickets ORDER BY codigo ASC");
+        const query = client.query("SELECT * FROM wabaw.tickets ORDER BY codigo DESC");
         // Stream results back one row at a time
         query.on('row', (row) => {
             results.push(row);

@@ -24,7 +24,7 @@ angular.module('pagoTarjeta')
             //            alert('Entro en ' + auxTxt);
         $scope.texto = auxTxt;
         
-        $scope.codigo_espacio = auxCodigoEspacio;
+        $scope.codigo_mesa = auxCodigoEspacio;
         $scope.cod_ticket = auxCodigoTicket;
         $scope.total = auxTotal;
 
@@ -48,15 +48,17 @@ angular.module('pagoTarjeta')
 
             console.log('Datos para el pago');
             console.log(auxDatosPago);
-             $http.put('/tickets/api/v1/tickets/pagar/' + auxCodigoTicket, auxDatosPago)
-                 .success((data) => {
-                    $scope.datSel = {};
-                    $window.location.href = 'https://www.caixabank.es/particular/home/particulares_es.html';
-             })
-                 .error((error) => {
-                    console.log('Error: ' + error);
-             });
-        
+                    $http({
+                        method: 'PUT',
+                        url: '/tickets/api/v1/tickets/pagar/' + auxCodigoTicket, 
+                        data: auxDatosPago
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                        $window.location.href = 'https://www.caixabank.es/particular/home/particulares_es.html';
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
+
             volver();
 
         };

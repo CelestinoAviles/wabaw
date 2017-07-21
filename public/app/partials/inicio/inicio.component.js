@@ -27,11 +27,25 @@
                     
                     var dispositivo = localStorage.getItem("dispositivo");
                     var preferencias = JSON.parse(dispositivo);
-                    console.log('inicio: ' + preferencias);
-                    $scope.dispositivo = preferencias.nombre_dispositivo;
-                    $scope.espacio     = preferencias.codigo_espacio;
+                    
+                    if ( preferencias == null ) {
+                        alert('Este dispositivo no está asignado a ninguna mesa. Redireccionando...');
+                        window.location = "#!/dispositivoByod";    
+                    } else {
+  
+                    console.log(preferencias);
+                    $scope.dispositivo = preferencias.codigo_dispositivo;
+                    $scope.mesa        = preferencias.codigo_mesa;
                     $scope.idioma      = preferencias.idioma_dispositivo;
                     $translate.use($scope.idioma);
+                    };
+                    
+//                    if ( $scope.dispositivo = null ) {
+//                        alert('Este dispositivo no está asignado a ninguna mesa. Redireccionando...');
+//                        window.location = "#!/dispositivoByod";    
+//                    } else {
+//                        alert('Bienvenido');
+//                    };
                     
 //                    srvGeneral.miFuncion('Hola');
 //                    aux = srvGeneral.calculoIVA(10, 12);

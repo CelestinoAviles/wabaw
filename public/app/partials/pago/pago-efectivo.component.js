@@ -17,7 +17,7 @@ angular.module('pagoEfectivo')
             //            alert('Entro en ' + auxTxt);
         $scope.texto = auxTxt;
         
-        $scope.codigo_espacio = auxCodigoEspacio;
+        $scope.codigo_mesa = auxCodigoEspacio;
         $scope.cod_ticket = auxCodigoTicket;
         $scope.total = auxTotal;
 
@@ -46,18 +46,19 @@ angular.module('pagoEfectivo')
 
             console.log('Datos para el pago');
             console.log(auxDatosPago);
-             $http.put('/tickets/api/v1/tickets/pagar/' + auxCodigoTicket, auxDatosPago)
-                 .success((data) => {
-                $scope.datSel = {};
-            })
-                .error((error) => {
-                 console.log('Error: ' + error);
-             });
+            $http({
+                method: 'PUT',
+                url: '/tickets/api/v1/tickets/pagar/' + auxCodigoTicket, 
+                data: auxDatosPago
+            }).then( function( response ) {
+                $scope.dat = response.data;
+            }, function (error) {
+                console.log('Error: ' + error);
+            });
         
             volver();
 
         };
-
 
         function volver() {
             $location.path('#!/inicio');

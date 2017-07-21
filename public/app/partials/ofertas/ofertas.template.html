@@ -23,9 +23,9 @@
                 <thead>
                     <tr>
                         <th class="col-md-2">Acciones</th>
-                        <th class="col-md-1">Cod.Oferta</th>
-                        <th class="col-md-2">Codigo Articulo</th>
-                        <th class="col-md-2">Descripción</th>
+                        <th class="col-md-1">Código Oferta</th>
+                        <th class="col-md-1">Código Artículo</th>
+                        <th class="col-md-3">Descripción</th>
                         <th class="col-md-2">Inicio</th>
                         <th class="col-md-2">Fin</th>
                         <th class="col-md-1">PVP</th>
@@ -36,9 +36,9 @@
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto">
                         <td>
-                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary" ng-click="ver(item)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit(item)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete(item)"><i class="glyphicon glyphicon-remove"></i></button>
                         </td>
                         <td>
                             {{ item.id }}
@@ -47,13 +47,13 @@
                             {{ item.codigo_articulo }}
                         </td>
                         <td>
-                            <a href=""> {{ item.nombre }} </a>
+                            {{ item.nombre }}
                         </td>
                         <td>
-                            {{ item.fechainicio | date: 'dd/MM/yyyy hh:mm' }}
+                            {{ item.fechainicio | date: 'dd/MM/yyyy HH:mm' }}
                         </td>
                         <td>
-                            {{ item.fechafin  | date: 'dd/MM/yyyy hh:mm' }}
+                            {{ item.fechafin  | date: 'dd/MM/yyyy HH:mm' }}
                         </td>
                         <td>
                             {{ item.pvp | number: 2 }}

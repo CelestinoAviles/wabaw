@@ -17,7 +17,7 @@
                 <tbody>
                     <tr class="bg-success" ng-repeat="item in dat | filter:filtroTexto" ng-click="seleccionaMesa(item);">
                         <td>
-                            <button class="btn btn-primary" ng-click="llamar($index)"><i class="glyphicon glyphicon-bell"></i></button>
+                            <button class="btn btn-primary" ng-click="llamar(item)"><i class="glyphicon glyphicon-bell"></i></button>
                         </td>
                         <td>
                             {{ item.codigo }}
@@ -59,7 +59,7 @@
                 <tbody>
                     <tr ng-repeat="item in datTickets | filter:filtroTexto" >
                         <td>
-                            <button class="btn btn-primary" ng-click="verTicket($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="verTicket(item)"><i class="glyphicon glyphicon-eye-open"></i></button>
                             <button class="btn btn-primary" ng-click="seleccionaTicket(item)"><i class="glyphicon glyphicon-th-list"></i> Productos</button>
                             <button class="btn btn-primary" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-th-list"></i> Recalcular</button>
                             <a href="#!/familiasVer" class="btn btn-success">Pedir</a>
@@ -155,9 +155,9 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
                 <tbody>
                     <tr ng-repeat="item in datLineasTickets | filter:filtroTexto" >
                         <td>
-                            <button class="btn btn-primary" ng-click="copiarTicketLinea($index)"><i class="glyphicon glyphicon-plus"></i></button>
-                            <button class="btn btn-danger"  ng-click="borrarTicketLinea($index)"><i class="glyphicon glyphicon-remove"></i></button>
-                            <button class="btn btn-primary"  ng-click="opinarTicketLinea($index)"><i class="glyphicon glyphicon-pushpin"></i></button>
+                            <button class="btn btn-primary" ng-click="copiarTicketLinea(item)"><i class="glyphicon glyphicon-plus"></i></button>
+                            <button class="btn btn-danger"  ng-click="borrarTicketLinea(item)"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary"  ng-click="opinarTicketLinea(item)"><i class="glyphicon glyphicon-pushpin"></i></button>
 
                         </td>
                         <td>

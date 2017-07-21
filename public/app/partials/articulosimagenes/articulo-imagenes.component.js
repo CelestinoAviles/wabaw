@@ -29,9 +29,12 @@ angular.module('articulosimagenes')
 
             function mostrarDatos(auxPrm) {
                 $scope.dat = [];
-                $http.get( auxRuta + '/' + auxPrm )
-                    .success((data) => {
-                    $scope.dat = data;
+
+                $http({
+                    method: 'GET',
+                    url: auxRuta + '/' + auxPrm
+                }).then( function( response ) {
+                    $scope.dat = response.data;
                     console.log($scope.dat);
                     console.log($scope.dat.length);
                     if ( $scope.dat.length > 0 ) {
@@ -39,11 +42,10 @@ angular.module('articulosimagenes')
                         } else {
                         $scope.imagenSeleccionada = '../img/imagenes/general.jpg';
                         };
-                })
-                .error((error) => {
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
-            
+                
             };
 
             function seleccionarImagen(auxPrm) {

@@ -22,30 +22,24 @@ angular.module('articulos')
                 }
             };
             
-            
-            
-            
             mostrarDatos();
-            
             
                 console.log('1--2');
                 console.log($scope.dat);
                 console.log($scope.gridOptions1);
             
             function mostrarDatos() {
-                $http.get('/articulos/api/v1/articulos')
-                    .success((data) => {
-                    $scope.dat = data;
-                    $scope.gridOptions1.data = data;
-                    console.log('123');
-                    console.log(data);
-                    console.log($scope.dat);
-    
-                })
-                .error((error) => {
+                
+                $http({
+                    method: 'GET',
+                    url: '/articulos/api/v1/articulos'
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                    $scope.gridOptions1.data = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
-                console.log('1');
+                
             }
 
             $scope.ver = function(index) {

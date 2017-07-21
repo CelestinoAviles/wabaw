@@ -36,12 +36,12 @@
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto">
                         <td>
-                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary" ng-click="ver(item)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit(item)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete(item)"><i class="glyphicon glyphicon-remove"></i></button>
                         </td>
                         <td>
-                            {{ item.fecha  | date:'dd/MM/yyyy' }}
+                            {{ item.fecha  | date:'dd/MM/yyyy HH:mm' }}
                         </td>
                         <td>
                             {{ item.login }}
@@ -73,7 +73,11 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-6"><label>Fecha</label><input type="datetime" class="form-control" disabled="true" ng-model="datSel.fecha"></div>
+                <div class="col-md-6">
+                    <label>Fecha</label>
+                    <input type="datetime" class="form-control" disabled="true" ng-model="datSel.fecha">
+                </div>
+                
             </div><br>
 
             <div class="row">
@@ -81,12 +85,23 @@
             </div><br>
 
             <div class="row">
-                <div class="col-md-6"><label>Código Artículo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo_articulo"></div>
+                <div class="col-md-6">
+                    <label>Código Artículo</label>
+                    <select ng-readonly="!(insert || update)" ng-options="g.codigo as g.nombre for g in articulos"
+                            ng-model="datSel.codigo_articulo"
+                            class="form-control">
+                    </select>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo_articulo">
+                </div>
             </div><br>
-
+            
             <div class="row">
                 <div class="col-xs-3">
-                    <label for="sel1">General:</label>
+                    <label for="sel1">Valoración general (1-5):</label>
+                    <select ng-readonly="!(insert || update)" ng-options="h.valor as h.nomvalor for h in valoraciones"
+                            ng-model="datSel.valorgeneral"
+                            class="form-control">
+                    </select>
                     <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.valorgeneral">
                 </div>
             </div><br>

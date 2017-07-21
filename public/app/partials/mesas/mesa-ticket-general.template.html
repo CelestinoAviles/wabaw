@@ -15,7 +15,7 @@
                 <tbody>
                     <tr class="bg-success" ng-repeat="item in datMesa">
                         <td>
-                            <button class="btn btn-primary" ng-click="llamar($index)" data-toggle="tooltip" title="Llamar al camarero"><i class="glyphicon glyphicon-bell"></i></button>
+                            <button class="btn btn-primary" ng-click="llamar(item)" data-toggle="tooltip" title="Llamar al camarero"><i class="glyphicon glyphicon-bell"></i></button>
                         </td>
                         <td>
                             {{ item.codigo }}
@@ -66,7 +66,7 @@
                             {{ item.codigo }}
                         </td>
                         <td>
-                            {{ item.fecha_ticket  | date:'dd/MM/yyyy hh:mm' }}
+                            {{ item.fecha_ticket  | date:'dd/MM/yyyy HH:mm' }}
                         </td>
                         <td>
                             {{ item.cod_espacio  }}
@@ -78,7 +78,7 @@
                             {{ item.cod_empleado  }}
                         </td>
                         <td>
-                            {{ item.fecha_modifica  | date:'dd/MM/yyyy  hh:mm' }}
+                            {{ item.fecha_modifica  | date:'dd/MM/yyyy  HH:mm' }}
                         </td>
                         <td>
                             {{ item.estado }}
@@ -151,9 +151,9 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
                 <tbody>
                     <tr ng-repeat="item in datLineasTickets | filter:filtroTexto" >
                         <td>
-                            <button class="btn btn-primary" ng-click="copiarTicketLinea($index)"><i class="glyphicon glyphicon-plus"><strong>1</strong></i></button>
-                            <button class="btn btn-danger"  ng-click="borrarTicketLinea($index)"><i class="glyphicon glyphicon-remove"></i></button>
-                            <button class="btn btn-primary"  ng-click="opinarTicketLinea($index)"><i class="glyphicon glyphicon-pushpin"></i></button>
+                            <button class="btn btn-primary" ng-click="copiarTicketLinea(item)"><i class="glyphicon glyphicon-plus"><strong>1</strong></i></button>
+                            <button class="btn btn-danger"  ng-click="borrarTicketLinea(item)"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary"  ng-click="opinarTicketLinea(item)"><i class="glyphicon glyphicon-pushpin"></i></button>
 
                         </td>
                         <td>
@@ -190,8 +190,6 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
     
 </div>
 </div>
-    
-
 
         <div class="panel panel-primary" ng-show="showEstado">
             <div class="panel-heading">

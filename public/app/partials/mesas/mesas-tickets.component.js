@@ -22,18 +22,18 @@ angular.module('mesas-tickets')
             
             mostrarDatos();
             
-            function anotarAtendida(index) {
-                $scope.datSel = $scope.dat[index];
-                $scope.datSel.index = index;
+            function anotarAtendida(item) {
+                $scope.datSel = item;
+//                $scope.datSel.index = index;
                 $scope.datSel.llamada = null;
-                $scope.codigoSeleccionado = $scope.datSel.codigo;
+                $scope.codigoSeleccionado = item.codigo;
                 console.log($scope.datSel);
                 $scope.grabar();
                 
             };
 
-            function anotarPedido(index) {
-                $scope.datSel = $scope.dat[index];
+            function anotarPedido(item) {
+                $scope.datSel = item;
                 $scope.codigoSeleccionado = $scope.datSel.codigo;
                 console.log($scope.datSel);
                 window.location = '#!/mesaTicketGeneral/' + $scope.codigoSeleccionado;
@@ -43,52 +43,61 @@ angular.module('mesas-tickets')
             $scope.loadTickets = function () {
                 console.log('entro para cargar los datos de la mesa');
                 console.log($scope.codigoSeleccionado);
-                $http.get('/tickets/api/v1/mesa-tickets/' + $scope.codigoSeleccionado )
-                    //  The user has selected a Customer from our Drop Down List.  Let's load this Customer's records.
-                    .success(function (data) {
-                        $scope.listOfOrders = data.GetBasketsForCustomerResult;
-                        $scope.datTickets = data;
+                $http({
+                    method: 'GET',
+                    url: '/tickets/api/v1/mesa-tickets/' + $scope.codigoSeleccionado
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                        $scope.listOfOrders = response.data.GetBasketsForCustomerResult;
+                        $scope.datTickets = response.data;
                         console.log('saco los tickets');
-                        console.log(data);
-                    })
-                    .error(function (data, status, headers, config) {
-                        $scope.errorMessage = "Couldn't load the list of Orders, error # " + status;
-                    });
+                        console.log(response.data);
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
             }            
 
             $scope.loadLineasTicket = function () {
-                console.log('entro para cargar los datos de la mesa');
+                console.log('entro para cargar los datos de la mesa 2');
                 console.log($scope.ticketSeleccionado);
-                $http.get('/ticketslineas/api/v1/ticketslineas/' + $scope.ticketSeleccionado )
-                    //  The user has selected a Customer from our Drop Down List.  Let's load this Customer's records.
-                    .success(function (data) {
-                        $scope.listOfOrders = data.GetBasketsForCustomerResult;
-                        $scope.datLineasTickets = data;
-                        console.log('saco las lineas de los tickets');
-                    })
-                    .error(function (data, status, headers, config) {
-                        $scope.errorMessage = "Couldn't load the list of Orders, error # " + status;
-                    });
+                $http({
+                    method: 'GET',
+                    url: '/ticketslineas/api/v1/ticketslineas/' + $scope.ticketSeleccionado
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                    $scope.listOfOrders = response.data.GetBasketsForCustomerResult;
+                    $scope.datLineasTickets = response.data;
+                    console.log('saco las lineas de los tickets');
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
             }            
             
             $scope.seleccionaMesa = function (val) {
-                $scope.codigoSeleccionado = val.codigo;
-                $scope.loadTickets();
+//                $scope.codigoSeleccionado = val.codigo;
+//                $scope.loadTickets();
             };
 
 
-            function nuevaClave(index) {
-                $scope.datSel = $scope.dat[index];
-                $scope.codigoSeleccionado = $scope.datSel.codigo;
-                var auxCodigo = $scope.dat[index].codigo;
-                console.log('nueva clave:' + auxCodigo);
-                $http.put('mesas/api/v1/mesas/nuevaClave/' + auxCodigo)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+            function nuevaClave(item) {
+                $scope.datSel =item;
+                $scope.codigoSeleccionado = item.codigo;
+                var auxCodigo = item.codigo;
+                console.log('nueva clave de:' + auxCodigo);
+                $http({
+                    method: 'PUT',
+                    url: 'mesas/api/v1/mesas/nuevaClave/' + auxCodigo, 
+                    data: $scope.dat
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                    alert('clave generada correctamente');
+                    mostrarDatos();
+
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
+
+
             };
 
             
@@ -98,63 +107,73 @@ angular.module('mesas-tickets')
                 console.log('Seleciona lineas');
                 $scope.loadLineasTicket();
             };
-        
+
+            //
+            // Mostrar datos
+            //
             function mostrarDatos() {
-                $http.get('/mesas/api/v1/mesas')
-                    .success((data) => {
-                    $scope.dat = data;
-                    $scope.codigoSeleccionado = $scope.dat[0].codigo;
+                console.log('mostrando datos');
+                $http({
+                    method: 'GET',
+                    url: '/mesas/api/v1/mesas'
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                    
+//                    $scope.codigoSeleccionado = $scope.dat[0].codigo;
                     
                     console.log($scope.dat);
-                    console.log($scope.codigoSeleccionado);
                     
-                    $scope.listOfCustomers = data.GetAllCustomersResult;
+//                    console.log($scope.codigoSeleccionado);
+                    
+//                    $scope.listOfCustomers = $scope.dat.GetAllCustomersResult;
+                    console.log( $scope.listOfCustomers );
+                    console.log('fff');
+//                    $scope.listOfCustomers = data.GetAllCustomersResult;
                     //  If we managed to load more than one Customer record, then select the 
                     //  first record by default.
 //                    $scope.selectedCustomer = $scope.listOfCustomers[0].CustomerID;
 
                     //  Load the list of Orders, and their Products, that this Customer has ever made.
                     //                    $scope.loadOrders();
-                    $scope.loadTickets();
-                })
-                .error((error) => {
+//                    $scope.loadTickets();
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
                 
             };
 
             
-            $scope.ver = function(index) {
+            $scope.ver = function(item) {
                 $scope.datSel = {};
-                $scope.datSel = $scope.dat[index];
-                $scope.datSel.index = index;
+                $scope.datSel = item;
                 $scope.showCategoria = true;
                 $scope.insert = false;
                 $scope.upate = false;
             }
 
-            $scope.edit = function(index) {
+            $scope.edit = function(item) {
                 //                $scope.entity = $scope.mesas[index];
                 //                $scope.entity.index = index;
-                $scope.ver(index);
+                $scope.ver(item);
                 $scope.update = true;
             }
 
-            $scope.cambiarEstado = function(index) {
-                $scope.ver(index);
+            $scope.cambiarEstado = function(item) {
+                $scope.ver(item);
                 $scope.showEstado = true;
                 $scope.update = true;
             }
             
         
-            $scope.delete = function(index) {
-                var auxCodigo = $scope.dat[index].codigo;
-                $http.delete('mesas/api/v1/mesas/' + auxCodigo)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+            $scope.delete = function(item) {
+                var auxCodigo = item.codigo;
+                $http({
+                    method: 'DELETE',
+                    url: 'mesas/api/v1/mesas/' + auxCodigo
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
             }
 
@@ -180,24 +199,29 @@ angular.module('mesas-tickets')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post('/mesas/api/v1/mesas', $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: '/mesas/api/v1/mesas', 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
                 }
                  else {
-                     $http.put('/mesas/api/v1/mesas/' + $scope.datSel.codigo, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
 
-                    $scope.dat[$scope.index] = $scope.datSel;
+                    $http({
+                        method: 'PUT',
+                        url: '/mesas/api/v1/mesas/' + $scope.datSel.codigo, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
+
+//                    $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;
                     $scope.insert = false;
                 };

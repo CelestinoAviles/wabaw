@@ -25,7 +25,7 @@
                         <th class="col-md-2">Acciones</th>
                         <th class="col-md-1">Codigo</th>
                         <th class="col-md-3">Descripción</th>
-                        <th class="col-md-1">URL</th>
+                        <th class="col-md-4">URL</th>
                         <th class="col-md-1">Imagen</th>
                     </tr>
                 </thead>
@@ -34,9 +34,9 @@
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto">
                         <td>
-                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary" ng-click="ver(item)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit(item)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete(item)"><i class="glyphicon glyphicon-remove"></i></button>
                         </td>
                         <td>
                             {{ item.codigo }}
@@ -69,14 +69,13 @@
                 <div class="col-md-6"><label>Código</label><input class="form-control" ng-readonly="true" ng-model="datSel.codigo"></div>
             </div><br>
             <div class="row">
-                <div class="col-md-6"><label>URL</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.url"></div>
-            </div><br>
-            <div class="row">
                 <div class="col-md-6"><label>Descripcion</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.descripcion"></div>
             </div>
             <div class="row">
+                <div class="col-md-6"><label>URL</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.url"></div>
+                <br>
                 <div class="col-sm-3">
-                    <img ng-src="../img/inicio/hamburguesa.jpg" class="img-rounded img-responsive" style="width:100%" alt="Imagen">
+                    <img ng-src="{{datSel.url}}" class="img-rounded img-responsive" style="width:100%" alt="Imagen">
                 </div>
             </div>
         </div>

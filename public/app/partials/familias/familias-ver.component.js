@@ -27,11 +27,13 @@ angular.module('familias')
 
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get(auxRuta)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
+                
+                $http({
+                    method: 'GET',
+                    url: auxRuta
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
             
@@ -62,12 +64,14 @@ angular.module('familias')
         
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].codigo;
-                $http.delete(auxRuta + '/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+                
+                $http({
+                    method: 'DELETE',
+                    url: auxRuta + '/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
             }
 
@@ -91,22 +95,26 @@ angular.module('familias')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post(auxRuta, $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: auxRuta, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
                 }
                  else {
-                     $http.put(auxRuta + '/' + $scope.datSel.codigo, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
+                    $http({
+                        method: 'PUT',
+                        url: auxRuta + '/' + $scope.datSel.codigo, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
 
                     $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;

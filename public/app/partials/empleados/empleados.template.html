@@ -26,6 +26,7 @@
                         <th class="col-md-1">Codigo</th>
                         <th class="col-md-2">Nombre</th>
                         <th class="col-md-1">Apellidos</th>
+                        <th class="col-md-1">Perfil</th>
                         <th class="col-md-2">Correo-e</th>
                         <th class="col-md-2">Tfno 1</th>
                     </tr>
@@ -48,6 +49,9 @@
                             {{ item.apellidos }}
                         </td>
                         <td>
+                            {{ item.perfil }}
+                        </td>
+                        <td>
                             {{ item.email }}
                         </td>
                         <td>
@@ -68,6 +72,17 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-6"><label>Código</label><input class="form-control" ng-disabled=true ng-model="datSel.codigo"></div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Contraseña</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-show="showpassword" type="text" ng-model="datSel.pwd">
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-hide="showpassword" type="password" ng-model="datSel.pwd">
+                    Ver <input type="checkbox" ng-model="showpassword" ng-checked="false">                
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-6"><label>Perfil (G=Gestor, C=Camarero)</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.perfil"></div>
             </div><br>
             <div class="row">
                 <div class="col-md-6"><label>Nombre</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.nombre"></div>

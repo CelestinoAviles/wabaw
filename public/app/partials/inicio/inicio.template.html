@@ -47,24 +47,31 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3">
 <!--        <a href="#!/mesaTicket0" class="btn btn-primary btn-block" role="button"> -->
-        <a href="#!/mesaTicketCliente/{{espacio}}" class="btn btn-primary btn-block" role="button">
+        <a href="#!/mesaTicketCliente/{{mesa}}" class="btn btn-primary btn-block" role="button">
             <h1>
                 <span class="glyphicon glyphicon-euro"></span>
                 {{ 'MICUENTA' | translate }}
             </h1>
         </a>
     </div>
+    
     <div class="col-xs-12 col-sm-6 col-md-3">
-        <div class="col-xs-6">
-            {{ 'ESPACIO' | translate }}: {{ espacio }}
+        <div class="col-xs-12">
+            {{ 'MESA / ESPACIO EN BARRA:' | translate }}: {{ mesa }}
         </div>
-        <div class="col-xs-6">
-            {{ 'IDIOMA' | translate }}: {{ idioma }}
+        <div class="col-xs-12">
+            {{ 'IDIOMA:' | translate }}: {{ idioma }}
+        </div>
+        <div class="col-xs-12">
+            {{ 'DISPOSITIVO:' | translate }}: {{ dispositivo }}
         </div>
     </div>
+    
 </div>
 
 <ofertasver001> </ofertasver001>
 
+<!--
 <imagenescarrusel> </imagenescarrusel>
 
+-->

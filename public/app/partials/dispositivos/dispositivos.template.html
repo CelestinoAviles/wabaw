@@ -1,0 +1,170 @@
+<div class="container">
+
+    <div class="row">
+        <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
+    </div>
+    <div class="row"><br/></div>
+    <div class="panel panel-primary" ng-show="!showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title"> {{ texto }}</h3>
+        </div>
+        <table class="table table-hover">
+            <td class="col-md-6">
+                <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
+            </td>
+            <td class="col-md-6">
+                <input type="text" ng-model="filtroTexto">
+            </td>
+        </table>
+
+<!-- UI-GRID        Lo dejamos por ahora pendiente de si llego lo implemento
+    <div ui-grid="{ data: dat }" class="grid">
+    </div>
+-->
+<!--        
+        <div class="panel-body">
+<table ng-table="tableParams" show-filter="true">
+	<tr ng-repeat="customer in dat">
+		<td data-title="'Nombre'" sortable="'nombre'" filter="{ 'nombre': 'text' }">{{customer.nombre}}</td>
+		<td data-title="'Marca'" sortable="'marca'" filter="{ 'marca': 'text' }">{{customer.marca}}</td>
+		<td data-title="'State'" sortable="'state'" filter="{ 'state': 'text' }">{{customer.state}}</td>
+		<td data-title="'Country'" sortable="'country'" filter="{ 'country': 'text' }">{{customer.country}}</td>
+		<td>
+			<div class="table-actions">
+		<td>
+		   <div class="table-actions">
+				<a class="btn btn-default" title="View" href="/#!/customers/{{customer._id}}">
+					<span class="glyphicon glyphicon-eye-open"></span>
+				</a>
+				<a class="btn btn-default" title="Edit" href="/#!/customers/{{customer._id}}/edit">
+					<span class="glyphicon glyphicon-edit"></span>
+				</a>
+				<button type="button" class="btn btn-danger" title="Remove" data-ng-click="remove(customer)">
+					<span class="glyphicon glyphicon-remove-circle"></span>
+				</button>
+			</div>
+		</td>
+            </div>
+        </td>
+    </tr>
+</table>
+        </div>    
+-->        
+        <div class="panel-body">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">Acciones</th>
+                        <th class="col-md-1">Codigo</th>
+                        <th class="col-md-2">Nombre</th>
+                        <th class="col-md-1">Marca</th>
+                        <th class="col-md-1">Modelo</th>
+                        <th class="col-md-1">Compra</th>
+                        <th class="col-md-4">Observaciones</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+                <tbody>
+                    <tr ng-repeat="item in dat | filter:filtroTexto">
+                        <td>
+                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                        </td>
+
+                        <td>
+                            {{ item.codigo_dispositivo }}
+                        </td>
+                        <td>
+                            {{ item.nombre }}
+                        </td>
+                        <td>
+                            {{ item.marca }}
+                        </td>
+                        <td>
+                            {{ item.modelo }}
+                        </td>
+                        <td>
+                            {{ item.fecha_compra }}
+                        </td>
+                        <td>
+                            {{ item.observaciones }}
+                        </td>
+                    </tr>
+                    <tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    
+    <div class="panel panel-primary" ng-show="showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title">Datos</h3>
+            <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()"><i class="glyphicon glyphicon-ok"></i></button>
+        </div>
+        <div class="panel-body">
+<!--            
+    <div>
+        <select ng-model="model_estado" ng-options="estado for (estado, municipios) in ubicacion">
+            <option value="">- Seleccione -</option>
+        </select>
+        <select ng-model="model_municipio" ng-disabled="!model_estado" ng-options="municipio for (municipio, parroquias) in model_estado">
+            <option value="">- Seleccione -</option>
+        </select>
+        <select ng-model="model_parroquia" ng-disabled="!model_estado || !model_municipio" ng-options="parroquia for parroquia in model_municipio">
+            <option value="">- Seleccione -</option>
+        </select>
+    </div>
+-->            
+            
+            
+            <div class="row">
+                <div class="col-md-6"><label>Código Dispositivo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo_dispositivo"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Nombre Dispositivo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.nombre"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Marca</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.marca">
+
+                    <!-- ESTO ES LO QUE QUIERO http://plnkr.co/edit/fbfmpPht7ENkWrlfT8c4?p=preview  -->
+<!--                    
+                    <select ng-readonly="!(insert || update)" ng-options="clase.marca as clase.modelo for clase in clases"
+                            ng-model="datSel.marca"
+                            class="form-control">
+                        <option value="">- Seleccione -</option>
+                    </select>
+-->
+                </div>
+            </div><br>
+            
+
+            <div class="row">
+                <div class="col-md-6"><label>Modelo</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.modelo">
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Fecha Compra</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.fecha_compra">
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Observaciones</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.observaciones">
+                </div>
+            </div><br>
+
+
+        </div>
+    </div> 
+</div>

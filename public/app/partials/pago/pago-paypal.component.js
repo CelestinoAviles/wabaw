@@ -24,7 +24,7 @@ angular.module('pagoPaypal')
             //            alert('Entro en ' + auxTxt);
         $scope.texto = auxTxt;
         
-        $scope.codigo_espacio = auxCodigoEspacio;
+        $scope.codigo_mesa = auxCodigoEspacio;
         $scope.cod_ticket = auxCodigoTicket;
         $scope.total = auxTotal;
 

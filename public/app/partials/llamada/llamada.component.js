@@ -23,7 +23,7 @@ angular.module('llamada')
                     var preferencias = JSON.parse(dispositivo);
                     console.log('inicio: ' + preferencias);
                     $scope.dispositivo = preferencias.nombre_dispositivo;
-                    $scope.espacio     = preferencias.codigo_espacio;
+                    $scope.espacio     = preferencias.codigo_mesa;
                     $scope.idioma      = preferencias.idioma_dispositivo;
 
             mostrarDatos();
@@ -36,11 +36,12 @@ angular.module('llamada')
             
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get('/llamada/api/v1/llamada')
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
+                $http({
+                    method: 'GET',
+                    url: '/llamada/api/v1/llamada'
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
             
@@ -63,12 +64,13 @@ angular.module('llamada')
         
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].codigo;
-                $http.delete(auxRuta + '/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+                $http({
+                    method: 'DELETE',
+                    url: auxRuta + '/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
             }
 
@@ -87,21 +89,24 @@ angular.module('llamada')
             }
 
             $scope.llamar = function(prm) {
-                    alert('Ha solicitado: ' + prm.toUpperCase() +`. En breve le atenderemos.`);
-                    $scope.datSel = { "llamada": prm.toUpperCase(),
-                                      "codigo" : $scope.espacio
-                                    };
+                alert('Ha solicitado: ' + prm.toUpperCase() +`. En breve le atenderemos.`);
+                $scope.datSel = { "llamada": prm.toUpperCase(),
+                                 "codigo" : $scope.espacio
+                                };
                     
-                    var auxRuta = '/mesas/api/v1/mesas/llamada';
-                    console.log($scope.datSel)
-                     $http.put(auxRuta + '/' + $scope.espacio, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     })
-                     volver();
+                var auxRuta = '/mesas/api/v1/mesas/llamada';
+                console.log($scope.datSel)
+                $http({
+                    method: 'PUT',
+                    url: auxRuta + '/' + $scope.espacio, 
+                    data: $scope.datSel
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
+
+                volver();
             };
 
             $scope.grabar = function() {
@@ -109,22 +114,26 @@ angular.module('llamada')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post(auxRuta, $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: auxRuta, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
                 }
                  else {
-                     $http.put(auxRuta + '/' + $scope.datSel.codigo, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
+                    $http({
+                        method: 'PUT',
+                        url: auxRuta + '/' + $scope.datSel.codigo, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
 
                     $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;

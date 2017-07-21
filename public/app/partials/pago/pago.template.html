@@ -6,7 +6,7 @@
         </div>
         <div class="panel-body">
 
-            <div class="well col-xs-12 col-md-4">MESA  : {{ codigo_espacio }}</div>
+            <div class="well col-xs-12 col-md-4">MESA  : {{ codigo_mesa }}</div>
             <div class="well col-xs-12 col-md-4">Ticket: {{ cod_ticket }}</div>
             <div class="well col-xs-12 col-md-4">Total : {{ total }}</div>
 
@@ -16,9 +16,9 @@
     <h2>Seleccionar forma de pago</h2>
     
     <div class="list-group">
-        <a href="#!/pagoEfectivo/{{ codigo_espacio }}/{{cod_ticket}}/{{total}}"   class="btn btn-block btn-success" role="button"><h1>Efectivo</h1></a>
-        <a href="#!/pagoPaypal/{{ codigo_espacio }}/{{cod_ticket}}/{{total}}"     class="btn btn-block btn-info" role="button"><h1>PayPal</h1></a>
-        <a href="#!pagoTarjeta/{{ codigo_espacio }}/{{cod_ticket}}/{{total}}" class="btn btn-block btn-primary" role="button"><h1>Tarjeta de crédito</h1></a>
+        <a href="#!/pagoEfectivo/{{ codigo_mesa }}/{{cod_ticket}}/{{total}}"   class="btn btn-block btn-success" role="button"><h1>Efectivo</h1></a>
+        <a href="#!/pagoPaypal/{{ codigo_mesa }}/{{cod_ticket}}/{{total}}"     class="btn btn-block btn-info" role="button"><h1>PayPal</h1></a>
+        <a href="#!pagoTarjeta/{{ codigo_mesa }}/{{cod_ticket}}/{{total}}" class="btn btn-block btn-primary" role="button"><h1>Tarjeta de crédito</h1></a>
     </div>
     
     <button type="button" class="btn btn-block btn-primary" ng-click="$ctrl.volver()"><h3>Volver</h3></button>

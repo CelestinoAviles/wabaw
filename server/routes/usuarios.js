@@ -28,8 +28,8 @@ router.post('/api/v1/usuarios', (req, res, next) => {
     // Graba datos from http request
     const data = { codigo: req.body.codigo, 
                    nombre: req.body.nombre,
-                   login: req.body.login,
                    pwd: req.body.pwd,
+                   login: req.body.login,
                    email: req.body.email,
                    tfno: req.body.tfno
                  };

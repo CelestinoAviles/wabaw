@@ -19,11 +19,12 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.json());                          // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true }));  // for parsing application/x-www-form-urlencoded
 
+auxRuta = '/api/v1/ofertas';
 
 // 
 // ALTA 
 //
-router.post('/api/v1/ofertas', (req, res, next) => {
+router.post( auxRuta, (req, res, next) => {
     const results = [];
     // Graba datos from http request
     const data = { codigo_articulo: req.body.codigo_articulo, 
@@ -79,6 +80,8 @@ router.get( '/api/v1/ofertas-ver', (req, res, next) => {
       aux = aux + ' LEFT OUTER JOIN WABAW.ARTICULOS_IMAGENES  ON ARTICULOS.CODIGO = ARTICULOS_IMAGENES.CODIGO_ARTICULO '
       aux = aux + ' LEFT OUTER JOIN WABAW.IMAGENES  ON ARTICULOS_IMAGENES.CODIGO_IMAGEN =  WABAW.IMAGENES.CODIGO '
       aux = aux + ' WHERE WABAW.ARTICULOS_IMAGENES.NUMERO_ORDEN = 1'
+      aux = aux + '   AND FECHAINICIO <= CURRENT_DATE'
+      aux = aux + '   AND    FECHAFIN >= CURRENT_DATE'
       aux = aux + ' ORDER BY id DESC'
     const query = client.query( aux );
     // Stream results back one row at a time

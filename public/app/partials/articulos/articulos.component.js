@@ -23,41 +23,48 @@ angular.module('articulos')
             
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get('/articulos/api/v1/articulos')
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
-                    console.log('Error: ' + error);
-                });
-            
+
+                    $http({
+                        method: 'GET',
+                        url: '/articulos/api/v1/articulos', 
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
+                
+    
             }
 
-            $scope.ver = function(index) {
-                console.log(index);
+            $scope.ver = function(item) {
+                console.log(item);
                 $scope.datSel = {};
-                $scope.datSel = $scope.dat[index];
-                $scope.datSel.index = index;
+                $scope.datSel = item;
                 $scope.showCategoria = true;
                 $scope.insert = false;
                 $scope.upate = false;
             }
 
-            $scope.edit = function(index) {
-                $scope.ver(index);
+            $scope.edit = function(item) {
+                $scope.ver(item);
                 $scope.update = true;
             }
 
-            $scope.delete = function(index) {
-                var auxId = $scope.dat[index].codigo;
+            $scope.delete = function(item) {
+                $scope.datSel = item;
+                
+                var auxId = item.codigo;
                 console.log(auxId);
-                $http.delete(auxRuta + '/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+
+                $http({
+                    method: 'DELETE',
+                    url: auxRuta + '/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
+                
             }
 
             $scope.newItem = function() {
@@ -79,24 +86,30 @@ angular.module('articulos')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post(auxRuta, $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: auxRuta, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
+
                 }
                  else {
-                     $http.put(auxRuta + '/' + $scope.datSel.codigo, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
+                     
+                    $http({
+                        method: 'PUT',
+                        url: auxRuta + '/' + $scope.datSel.codigo, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
 
-                    $scope.dat[$scope.index] = $scope.datSel;
+//                    $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;
                     $scope.insert = false;
                 };

@@ -31,7 +31,7 @@ angular.module('ticketsLineas')
                     var preferencias = JSON.parse(dispositivo);
                     console.log('inicio: ' + preferencias);
                     $scope.dispositivo = preferencias.nombre_dispositivo;
-                    $scope.espacio     = preferencias.codigo_espacio;
+                    $scope.espacio     = preferencias.codigo_mesa;
                     $scope.idioma      = preferencias.idioma_dispositivo;
             };
             

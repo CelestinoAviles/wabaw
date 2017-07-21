@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <label>Número de mesa o espacio</label>
-                    <input class="form-control" ng-model="datSel.codigo_espacio" data-toggle="tooltip" title="Código que aparece en su espacio">
+                    <input class="form-control" ng-model="datSel.codigo_mesa" data-toggle="tooltip" title="Código que aparece en su espacio">
                 </div>
             </div>
 
@@ -27,10 +27,13 @@
                 </div>
             </div><br>
 
-            <div class="col-xs-6">
+            <div class="col-xs-4">
                 <button class="btn btn-primary btn-block" ng-click="volver()">Cancelar</button>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-4">
+                <button class="btn btn-info btn-block" ng-click="limpiar()">Limpiar</button>
+            </div>
+            <div class="col-xs-4">
                 <button class="btn btn-success btn-block" ng-click="grabar()">Aceptar</button>
             </div>
         </div>

@@ -1,32 +1,32 @@
 <div class="container">
     
-    <a href="#" 
-       class="btn btn-info"
-       socialshare
-       socialshare-provider="facebook"
-       socialshare-url="http://www.pensionsegura.es/index.php?section=catalogo&idioma=es"
-       socialshare-text="texto"
-       socialshare-quote="qqq"
-       socialshare-caption="caption"
-       socialshare-title="tit"
-       socialshare-description="des">
+    <button class="btn btn-primary"
+            socialshare
+            socialshare-provider="facebook"
+            socialshare-url="http://www.pensionsegura.es/index.php?section=catalogo&idioma=es"
+            socialshare-text="texto"
+            socialshare-quote="qqq"
+            socialshare-caption="caption"
+            socialshare-title="tit"
+            socialshare-description="des">
         <i class="fa fa-facebook"></i> Facebook
-    </a>
-
-
-    <a  href="#"
-       class="btn btn-info"
-       socialshare
-       socialshare-provider="twitter"
-       socialshare-text="Un sitio estupendo para tomar cualquier cosa"
-       socialshare-url="http://www.pensionsegura.es/index.php?section=catalogo&idioma=es"
-       socialshare-hashtags="720kb, development, angularjs, opensource" >
-      <i class="fa fa-twitter"></i> Twitter
-    </a>
+    </button>
     
-    
-      <a href="#"
-         class="btn btn-info"
+    <button class="btn btn-info" ng-hide="{{verTwitterEmpresa}}"
+            socialshare
+            socialshare-provider="twitter"
+            socialshare-text="{{ textoTwitter }}"
+            socialshare-url="{{ urlTwitter }}"
+            socialshare-hashtags="{{ tagTwitter }}">
+        <i class="fa fa-twitter"></i> Twitter
+    </button>
+        
+    <button class="btn btn-success" ng-show="{{verTwitterEmpresa}}"
+            ng-click= "$location.path( {{ urlTwitter }}) ">
+        <i class="fa fa-twitter"></i> Twitter
+    </button>
+
+    <button class="btn btn-basic"
          socialshare
          socialshare-provider="email"
          socialshare-trigger="click"
@@ -35,6 +35,6 @@
          socialshare-to="amigo@amigo.com" >
         <i class="fa fa-envelope-o"></i>
         Email
-      </a>
+    </button>
 
 </div>

@@ -24,26 +24,27 @@ angular.module('preferencias')
             mostrarDatos();
 
             function mostrarDatos() {
-
+                
                 var dispositivo = localStorage.getItem("dispositivo");
                 var preferencias = JSON.parse(dispositivo);
+                console.log(preferencias);
+                if (preferencias = null) {
+                    var dispositivo = {
+                        codigo_dispositivo: '0',
+                        nombre_dispositivo: '',
+                        idioma_dispositivo: 'ES',
+                        codigo_mesa       : 0
+                    };
+                    var dispositivoAGuardar = JSON.stringify(dispositivo);
+                    localStorage.setItem("dispositivo", dispositivoAGuardar );
+                    var dispositivo = localStorage.getItem("dispositivo");
+                    var preferencias = JSON.parse(dispositivo);
+                };
+    
                 console.log(preferencias); //true
                 $scope.datSel = preferencias;
-                $scope.datSel.idioma_dispositivo = 'ES';
-
-                
-            }
-
-            $scope.ver = function(index) {
-
-                var dispositivo = localStorage.getItem("dispositivo");
-                var preferencias = JSON.parse(dispositivo);
-                console.log(preferencias); //true
-                $scope.datSel = preferencias;
-                $scope.datSel.password = '';
-                
-            }
-
+            };
+            
             $scope.volver = function() {
                 $scope.datSel = {};
                 $scope.showCategoria = false;
@@ -51,6 +52,11 @@ angular.module('preferencias')
                 mostrarDatos();
             }
 
+            $scope.limpiar = function() {
+                localStorage.clear();
+                alert('Dispositivo limpiado de preferencias');
+                window.location = '#!/inicio';
+            };
 
             $scope.grabar = function() {
                 console.log('pwd');
@@ -61,7 +67,7 @@ angular.module('preferencias')
                     codigo_dispositivo: $scope.datSel.codigo_dispositivo,
                     nombre_dispositivo: $scope.datSel.nombre_dispositivo,
                     idioma_dispositivo: $scope.datSel.idioma_dispositivo,
-                    codigo_espacio    : $scope.datSel.codigo_espacio
+                    codigo_mesa       : $scope.datSel.codigo_mesa
                 };
 
                 // Guardamos directo el JSON al localStorage:
@@ -75,8 +81,6 @@ angular.module('preferencias')
                     {
                       alert('incorrecto');  
                     };
-
-
                 $scope.preferencias = dispositivo;
                 $scope.showPreferencias = false;
             }

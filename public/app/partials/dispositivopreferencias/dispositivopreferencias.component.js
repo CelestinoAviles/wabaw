@@ -6,11 +6,11 @@
 angular.module('dispositivopreferencias')
     .component('dispositivopreferencias', {
         templateUrl: 'app/partials/' + 'dispositivopreferencias' + '/' + 'dispositivopreferencias' + '.template.html',
-        controller: function EntidadController($scope, $http, $routeParams, $location, $translate ) {
+        controller: function EntidadController($scope, $http, $routeParams, $location, $translate, preferencias_factory ) {
 
             var auxRuta = '/dispositivopreferencias/api/v1/dispositivopreferencias';
-            var auxEntidad = 'Gestionar dispositivos y asignar a espacios';
-            
+            var auxEntidad = 'Dispositivos. Asignar a mesas y espacios';
+
             $scope.rate = 1;
             $scope.max = 5;
             $scope.texto = auxEntidad.toUpperCase();;
@@ -23,16 +23,46 @@ angular.module('dispositivopreferencias')
     
             mostrarDatos();
 
-            function mostrarDatos() {
+            function mostrarDatos()
+            {
                 $scope.dat = [];
-                $http.get( auxRuta )
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
+
+                $http({
+                    method: 'GET',
+                    url: auxRuta
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
-            
+
+                $http({
+                    method: 'GET',
+                    url: '/dispositivos/api/v1/dispositivos'
+                }).then( function( response ) {
+                    $scope.dispositivos = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
+
+                
+                $http({
+                    method: 'GET',
+                    url: '/mesas/api/v1/mesas'
+                }).then( function( response ) {
+                    $scope.mesas = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
+                
+            $scope.idiomas = [{
+                id: 'EN',
+                nom: 'Inglés'
+            }, {
+                id: 'ES',
+                nom: 'Español'
+            }];
+
             }
 
             $scope.ver = function(index) {
@@ -65,7 +95,7 @@ angular.module('dispositivopreferencias')
                     codigo_dispositivo: $scope.datSel.codigo_dispositivo,
                     nombre_dispositivo: $scope.datSel.nombre_dispositivo,
                     idioma_dispositivo: $scope.datSel.idioma_dispositivo,
-                    codigo_espacio    : $scope.datSel.codigo_espacio,
+                    codigo_mesa       : $scope.datSel.codigo_mesa,
                 };
 
                 
@@ -78,16 +108,19 @@ angular.module('dispositivopreferencias')
 
                 $scope.preferencias = dispositivo;
                 
+                alert('ATENCION. Se ha grabado la información en este dispositivo');
+                
             }
 
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].codigo_dispositivo;
-                $http.delete(auxRuta + '/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+                $http({
+                    method: 'DELETE',
+                    url: auxRuta + '/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
             }
 
@@ -114,22 +147,27 @@ angular.module('dispositivopreferencias')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post(auxRuta, $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: auxRuta, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
+
                 }
                  else {
-                     $http.put(auxRuta + '/' + $scope.datSel.codigo_dispositivo, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
+                    $http({
+                        method: 'PUT',
+                        url: auxRuta + '/' + $scope.datSel.codigo_dispositivo, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
 
                     $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;
@@ -140,7 +178,7 @@ angular.module('dispositivopreferencias')
                     codigo_dispositivo: $scope.datSel.codigo_dispositivo,
                     nombre_dispositivo: $scope.datSel.nombre_dispositivo,
                     idioma_dispositivo: $scope.datSel.idioma_dispositivo,
-                    codigo_espacio    : $scope.datSel.codigo_espacio
+                    codigo_mesa       : $scope.datSel.codigo_mesa
                 };
 
                 // Guardamos directo el JSON al localStorage:

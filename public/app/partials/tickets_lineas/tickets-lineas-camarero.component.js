@@ -4,11 +4,13 @@
 
 angular.module('ticketsLineas')
     .component('ticketsLineasCamarero', {
-        templateUrl: 'app/partials/' + 'tickets_lineas' + '/' + 'tickets-lineas-camarero' + '.template.html',
-        controller: function EntidadController($scope, $http, $routeParams, $location, NgTableParams) {
+    templateUrl: 'app/partials/' + 'tickets_lineas' + '/' + 'tickets-lineas-camarero' + '.template.html',
+    controller: function EntidadController($scope, $http, $routeParams, $location) {
 
+  //      controller: function EntidadController($scope, $http, $routeParams, $location, NgTableParams) {
+          
             var auxRuta = '/ticketslineas/api/v1/ticketslineas';
-            var auxEntidad = 'Tickets lineas';
+            var auxEntidad = 'Líneas de Tickets pendientes de cerrar';
             $scope.rate = 1;
             $scope.max = 5;
             $scope.texto = auxEntidad.toUpperCase();
@@ -27,51 +29,50 @@ angular.module('ticketsLineas')
 
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get( auxRuta + '/camarero' )
-                    .success((data) => {
-                    $scope.dat = data;
-                    self.tableParams = new NgTableParams({}, { dataset: $scope.dat });
-                    console.log(self.tableParams);
-                    
-                })
-                .error((error) => {
+                
+                $http({
+                    method: 'GET',
+                    url: auxRuta + '/camarero' 
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
+
             
             }
 
-            $scope.ver = function(index) {
+            $scope.ver = function(item) {
                 $scope.datSel = {};
-                $scope.datSel = $scope.dat[index];
-                $scope.datSel.index = index;
+                $scope.datSel = item;
                 $scope.showCategoria = true;
                 $scope.showEstado = false;
                 $scope.insert = false;
                 $scope.upate = false;
             }
 
-            $scope.edit = function(index) {
-                $scope.ver(index);
+            $scope.edit = function(item) {
+                $scope.ver(item);
                 $scope.update = true;
             }
 
-            $scope.estado = function(index) {
-                $scope.ver(index);
+            $scope.estado = function(item) {
+                $scope.ver(item);
                 $scope.update = true;
                 $scope.showCategoria = false;
                 $scope.showEstado = true;
             }
 
-            function anotarEnCurso(index) {
-                cambiarEstado(index, 'EN CURSO');  
+            function anotarEnCurso(item) {
+                cambiarEstado(item, 'EN CURSO');  
             };
 
-            function anotarServida(index) {
-                cambiarEstado(index, 'SERVIDO');  
+            function anotarServida(item) {
+                cambiarEstado(item, 'SERVIDO');  
             };
 
-            function cambiarEstado(index, auxPrm) {
-                $scope.ver(index);
+            function cambiarEstado(item, auxPrm) {
+                $scope.ver(item);
                 $scope.datSel.estado = auxPrm;
                 $scope.insert = false;
                 $scope.update = true;
@@ -80,15 +81,18 @@ angular.module('ticketsLineas')
                 $scope.grabar();
             };
             
-            $scope.delete = function(index) {
-                var auxId = $scope.dat[index].codigo;
-                $http.delete(auxRuta + '/' + auxId)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                    .error((data) => {
-                    console.log('Error: ' + data);
+            $scope.delete = function(item) {
+                var auxId = item.codigo;
+
+                $http({
+                    method: 'DELETE',
+                    url: auxRuta + '/' + auxId
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
                 });
+
             }
 
 
@@ -111,24 +115,31 @@ angular.module('ticketsLineas')
                     $scope.showCategoria = false;
                     $scope.insert = false;
                     
-                    $http.post(auxRuta, $scope.datSel)
-                        .success((data) => {
-                        $scope.dat = data;
-                    })
-                        .error((error) => {
+                    $http({
+                        method: 'POST',
+                        url: auxRuta, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.dat = response.data;
+                    }, function (error) {
                         console.log('Error: ' + error);
                     });
+
                 }
                  else {
-                     $http.put(auxRuta + '/' + $scope.datSel.codigo, $scope.datSel)
-                         .success((data) => {
-                        $scope.datSel = {};
-                    })
-                        .error((error) => {
-                         console.log('Error: ' + error);
-                     });
 
-                    $scope.dat[$scope.index] = $scope.datSel;
+                    $http({
+                        method: 'PUT',
+                        url: auxRuta + '/' + $scope.datSel.codigo, 
+                        data: $scope.datSel
+                    }).then( function( response ) {
+                        $scope.datSel = {};
+                    }, function (error) {
+                        console.log('Error: ' + error);
+                    });
+
+
+//                    $scope.dat[$scope.index] = $scope.datSel;
                     $scope.showCategoria = false;
                     $scope.showEstado = false;
                     $scope.insert = false;

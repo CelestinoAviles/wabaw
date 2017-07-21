@@ -111,8 +111,8 @@ router.get( glbApi + '/camarero', (req, res, next) => {
     glbConsulta = glbConsulta + ' where L.cod_articulo = A.codigo';
     glbConsulta = glbConsulta + ' and   L.cod_ticket   = T.codigo';
     glbConsulta = glbConsulta + ' and   M.codigo       = T.cod_espacio';
-    glbConsulta = glbConsulta + ' and   T.estado is null';
-    var glbConsultaOrdenada = glbConsulta + ' order by l.codigo ASC';
+    glbConsulta = glbConsulta + ' and  ( T.estado is null OR LENGTH(T.ESTADO)=0)';
+    var glbConsultaOrdenada = glbConsulta + ' order by l.codigo DESC';
     console.log(glbConsulta);
     
   pg.connect(connectionString, (err, client, done) => {

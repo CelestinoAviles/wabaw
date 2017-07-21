@@ -34,18 +34,19 @@ angular.module('articulos')
             console.log('Familia 1: ' + this.codigoFamilia)
             console.log('Familia 2: ' + auxCodFam);
                 $scope.dat = [];
-                $http.get('/articulos/api/v1/articulos-ver/' + auxCodFam)
-                    .success((data) => {
-                    $scope.dat = data;
+
+                $http({
+                    method: 'GET',
+                    url: '/articulos/api/v1/articulos-ver/' + auxCodFam
+                }).then( function( response ) {
+                    $scope.dat = response.data;
                     console.log('entro en data');
                     console.log($scope.dat);
                     console.log('entro en dat');
                     console.log(data);
-                })
-                .error((error) => {
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
-
             }
 
             $scope.ver = function(index) {

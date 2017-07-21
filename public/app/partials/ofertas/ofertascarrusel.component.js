@@ -24,11 +24,12 @@ angular.module('ofertas')
 
             function mostrarDatos() {
                 $scope.dat = [];
-                $http.get(auxRuta)
-                    .success((data) => {
-                    $scope.dat = data;
-                })
-                .error((error) => {
+                $http({
+                    method: 'GET',
+                    url: auxRuta
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                }, function (error) {
                     console.log('Error: ' + error);
                 });
             

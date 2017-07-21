@@ -38,16 +38,16 @@
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto">
                         <td>
-                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-primary" ng-click="estado($index)"><i class="glyphicon glyphicon-random"></i></button>
-                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-primary" ng-click="ver(item)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit(item)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-primary" ng-click="estado(item)"><i class="glyphicon glyphicon-random"></i></button>
+                            <button class="btn btn-danger" ng-click="delete(item)"><i class="glyphicon glyphicon-remove"></i></button>
                         </td>
                         <td>
                             {{ item.codigo }}
                         </td>
                         <td>
-                            {{ item.fecha_ticket  | date:'dd/MM/yyyy hh:mm' }}
+                            {{ item.fecha_ticket  | date:'dd/MM/yyyy HH:mm' }}
                         </td>
                         <td>
                             {{ item.cod_espacio  }}
@@ -59,7 +59,7 @@
                             {{ item.cod_empleado  }}
                         </td>
                         <td>
-                            {{ item.fecha_modifica  | date:'dd/MM/yyyy  hh:mm' }}
+                            {{ item.fecha_modifica  | date:'dd/MM/yyyy  HH:mm' }}
                         </td>
                         <td>
                             {{ item.estado }}
@@ -108,6 +108,12 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-6">
+                    <label>Código Ticket</label>
+                    <input type="text" class="form-control" disabled="true" ng-model="datSel.codigo">
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-6">
                     <label>Fecha Alta</label>
                     <input type="datetime" class="form-control" disabled="true" ng-model="datSel.fecha_ticket" placeholder="yyyy-MM-dd hh:mm">
                 </div>
@@ -118,15 +124,19 @@
             </div><br>
 
             <div class="row">
-                <div class="col-md-6"><label>Nombre Cliente</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cod_cliente"></div>
+                <div class="col-md-6"><label>Código Cliente</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cod_cliente"></div>
             </div><br>
 
             <div class="row">
-                <div class="col-md-6"><label>Nombre Empleado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cod_empleado"></div>
+                <div class="col-md-6"><label>Código Empleado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cod_empleado"></div>
             </div><br>
 
             <div class="row">
                 <div class="col-md-6"><label>Mesa</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.cod_espacio"></div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-6"><label>Estado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.estado"></div>
             </div><br>
 
             <div class="row">
