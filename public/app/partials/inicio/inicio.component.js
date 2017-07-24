@@ -16,7 +16,6 @@
             this.hero = {
                 name: 'Spawn'
             };
-            alert(this.hero.name);
 
 //                    CargarFacebook();
                     
