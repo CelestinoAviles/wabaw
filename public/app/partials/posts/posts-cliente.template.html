@@ -15,14 +15,12 @@
 
         <rrss parametro="general"></rrss> 
 
-
         <div class="panel-body">
-
             
             <table class="table table-hover table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th class="col-md-2" ng-show="!{{opcionCliente}}">Acciones </th>
+                        <th class="col-md-2" ng-show="!opcionCliente">Acciones </th>
                         <th class="col-md-1">Fecha</th>
                         <th class="col-md-1">Usuario</th>
                         <th class="col-md-1">General</th>
@@ -36,7 +34,7 @@
                 <tfoot></tfoot>
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto">
-                        <td ng-show="!{{opcionCliente}}">
+                        <td ng-show="!opcionCliente">
                             <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
                             <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
                             <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
@@ -79,7 +77,6 @@
     </div>
 -->
 <!-- Este sí funciona -->  
-<!--
         <div class="container">
         <div class="col-xs-6">
             <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -97,7 +94,6 @@
         
     
     </div>
--->
     
     <div class="panel panel-primary" ng-show="showCategoria">
     <form name="entidadForm">

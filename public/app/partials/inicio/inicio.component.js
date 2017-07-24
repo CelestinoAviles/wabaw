@@ -13,6 +13,10 @@
 		        templateUrl: 'app/partials/inicio/inicio.template.html',
 		        controller: function InicioController($translate, $scope, $routeParams, $location, servicio) {
                     
+            this.hero = {
+                name: 'Spawn'
+            };
+            alert(this.hero.name);
 
 //                    CargarFacebook();
                     

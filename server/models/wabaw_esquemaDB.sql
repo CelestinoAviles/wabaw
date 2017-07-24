@@ -116,7 +116,7 @@ CREATE TABLE wabaw.Articulos_Imagenes (
 DROP TABLE WABAW.MESAS;
 CREATE TABLE wabaw.mesas (
     codigo     integer not null,
-    tipo       char(1) not null
+    tipo       char(1) not null,
     nombre     char(20) not null,
     clave      char(10) null,
     estado     char(10) null,
@@ -357,20 +357,6 @@ CREATE TABLE wabaw.impresoras (
     nombre_impresora  char(10) not null, 
     CONSTRAINT impresoras_pkey PRIMARY KEY (codigo)
 );
-
-CREATE TABLE wabaw.dispositivos (
-    codigo           integer not null,
-    nombre           char(10) not null, 
-    ubicacion        char(10) not null, 
-    cod_impresora    char(3) not null, 
-    cod_idioma       char(3),
-    clave_activacion integer, 
-    fecha_activacion date, 
-    fecha_alta       date    not null, 
-    fecha_baja       date    not null, 
-    CONSTRAINT dispositivos_pkey PRIMARY KEY (codigo)
-);
-
 
 CREATE TABLE wabaw.configuracion (
     codigo           integer not null,

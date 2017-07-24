@@ -12,7 +12,7 @@
         <i class="fa fa-facebook"></i> Facebook
     </button>
     
-    <button class="btn btn-info" ng-hide="{{verTwitterEmpresa}}"
+    <button class="btn btn-info" ng-hide="verTwitterEmpresa"
             socialshare
             socialshare-provider="twitter"
             socialshare-text="{{ textoTwitter }}"
@@ -21,8 +21,8 @@
         <i class="fa fa-twitter"></i> Twitter
     </button>
         
-    <button class="btn btn-success" ng-show="{{verTwitterEmpresa}}"
-            ng-click= "$location.path( {{ urlTwitter }}) ">
+    <button class="btn btn-success" ng-show="verTwitterEmpresa"
+            ng-click= "$location.path(  urlTwitter ) ">
         <i class="fa fa-twitter"></i> Twitter
     </button>
 
