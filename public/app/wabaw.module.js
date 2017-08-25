@@ -12,6 +12,7 @@ angular.module('wabaw', [
     'menuGestor',
     'menuMantenimientos',
     'menuCamarero',
+    'menuCocinero',
     'inicio',
     'entidad1',
     'entidad2',

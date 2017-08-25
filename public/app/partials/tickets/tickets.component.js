@@ -122,3 +122,14 @@ angular.module('tickets')
             }
         }
     });
+
+angular.module('tickets')
+    .component('ticketRecibo', {
+        templateUrl: 'app/partials/' + 'tickets' + '/' + 'ticket-recibo' + '.template.html',
+        controller: function EntidadController($scope, $http, $routeParams, $location) {
+
+            var id=$routeParams.id;
+            $scope.codigo_ticket = id;
+            
+        }
+    });

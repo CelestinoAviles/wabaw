@@ -6,7 +6,8 @@
         </div>
         <table class="table table-striped table-bordered">
             <td class="col-xs-6">
-                <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i> AÑADIR COMENTARIO</button>
+                <button class="btn btn-primary" ng-click="Salir()"><i class="glyphicon glyphicon-home"></i></button>
+                <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i> AÑADIR OPINION</button>
             </td>
             <td class="col-xs-6">
                 <input class="form-control" type="text" ng-model="filtroTexto">
@@ -26,8 +27,7 @@
                         <th class="col-md-1">General</th>
                         <th class="col-md-1">Limpieza</th>
                         <th class="col-md-1">Servicio</th>
-                        <th class="col-md-1">Redes</th>
-                        <th class="col-md-6">Comentarios</th>
+                        <th class="col-md-6">Opiniones</th>
                     </tr>
                 </thead>
 
@@ -45,17 +45,20 @@
                         <td>
                             {{ item.login }}
                         </td>
-                        <td class="text-center">
-                            {{ item.valor_general }}
+                        <td>
+                            <div  ng-controller="RatingController as rating">
+                                <star-rating ng-model="item.valor_general" readonly="rating.isReadonly"></star-rating>
+                            </div>
                         </td>
-                        <td class="text-center">
-                            {{ item.valor_limpieza }}
+                        <td>
+                            <div  ng-controller="RatingController as rating">
+                                <star-rating ng-model="item.valor_limpieza" readonly="rating.isReadonly"></star-rating>
+                            </div>
                         </td>
-                        <td class="text-center">
-                            {{ item.valor_servicio }}
-                        </td>
-                        <td align="center">
-                            {{ item.redes_sociales | checkmark }} 
+                        <td>
+                            <div  ng-controller="RatingController as rating">
+                                <star-rating ng-model="item.valor_servicio" readonly="rating.isReadonly"></star-rating>
+                            </div>
                         </td>
                         <td>
                             {{ item.observaciones }}
@@ -65,33 +68,23 @@
             </table>
         </div>
 
-<!--        
-    <div class="container" ng-show="verFacebook">
-        <div class="row">
-            <div class="fb-like" data-href="http://www.pensionsegura.es" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true">
-            </div>
-        </div>
-        <div class="row">
-            <div class="fb-comments" data-href="http://www.pensionsegura.es" data-numposts="5"></div>
-        </div>
-    </div>
--->
 <!-- Este sí funciona -->  
+<!--
         <div class="container">
-        <div class="col-xs-6">
-            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-            <a class="twitter-timeline" href="https://twitter.com/CelestinoAviles">Tweets de Celestino</a> 
-            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
-        <div class="col-xs-6">
-            <blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">"No one likes Bit O' Honey." ~<a href="https://twitter.com/CelestinoAviles">@CelestinoAviles</a> <a href="https://twitter.com/hashtag/truth?src=hash">#truth</a></p>— Aru (@IAmAru) <a href="https://twitter.com/IAmAru/status/608455483507245059">June 10, 2015</a></blockquote>
+            <div class="col-xs-6">
+                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <a class="twitter-timeline" href="https://twitter.com/CelestinoAviles">Tweets de Celestino</a> 
+                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+            <div class="col-xs-6">
+                <blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">"No one likes Bit O' Honey." ~<a href="https://twitter.com/CelestinoAviles">@CelestinoAviles</a> <a href="https://twitter.com/hashtag/truth?src=hash">#truth</a></p>— Aru (@IAmAru) <a href="https://twitter.com/IAmAru/status/608455483507245059">June 10, 2015</a></blockquote>
 
-            <twitter-widget>
-                <blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">"No one likes Bit O' Honey." ~<a href="https://twitter.com/griffinmcelroy">@griffinmcelroy</a> <a href="https://twitter.com/hashtag/truth?src=hash">#truth</a></p>— Aru (@IAmAru) <a href="https://twitter.com/IAmAru/status/608455483507245059">June 10, 2015</a></blockquote>
-            </twitter-widget>
-        </div>    
+                <twitter-widget>
+                    <blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">"No one likes Bit O' Honey." ~<a href="https://twitter.com/griffinmcelroy">@griffinmcelroy</a> <a href="https://twitter.com/hashtag/truth?src=hash">#truth</a></p>— Aru (@IAmAru) <a href="https://twitter.com/IAmAru/status/608455483507245059">June 10, 2015</a></blockquote>
+                </twitter-widget>
+            </div>    
         </div>
-        
+-->        
     
     </div>
     
@@ -104,7 +97,7 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-md-6 col-xs-12">
                     <label>Nombre con el que quiere aparecer</label>
                     <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.login" required>
                  </div>
@@ -112,7 +105,8 @@
 
             <div class="row">
                 <div class="col-xs-12">
-                    <label for="gen">Valoración general del establecimiento:</label><br>
+                    <br>
+                    <label for="gen">Valoración general del establecimiento:</label>
                     <input name="gen" type="radio" ng-model="datSel.valor_general" value="1" />1
                     <input name="gen" type="radio" ng-model="datSel.valor_general" value="2" />2
                     <input name="gen" type="radio" ng-model="datSel.valor_general" value="3" />3
@@ -124,7 +118,8 @@
             
             <div class="row">
                 <div class="col-xs-12">
-                    <label for="lim">Limpieza del local:</label><br>
+                    <br>
+                    <label for="lim">Limpieza del local:</label>
                     <input name="lim" type="radio" ng-model="datSel.valor_limpieza" value="1" />1
                     <input name="lim" type="radio" ng-model="datSel.valor_limpieza" value="2" />2
                     <input name="lim" type="radio" ng-model="datSel.valor_limpieza" value="3" />3
@@ -135,7 +130,8 @@
 
             <div class="row">
                 <div class="col-xs-12">
-                    <label for="ser">Servicio del local:</label><br>
+                    <br>
+                    <label for="ser">Servicio del local:</label>
                     <input name="ser" type="radio" ng-model="datSel.valor_servicio" value="1" />1
                     <input name="ser" type="radio" ng-model="datSel.valor_servicio" value="2" />2
                     <input name="ser" type="radio" ng-model="datSel.valor_servicio" value="3" />3
@@ -145,15 +141,12 @@
             </div>
             
             <div class="row">
-                <div class="col-md-6"><label>Comentarios</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.observaciones" required></div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6"><label>Publicar en redes sociales :</label>
-                    <input type="checkbox" ng-readonly="!(insert || update)" ng-model="datSel.redes_sociales">
+                <div class="col-md-6 col-xs-12">
+                    <label>Tus comentarios</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.observaciones" required>
                 </div>
             </div>
-
+            
         </div>
     </form>
     </div>

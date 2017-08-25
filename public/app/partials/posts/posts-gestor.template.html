@@ -1,0 +1,138 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <h3><i class="glyphicon glyphicon-list-alt"></i> {{ texto }}</h3>
+    </div>
+
+    <div class="row"><br/></div>
+    <div class="panel panel-primary" ng-show="!showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title"> {{ texto }}</h3>
+        </div>
+        <table class="table table-hover">
+            <td class="col-xs-6">
+                <button class="btn btn-primary" ng-click="Salir()"><i class="glyphicon glyphicon-home"></i></button>
+                <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
+            </td>
+            <td class="col-xs-6">
+                <input class="form-control" type="text" ng-model="filtroTexto">
+            </td>
+        </table>
+        
+        <rrss parametro="local"></rrss>
+
+        <div class="panel-body">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-md-2" ng-show="!opcionCliente">Acciones </th>
+                        <th class="col-md-1">Fecha</th>
+                        <th class="col-md-1">Cliente</th>
+                        <th class="col-md-2">General</th>
+                        <th class="col-md-2">Limpieza</th>
+                        <th class="col-md-2">Servicio</th>
+                        <th class="col-md-4">Comentarios</th>
+                    </tr>
+                </thead>
+
+                <tfoot></tfoot>
+                <tbody>
+                    <tr ng-repeat="item in dat | filter:filtroTexto">
+                        <td ng-show="!{{opcionCliente}}">
+                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
+                        </td>
+                        <td>
+                            {{ item.fecha  | date:'dd/MM/yyyy' }}
+                        </td>
+                        <td>
+                            {{ item.login }}
+                        </td>
+                        <td>
+                            <div  ng-controller="RatingController as rating">
+                                <star-rating ng-model="item.valor_general" readonly="rating.isReadonly"></star-rating>
+                            </div>
+                            {{ item.valor_general }}
+                        </td>
+                        <td>
+                            <div  ng-controller="RatingController as rating">
+                                <star-rating ng-model="item.valor_limpieza" readonly="rating.isReadonly"></star-rating>
+                            </div>
+                            {{ item.valor_limpieza }}
+                        </td>
+                        <td>
+                            <div  ng-controller="RatingController as rating">
+                                <star-rating ng-model="item.valor_servicio" readonly="rating.isReadonly"></star-rating>
+                            </div>
+                            {{ item.valor_servicio }}
+                        </td>
+                        <td>
+                            {{ item.observaciones }}
+                        </td>
+                    </tr>
+                    <tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-primary" ng-show="showCategoria">
+        <div class="panel-heading">
+            <h3 class="panel-title">Datos</h3>
+            <button class="btn btn-primary" ng-click="volver()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+            <button class="btn btn-success" ng-show="insert || update" ng-click="grabar()"><i class="glyphicon glyphicon-ok"></i></button>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6"><label>Nombre</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.login">
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <label for="sel1">General:</label>
+                    <select ng-options="valores for valores in valorGeneral.valores" ng-model="valorGeneral.selected"></select>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <label for="sel1">Limpieza:</label>
+                    <select ng-options="valores for valores in valorLimpieza.valores" ng-model="valorLimpieza.selected"></select>
+                </div>
+            </div><br>
+            
+            <div class="row">
+                <div class="col-xs-3">
+                    <label for="sel1">Servicio:</label>
+                    <select ng-options="valores for valores in valorServicio.valores" ng-model="valorServicio.selected"></select>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-6"><label>Comentarios</label>
+                    <input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.observaciones">
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
+<!-- Este sí funciona    
+    <div class="container">
+        <div class="col-xs-6">
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a class="twitter-timeline" href="https://twitter.com/CelestinoAviles">Tweets de Celestino</a> 
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="col-xs-6">
+            <blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">"No one likes Bit O' Honey." ~<a href="https://twitter.com/CelestinoAviles">@CelestinoAviles</a> <a href="https://twitter.com/hashtag/truth?src=hash">#truth</a></p>— Aru (@IAmAru) <a href="https://twitter.com/IAmAru/status/608455483507245059">June 10, 2015</a></blockquote>
+
+            <twitter-widget>
+                <blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">"No one likes Bit O' Honey." ~<a href="https://twitter.com/griffinmcelroy">@griffinmcelroy</a> <a href="https://twitter.com/hashtag/truth?src=hash">#truth</a></p>— Aru (@IAmAru) <a href="https://twitter.com/IAmAru/status/608455483507245059">June 10, 2015</a></blockquote>
+            </twitter-widget>
+        </div>    
+    </div>
+-->
+</div>

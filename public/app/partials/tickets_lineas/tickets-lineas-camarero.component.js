@@ -5,28 +5,45 @@
 angular.module('ticketsLineas')
     .component('ticketsLineasCamarero', {
     templateUrl: 'app/partials/' + 'tickets_lineas' + '/' + 'tickets-lineas-camarero' + '.template.html',
-    controller: function EntidadController($scope, $http, $routeParams, $location) {
+    controller: function EntidadController($scope, $http, $routeParams, $location, $interval) {
 
   //      controller: function EntidadController($scope, $http, $routeParams, $location, NgTableParams) {
           
-            var auxRuta = '/ticketslineas/api/v1/ticketslineas';
-            var auxEntidad = 'Líneas de Tickets pendientes de cerrar';
-            $scope.rate = 1;
-            $scope.max = 5;
-            $scope.texto = auxEntidad.toUpperCase();
-            $scope.dat = [];
-            $scope.datSel = [];
-            $scope.showCategoria = false;
-            $scope.showEstado    = false;
-            $scope.insert = false;
-            $scope.update = false;
-            $scope.anotarEnCurso = anotarEnCurso;
-            $scope.anotarServida = anotarServida;
+        var auxRuta = '/ticketslineas/api/v1/ticketslineas';
+        var auxEntidad = 'Líneas de Tickets pendientes de cerrar';
+        var glbIntervalo = 10000;  // 10 segundos
 
-            var self = this;
+        $scope.rate = 1;
+        $scope.max = 5;
+        $scope.texto = auxEntidad.toUpperCase();
+        $scope.dat = [];
+        $scope.datSel = [];
+        $scope.showCategoria = false;
+        $scope.showEstado    = false;
+        $scope.insert = false;
+        $scope.update = false;
+        $scope.anotarCocina = anotarCocina;
+        $scope.anotarEnCurso = anotarEnCurso;
+        $scope.anotarServido = anotarServido;
+        $scope.anotarPreparado = anotarPreparado;
+
+        var self = this;
             
+        mostrarDatos();
+        stop = $interval(function() {
             mostrarDatos();
+        }, glbIntervalo);
 
+        $scope.Salir = function () {
+            $interval.cancel(stop);
+            window.location = '/#!/inicio';
+        };
+
+        
+            $scope.Salir = function () {
+                window.location = '/#!/menuCamarero';
+            };
+        
             function mostrarDatos() {
                 $scope.dat = [];
                 
@@ -67,7 +84,15 @@ angular.module('ticketsLineas')
                 cambiarEstado(item, 'EN CURSO');  
             };
 
-            function anotarServida(item) {
+            function anotarCocina(item) {
+                cambiarEstado(item, 'COCINA');  
+            };
+
+            function anotarPreparado(item) {
+                cambiarEstado(item, 'PREPARADO');  
+            };
+
+            function anotarServido(item) {
                 cambiarEstado(item, 'SERVIDO');  
             };
 

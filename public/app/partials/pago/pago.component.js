@@ -49,7 +49,7 @@ angular.module('pago')
                     console.log('Codigo Mesa Seleccionado:' + auxPrm);
                     console.log($scope.codigoMesaSeleccionado);
                     
-                    $scope.listOfCustomers = data.GetAllCustomersResult;
+                    $scope.listOfCustomers = response.data.GetAllCustomersResult;
                 }, function (error) {
                     console.log('Error: ' + error);
                 });
@@ -68,10 +68,10 @@ angular.module('pago')
                     method: 'GET',
                     url: '/tickets/api/v1/mesa-tickets/' + auxMesa
                 }).then( function( response ) {
-                        $scope.listOfOrders = data.GetBasketsForCustomerResult;
-                        $scope.datTickets = data;
+                        $scope.listOfOrders = response.data.GetBasketsForCustomerResult;
+                        $scope.datTickets = response.data;
                         console.log('saco los tickets');
-                        console.log(data);
+                        console.log(response.data);
                         codTicket = $scope.datTickets[0].codigo;
                         $scope.cod_ticket = codTicket;
                         $scope.total = $scope.datTickets[0].total;

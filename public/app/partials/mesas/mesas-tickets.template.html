@@ -9,11 +9,14 @@
 
             <table class="table table-hover">
                 <td class="col-md-6">
+                    <button class="btn btn-primary" ng-click="Salir()"><i class="glyphicon glyphicon-home"></i></button>
+                </td>
+                <td class="col-md-6">
                     <input type="text" ng-model="filtroTexto">
                 </td>
             </table>
-
-        
+            
+    
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -29,7 +32,7 @@
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto" ng-click="seleccionaMesa(item);">
                         <td>
-                            <button class="btn btn-primary" ng-click="nuevaClave(item)" data-toggle="tooltip" title="Generar Nueva Clave"><i class="glyphicon glyphicon-new-window"></i></button>
+                            <button class="btn btn-primary" ng-click="nuevaClave(item)" data-toggle="tooltip" title="Generar Nueva Clave"><i class="glyphicon glyphicon-flash"></i></button>
                             <button class="btn btn-primary" ng-click="cambiarEstado(item)" data-toggle="tooltip" title="Cambiar estado"><i class="glyphicon glyphicon-tag"></i></button>
                             <button class="btn btn-primary" ng-click="anotarAtendida(item)" data-toggle="tooltip" title="Indicar ya atendida"><i class="glyphicon glyphicon-thumbs-up"></i></button>
                             <button class="btn btn-primary" ng-click="anotarPedido(item)" data-toggle="tooltip" title="Mi cuenta"><i class="glyphicon glyphicon-shopping-cart"></i></button>

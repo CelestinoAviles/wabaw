@@ -17,6 +17,7 @@ angular.module('mesas-tickets')
             $scope.cerrarDetalleTicket = cerrarDetalleTicket;
             $scope.opinarTicketLinea = opinarTicketLinea;
             
+            $scope.verRecibo = verRecibo;
             $scope.borrarTicketLinea = borrarTicketLinea;
             $scope.copiarTicketLinea = copiarTicketLinea;
             $scope.recalcularTicket = recalcularTicket;

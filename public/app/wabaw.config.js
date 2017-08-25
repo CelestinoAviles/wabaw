@@ -68,6 +68,9 @@ angular.
         when('/menuMantenimientos', {
           template: '<menu-mantenimientos></menu-mantenimientos>'
         }).
+        when('/menuCocinero', {
+          template: '<menu-cocinero></menu-cocinero>'
+        }).
         when('/menuCamarero', {
           template: '<menu-camarero></menu-camarero>'
         }).
@@ -158,8 +161,8 @@ angular.
           .when('/imagenescarrusel', {
           template: '<imagenescarrusel></imagenescarrusel>'
         })
-          .when('/posts', {
-          template: '<posts></posts>'
+          .when('/postsGestor', {
+          template: '<posts-gestor></posts-gestor>'
         })
           .when('/postsCliente', {
           template: '<posts-cliente></posts-cliente>'
@@ -184,6 +187,9 @@ angular.
         })
           .when('/ticketsLineasCamarero', {
           template: '<tickets-lineas-camarero></tickets-lineas-camarero>'
+        })
+          .when('/ticketsLineasCocinero', {
+          template: '<tickets-lineas-cocinero></tickets-lineas-cocinero>'
         })
           .when('/mesasTickets', {
           template: '<mesas-tickets></mesas-tickets>'

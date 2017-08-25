@@ -43,7 +43,7 @@ angular.module('articulos')
                     console.log('entro en data');
                     console.log($scope.dat);
                     console.log('entro en dat');
-                    console.log(data);
+                    console.log(response.data);
                 }, function (error) {
                     console.log('Error: ' + error);
                 });

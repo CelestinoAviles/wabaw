@@ -6,9 +6,10 @@
 angular.module('mesas-tickets')
     .component('mesaTicketCliente', {
         templateUrl: 'app/partials/mesas/mesa-ticket-cliente.template.html',
-        controller: function MesasController($scope, $http, $routeParams, $location, servicio, $window) {
+        controller: function MesasController($scope, $http, $routeParams, $location, servicio, $window, $interval) {
 
             auxValor = $routeParams.id;
+            var glbIntervalo = 20000;
             $scope.texto = "Mesa y mi ticket";
             $scope.verDetalleTicket = false;
             
@@ -16,6 +17,7 @@ angular.module('mesas-tickets')
             
             $scope.newTicket = newTicket;
             $scope.verTicket = verTicket;
+            $scope.verRecibo = verRecibo;
             $scope.cerrarDetalleTicket = cerrarDetalleTicket;
             $scope.opinarTicketLinea   = opinarTicketLinea;
             $scope.borrarTicketLinea      = borrarTicketLinea;
@@ -56,31 +58,29 @@ angular.module('mesas-tickets')
             $scope.selectedCustomer = null;
             $scope.codigoMesaSeleccionado = null;
             console.log('Cargo los datos de la mesa del espacio:' + $scope.codigo_mesa );
+
             loadMiMesa($scope.codigo_mesa);
 
 
             // Cargo el ticket que hay asociado a la mesa, si es que lo hay.
             var auxCodTicket= null;
+            
             auxCodTicket = loadMiTicket($scope.codigo_mesa);
             console.log("Código ticket:" + auxCodTicket);
-            console.log("Código ticket:" + auxCodTicket);
-            console.log("Código ticket:" + auxCodTicket);
-            console.log("Código ticket:" + auxCodTicket);
             
+            stop = $interval(function() {
+                auxCodTicket = loadMiTicket($scope.codigo_mesa);
+                console.log("Código ticket:" + auxCodTicket);
+            }, glbIntervalo);
 
-            
-            
-            
-            
-            
+            $scope.Salir = function () {
+                $interval.cancel(stop);
+                window.location('/#!/inicio');
+            };
             
             $scope.showEstado = false;
             //  We'll load our list of Customers from our JSON Web Service into this variable
             $scope.listOfCustomers = null;
-
-            
-
-
 
             // 
             // Mesa que solicita asistencia de un camarero.
@@ -89,6 +89,10 @@ angular.module('mesas-tickets')
                 window.location = "#!/llamada";    
             };
             
+            $scope.Salir = function () {
+                $interval.cancel(stop);
+                window.location = '/#!/inicio';
+            };
 
             //
             //Actualizo el fichero de local storage para cargar la mesa que he traido con el parámetro de entrada
@@ -142,6 +146,15 @@ angular.module('mesas-tickets')
             }
             
 
+            function verRecibo (item) {
+                var aux = '#!/ticketRecibo/'+item.codigo
+                alert(aux);
+                window.location = aux;    
+                
+//                window.location = "#!/llamada";    
+            };
+            
+            
             // 
             // loadMiTicket
             function loadMiTicket(auxMesa) {
@@ -230,7 +243,7 @@ angular.module('mesas-tickets')
                 $scope.datSelTicketLinea = item;
                 console.log($scope.datSelTicketLinea);
                 console.log($scope.datSelTicketLinea.codigo);
-                if (!$scope.datSelTicketLinea.estado) {
+                if ($scope.datSelTicketLinea.estado.trim() == 'PEDIDO') {
 
                     var auxId = $scope.datSelTicketLinea.codigo;
                     var auxCodTicket = $scope.datSelTicketLinea.cod_ticket;

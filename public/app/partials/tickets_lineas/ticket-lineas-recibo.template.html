@@ -1,0 +1,27 @@
+<div class="container">
+    <table>
+        <tr ng-repeat="item in dat | filter:filtroTexto">
+            <td>
+                {{ item.cod_ticket }}
+            </td>
+            <td>
+                {{ item.cod_articulo  }}
+            </td>
+            <td>
+                Descripcion
+            </td>
+            <td>
+            {{ item.pvu  }}
+            </td>
+            <td>
+                {{ item.cantidad  }}
+            </td>
+            <td>
+                {{ item.total  }}
+            </td>
+            <td>
+                {{ item.estado }}
+            </td>
+        </tr>
+    </table>
+</div>

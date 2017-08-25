@@ -52,6 +52,10 @@ angular.module('dispositivos')
             mostrarDatos();
             cargarClases();
 
+            $scope.Salir = function () {
+                window.location = '/#!/menuGestor';
+            };
+            
             function cargarClases(){
                 $http({
                     method: 'GET',

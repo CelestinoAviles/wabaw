@@ -15,6 +15,7 @@
         <tbody>
             <tr class="bg-success" ng-repeat="item in datMesa">
                 <td>
+                <button class="btn btn-primary" ng-click="Salir()"><i class="glyphicon glyphicon-home"></i></button>
                     <button class="btn btn-primary" ng-click="llamar(item)" data-toggle="tooltip" title="Llamar al camarero"><i   class="glyphicon glyphicon-bell"></i></button>
                 </td>
                 <td>
@@ -62,13 +63,16 @@
                                 <td>
                                     <div><a href="#!/familiasVer" class="btn btn-success btn-block btn-lg">Pedir</a>
                                     </div>
-                    
-                                    <div><button class="btn btn-primary btn-block" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-refresh" data-toggle="tooltip" title="Calcular cuenta"></i>Calcula</button></div>
+
+                                    <div><button class="btn btn-primary btn-block" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-refresh" data-toggle="tooltip" title="Calcular cuenta"></i>Calcular</button></div>
                     
                                     <div><a href="#!/pago" class="btn btn-primary btn-block btn-lg">Pagar</a></div>
+
+                                    <div><button class="btn btn-primary btn-block" ng-click="verRecibo(item)"><i data-toggle="tooltip" title="Ver recibo"></i>Recibo</button></div>
                                 </td>
                                 <td>
                                     {{ item.codigo }}
+                                    {{ item.estado }}
                                 </td>
                                 <td>
                                     {{ item.fecha_modifica  | date:'dd/MM/yyyy  hh:mm' }}
@@ -112,7 +116,7 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
                 <td>
                     <button class="btn btn-primary" ng-click="copiarTicketLinea(item)" data-toggle="tooltip" title="Pedir uno más"><i     class="glyphicon glyphicon-plus"></i></button>
                     <button class="btn btn-danger"  ng-click="borrarTicketLinea(item)" data-toggle="tooltip" title="Cancelar pedido"><i   class="glyphicon glyphicon-remove"></i></button>
-                    <button class="btn btn-primary"  ng-click="opinarTicketLinea(item)" data-toggle="tooltip" title="Opinar"><i   class="glyphicon glyphicon-pushpin"></i></button>
+                    <button class="btn btn-primary"  ng-click="opinarTicketLinea(item)" data-toggle="tooltip" title="Opinar"><i   class="glyphicon glyphicon-pencil"></i></button>
                     
                 </td>
                 <td>
@@ -136,8 +140,6 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
     
 </div>
     
-
-
 <div class="panel panel-primary" ng-show="showEstado">
     <div class="panel-heading">
         <h3 class="panel-title">Cambiar estado</h3>

@@ -20,7 +20,16 @@ angular.module('ticketsLineas')
             $scope.update = false;
 
             mostrarDatos();
+            stop = $interval(function() {
+                mostrarDatos();
+            }, glbIntervalo);
 
+            $scope.Salir = function () {
+                $interval.cancel(stop);
+                window.location = '/#!/menuCamarero';
+            };
+
+            
             function mostrarDatos() {
                 $scope.dat = [];
                 

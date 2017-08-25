@@ -1,40 +1,14 @@
 <div class="container">
     
-    <button class="btn btn-primary"
-            socialshare
-            socialshare-provider="facebook"
-            socialshare-url="http://www.pensionsegura.es/index.php?section=catalogo&idioma=es"
-            socialshare-text="texto"
-            socialshare-quote="qqq"
-            socialshare-caption="caption"
-            socialshare-title="tit"
-            socialshare-description="des">
-        <i class="fa fa-facebook"></i> Facebook
+    <button class="btn btn-primary" ng-click="CompartirFacebook()">
+        <i class="fa fa-facebook"></i> 
+        Facebook
     </button>
     
     <button class="btn btn-info" ng-hide="verTwitterEmpresa"
-            socialshare
-            socialshare-provider="twitter"
-            socialshare-text="{{ textoTwitter }}"
-            socialshare-url="{{ urlTwitter }}"
-            socialshare-hashtags="{{ tagTwitter }}">
-        <i class="fa fa-twitter"></i> Twitter
-    </button>
-        
-    <button class="btn btn-success" ng-show="verTwitterEmpresa"
-            ng-click= "$location.path(  urlTwitter ) ">
-        <i class="fa fa-twitter"></i> Twitter
-    </button>
-
-    <button class="btn btn-basic"
-         socialshare
-         socialshare-provider="email"
-         socialshare-trigger="click"
-         socialshare-subject="Un sitio estupendo para tomar cualquier cosa" 
-         socialshare-body="Heladería Alfonso" 
-         socialshare-to="amigo@amigo.com" >
-        <i class="fa fa-envelope-o"></i>
-        Email
+            ng-click="CompartirTwitter()">
+        <i class="fa fa-twitter"></i> 
+        Twitter
     </button>
 
 </div>

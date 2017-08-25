@@ -14,31 +14,24 @@
         </div>
     </div>
 
-<!--    
-    <div class="panel panel-primary">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Correo electrónico</label>
-                    <input type="email" class="form-control" ng-model="email" placeholder="ejemplo@email.com">
-                </div>
-            </div><br>
-        </div>
-    </div> 
-      
--->
 	<div class="form-group">
-        <div class="col-xs-6 col-sm-6">
+        <div class="col-xs-12 col-sm-4">
             <center>
             <button type="button" class="btn btn-primary btn-lg" ng-click="$ctrl.volver()">Cancelar</button>
             </center>
         </div>
-        <div class="col-xs-6 col-sm-6">
+        <div class="col-xs-12 col-sm-4">
             <center>
-            <div id="paypal-button"></div>
+                <div id="paypal-button"></div>
             </center>
-<!--            <button type="button" class="btn btn-primary" ng-click="$ctrl.pagarPayPal()">Pagar</button> -->
         </div>
+        <div class="col-xs-12 col-sm-4">
+            <center>
+                <button type="button" class="btn btn-primary btn-lg" ng-click="pagarPayPal()">Pagar</button>
+            </center>
+        </div>
+
+<!--            <button type="button" class="btn btn-primary" ng-click="$ctrl.pagarPayPal()">Pagar</button> -->
     </div>
     
     

@@ -5,8 +5,9 @@
 angular.module('mesas-tickets')
     .component('mesasTickets', {
         templateUrl: 'app/partials/mesas/mesas-tickets.template.html',
-        controller: function MesasController($scope, $http, $routeParams, $location, servicio) {
+        controller: function MesasController($scope, $http, $routeParams, $location, servicio, $interval) {
 
+            var glbIntervalo = 10000;  // 10 segundos
             $scope.texto = "Mesas Tickets";
             
             $scope.showEstado = false;
@@ -21,6 +22,15 @@ angular.module('mesas-tickets')
             $scope.codigoSeleccionado = null;
             
             mostrarDatos();
+            stop = $interval(function() {
+                mostrarDatos();
+            }, glbIntervalo);
+
+            $scope.Salir = function () {
+                $interval.cancel(stop);
+                window.location = '/#!/menuCamarero';
+            };
+
             
             function anotarAtendida(item) {
                 $scope.datSel = item;

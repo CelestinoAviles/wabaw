@@ -8,7 +8,7 @@
 angular.module('pagoPaypal')
 .component('pagoPaypal', {
     templateUrl: 'app/partials/pago/pago-paypal.template.html',
-    controller: function PagoPaypalController($http, $scope, $routeParams, $location, $window) {
+    controller: function PagoPaypalController($http, $scope, $routeParams, $location, $window, servicio) {
         var auxTxt = 'Pago Paypal'
             //    alert('Entro en ' + auxTxt);
         $scope.texto = auxTxt;
@@ -27,6 +27,7 @@ angular.module('pagoPaypal')
         $scope.codigo_mesa = auxCodigoEspacio;
         $scope.cod_ticket = auxCodigoTicket;
         $scope.total = auxTotal;
+        $scope.pagarPayPal = pagarPayPal;
 
         console.log('Efectivo');
         console.log('Espacio:' + auxCodigoEspacio);
@@ -96,69 +97,39 @@ angular.module('pagoPaypal')
         }, '#paypal-button');
 
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        this.volver = function() {
+        function volver() {
             $location.path('#!/inicio');
-        }
+        };
 
         function pagarPayPal() {
-            
             auxDatosPago = { codTicket: auxCodigoTicket,
                              codEspacio: auxCodigoEspacio,
                              total: auxTotal,
                              entrega: $scope.entrega,
                              cambio: $scope.entrega - auxTotal,
-                             estado: 'PAG'
+                             estado: 'PAY'
                            };
 
             console.log('Datos para el pago');
             console.log(auxDatosPago);
-             $http.put('/tickets/api/v1/tickets/pagar/' + auxCodigoTicket, auxDatosPago)
-                 .success((data) => {
-                    $scope.datSel = {};
-                    $window.location.href = 'http://www.paypal.com';
-             })
-                 .error((error) => {
-                    console.log('Error: ' + error);
-             });
-        
+            auxUrl = 'https://www.paypal.me/Wabaw/' + auxDatosPago.total;
+            servicio.abrirVentana( auxUrl );
+            
+            $http({
+                method: 'PUT',
+                url: '/tickets/api/v1/tickets/pagar/' + auxCodigoTicket, 
+                data: auxDatosPago
+            }).then( function( response ) {
+                $scope.datSel = response.data;
+                alert('En proceso de pago. Ahora solo falta confirmar que ha pagado');
+            }, function (error) {
+                console.log('Error: ' + error);
+            });
+            
+    
             volver();
 
         };
         
     }
 });
-
-
-
-
-
-
-        function volver() {
-            $location.path('#!/inicio');
-        };

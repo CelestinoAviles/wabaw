@@ -40,6 +40,9 @@ router.post( glbApi, (req, res, next) => {
                    estado:       req.body.estado
                  };
 
+    if (data.estado == null ) {
+      data.estado = 'PEDIDO';  
+    };
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
     // Handle connection errors
@@ -112,7 +115,7 @@ router.get( glbApi + '/camarero', (req, res, next) => {
     glbConsulta = glbConsulta + ' and   L.cod_ticket   = T.codigo';
     glbConsulta = glbConsulta + ' and   M.codigo       = T.cod_espacio';
     glbConsulta = glbConsulta + ' and  ( T.estado is null OR LENGTH(T.ESTADO)=0)';
-    var glbConsultaOrdenada = glbConsulta + ' order by l.codigo DESC';
+    var glbConsultaOrdenada = glbConsulta + ' order by l.estado ASC';
     console.log(glbConsulta);
     
   pg.connect(connectionString, (err, client, done) => {
@@ -135,6 +138,44 @@ router.get( glbApi + '/camarero', (req, res, next) => {
     });
   });
 });
+
+//
+// LEER LINEAS PENDIENTES DE SERVIR DEL COCINERO
+//
+router.get( glbApi + '/cocinero', (req, res, next) => {
+  const results = [];
+  // Get a Postgres client from the connection pool
+    
+    var glbConsulta= 'select m.nombre nombre_mesa, l.codigo, l.cod_ticket, l.cod_articulo, l.cantidad, l.pvu, l.total, L.ESTADO, a.nombre, a.cod_familia' 
+    glbConsulta = glbConsulta + ' from wabaw.mesas M, wabaw.tickets T, wabaw.tickets_lineas L, wabaw.articulos A '
+    glbConsulta = glbConsulta + ' where L.cod_articulo = A.codigo';
+    glbConsulta = glbConsulta + ' and   L.cod_ticket   = T.codigo';
+    glbConsulta = glbConsulta + ' and   M.codigo       = T.cod_espacio';
+    glbConsulta = glbConsulta + ' and   l.estado in (\'COCINA\',\'COCINANDO\' )';
+    var glbConsultaOrdenada = glbConsulta + ' order by l.cod_ticket ASC';
+    console.log(glbConsulta);
+    
+  pg.connect(connectionString, (err, client, done) => {
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return res.status(500).json({success: false, data: err});
+    }
+    // SQL Query > Select Data
+    const query = client.query( glbConsultaOrdenada );
+    // Stream results back one row at a time
+    query.on('row', (row) => {
+      results.push(row);
+    });
+    // After all data is returned, close connection and return results
+    query.on('end', () => {
+      done();
+      return res.json(results);
+    });
+  });
+});
+
 
 
 //
@@ -240,11 +281,12 @@ router.delete( glbApi + '/:id', (req, res, next) => {
         client.query('DELETE FROM wabaw.tickets_lineas WHERE codigo=($1)', [id]);
         // SQL Query > Select Data
         
-        aux = glbConsulta + ' and t.cod_ticket = ($1)'
+//      aux = glbConsulta + ' and t.cod_ticket = ($1)'
+        aux = glbConsulta;
         console.log(aux);
         console.log(id);
         
-        var query = client.query( aux, [id] );
+        var query = client.query( aux );
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);

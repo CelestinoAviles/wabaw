@@ -171,6 +171,37 @@ router.get( glbApi + '/:id', (req, res, next) => {
     });
 });
 
+//
+// LEER DATOS DE UN TICKET
+//
+router.get( '/api/v1/ticket'+ '/:id', (req, res, next) => {
+    const results = [];
+    // Grab data from the URL parameters
+    const id = req.params.id;
+    console.log('Leo Ticket ' + id);
+
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, (err, client, done) => {
+    // Handle connection errors
+    if(err) {
+        done();
+        console.log(err);
+        return res.status(500).json({success: false, data: err});
+    }
+
+        client.query('SELECT * FROM WABAW.tickets WHERE codigo=($1)', [id]);
+        const query = client.query('SELECT * FROM WABAW.tickets WHERE codigo=($1)', [id]);
+        query.on('row', (row) => {
+            results.push(row);
+        });
+        // After all data is returned, close connection and return results
+        query.on('end', () => {
+            done();
+            return res.json(results);
+        });
+    });
+});
+
 
 //
 //  MODIFICA
@@ -334,8 +365,8 @@ router.put( glbApi + '/pagar/:id', (req, res, next) => {
             console.log(err);
             return res.status(500).json({success: false, data: err});
         }
-//estado = "PAG", 
         console.log('a pagar');
+        console.log(data);
         // SQL Query > Update Data
         client.query('UPDATE wabaw.tickets SET fecha_pago = current_timestamp, llamada = null, total = ($2), total_entrega =($3), total_cambio = ($4), estado=($5) WHERE codigo=($1)', [id, data.total, data.entrega, data.cambio, data.estado]);
 
@@ -355,7 +386,6 @@ router.put( glbApi + '/pagar/:id', (req, res, next) => {
         console.log('put finalizo el ticket');
         });
 });
-
 
 
 module.exports = router;

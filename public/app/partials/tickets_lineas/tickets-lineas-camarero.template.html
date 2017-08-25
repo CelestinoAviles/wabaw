@@ -6,6 +6,7 @@
         </div>
         <table class="table table-hover">
             <td class="col-md-6">
+                <button class="btn btn-primary" ng-click="Salir()"><i class="glyphicon glyphicon-home"></i></button>
                 <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
             </td>
             <td class="col-md-6">
@@ -37,8 +38,11 @@
                             <button class="btn btn-primary" data-toggle="tooltip" title="Modificar" ng-click="edit(item)"><i class="glyphicon glyphicon-edit"></i></button>
                             <button class="btn btn-danger" data-toggle="tooltip" title="Borrar" ng-click="delete(item)"><i class="glyphicon glyphicon-remove"></i></button>
                             <button class="btn btn-primary" data-toggle="tooltip" title="Cambiar estado" ng-click="estado(item)"><i class="glyphicon glyphicon-random"></i></button>
-                            <button class="btn btn-primary" data-toggle="tooltip" title="En curso" ng-click="anotarEnCurso(item)"><i class="glyphicon glyphicon-plane"></i></button>
-                            <button class="btn btn-primary" data-toggle="tooltip" title="Servida" ng-click="anotarServida(item)"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                            <br>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="A Cocina" ng-click="anotarCocina(item)"><i class="glyphicon glyphicon-fire"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="En curso" ng-click="anotarEnCurso(item)"><i class="glyphicon glyphicon-wrench"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="Preparado" ng-click="anotarPreparado(item)"><i class="glyphicon glyphicon-check"></i></button>
+                            <button class="btn btn-primary" data-toggle="tooltip" title="Servido" ng-click="anotarServido(item)"><i class="glyphicon glyphicon-ok"></i></button>
                         </td>
                         <td>
                             {{ item.nombre_mesa }}

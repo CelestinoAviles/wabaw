@@ -1,4 +1,4 @@
-DROP SCHEMA wabaw;
+﻿DROP SCHEMA wabaw;
 
 CREATE SCHEMA wabaw;
 
@@ -141,19 +141,22 @@ CREATE TABLE WABAW.ESTADOS (
     codigo           integer not null,
     tipo             char(03) not null,
     nombre           char(10) not null,
+    estado_inicial   boolean not null default false,
+    estado_final     boolean not null default false,
     color            char(10) not null,
     CONSTRAINT estados_pkey PRIMARY KEY (codigo)
 );
-insert into wabaw.estados (codigo, tipo, nombre, color) values (1, 'MES', 'LIBRE',   'green');
-insert into wabaw.estados (codigo, tipo, nombre, color) values (2, 'MES', 'OCUPADO', 'orange');
-insert into wabaw.estados (codigo, tipo, nombre, color) values (3, 'MES', 'LLAMANDO', 'orange');
-insert into wabaw.estados (codigo, tipo, nombre, color) values (4, 'MES', 'RESERVADO', 'orange');
-insert into wabaw.estados (codigo, tipo, nombre, color) values (5, 'MES', 'ANULADO',  'orange');
-insert into wabaw.estados (codigo, tipo, nombre, color) values (10, 'TKT', 'ABIERTO',   'green');
-insert into wabaw.estados (codigo, tipo, nombre, color) values (11, 'TKT', 'PAGADO', 'green');
-insert into wabaw.estados (codigo, tipo, nombre, color) values (21, 'TKL', 'EN CURSO', 'orange');
-insert into wabaw.estados (codigo, tipo, nombre, color) values (22, 'TKL', 'SERVIDO', 'orange');
-
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (1, 'MES', 'LIBRE',   'green', true, false);
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (2, 'MES', 'OCUPADO', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (3, 'MES', 'LLAMANDO', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (4, 'MES', 'RESERVADO', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (5, 'MES', 'ANULADO',  'orange', false, false);
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (10, 'TKT', 'ABIERTO',   'green', false, false);
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (11, 'TKT', 'PAGADO', 'green', false, true);
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (21, 'TKL', 'PEDIDO', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (22, 'TKL', 'EN CURSO', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (23, 'TKL', 'PREPARADO', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (24, 'TKL', 'SERVIDO', 'orange', false, false);
 
 /*
 
@@ -204,6 +207,7 @@ CREATE TABLE wabaw.Articulos_Opiniones (
     observaciones     char(200),
     CONSTRAINT ArticulosOpiniones_pkey PRIMARY KEY (id)
 );
+
 
 CREATE TABLE wabaw.posts_general (
     codigo          integer  not null default nextval('wabaw.sqgeneral'),

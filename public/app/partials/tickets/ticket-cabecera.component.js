@@ -157,3 +157,51 @@ angular.module('tickets')
             }
         }
     });
+
+
+
+angular.module('tickets')
+    .component('ticketCabeceraRecibo', {
+    templateUrl: 'app/partials/' + 'tickets' + '/' + 'ticket-cabecera-recibo' + '.template.html',
+    controller: function EntidadController($scope, $http, $routeParams) {
+        
+        var vm = this;
+        this.$onInit = function () {
+        
+            console.log('muestro parametro');
+            console.log(vm);
+            console.log('fin muestro parametro');
+        
+            console.log(`contacto id from controller: ${this.codigoticket}`);
+            console.log('contacto id from controller: ' + this.codigoticket);
+            console.log(this);
+            console.log('entro en cabecera recibo');
+            var auxRuta = '/tickets/api/v1/ticket/' + this.codigoticket;
+            console.log(auxRuta);
+    
+            buscarDatos();
+        
+            function buscarDatos() {
+                $scope.dat = [];
+                $http({
+                    method: 'GET',
+                    url: auxRuta
+                }).then( function( response ) {
+                    $scope.dat = response.data;
+                    $scope.datSel = response.data[0];
+                    
+                    console.log('---');
+                    console.log($scope.dat);
+                    console.log($scope.datSel);
+                    console.log('---!');
+
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
+            };
+        };
+    },
+    bindings: {
+        "codigoticket": '@'
+    }
+});

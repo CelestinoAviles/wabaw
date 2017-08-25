@@ -1,0 +1,47 @@
+<div class="container-fluid" ng-show="!login_ok"> 
+    
+    <div class="row">
+        <div class="col-xs-12">
+            <label>Login</label>
+            <input type="text" class="form-control" ng-model="login">
+        </div>
+        <div class="col-xs-12">
+            <label>Contraseña</label>
+            <input type="password" class="form-control" ng-model="password">
+        </div>
+        <div>
+            _
+        </div>
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-4">
+            <button class="btn btn-primary btn-block" ng-click="cancelar()">Cancelar</button>
+        </div>
+        <div class="col-xs-4">
+            <button class="btn btn-success btn-block" ng-click="validar()">Aceptar</button>
+        </div>
+        <div class="col-xs-2">
+        </div>
+    </div>
+    
+</div>
+
+<div class="container" ng-show="login_ok">
+
+    <div class="list-group">
+        <a href="#!/ticketsLineasCocinero" class="list-group-item list-group-item-success ">
+            <h4 class="list-group-item-heading">Pendiente</h4>
+            <p class="list-group-item-text">Productos pendientes de preparar</p>
+        </a>
+    </div>
+
+    <hr/>
+
+    <div class="list-group">
+        <a href="#!/menuCocinero" class="list-group-item " ng-click="cerrarSesion()">
+            <h4 class="list-group-item-heading">Cerrar sesion</h4>
+            <p class="list-group-item-text">Cerrar sesión</p>
+        </a>
+    </div>
+
+</div>

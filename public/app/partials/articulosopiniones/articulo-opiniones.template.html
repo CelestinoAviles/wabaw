@@ -33,7 +33,9 @@
                             {{ item.login }}
                         </td>
                         <td>
-                            {{ item.valorgeneral }}
+                            <div  ng-controller="RatingController as rating">
+                                <star-rating ng-model="item.valorgeneral" readonly="rating.isReadonly"></star-rating>
+                            </div>
                         </td>
                         <td>
                             {{ item.observaciones }}
