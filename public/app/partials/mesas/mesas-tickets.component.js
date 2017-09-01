@@ -16,10 +16,14 @@ angular.module('mesas-tickets')
             $scope.anotarAtendida = anotarAtendida;
             $scope.anotarPedido = anotarPedido;
             $scope.nuevaClave = nuevaClave;
+            $scope.mesaEstado = mesaEstado;
+            $scope.mostrarDatos = mostrarDatos;
 
             //  When the user selects a "Customer" from our MasterView list, we'll set this variable.
             $scope.selectedCustomer = null;
             $scope.codigoSeleccionado = null;
+            
+            console.log('entro a mesas tickets');
             
             mostrarDatos();
             stop = $interval(function() {
@@ -84,8 +88,8 @@ angular.module('mesas-tickets')
             }            
             
             $scope.seleccionaMesa = function (val) {
-//                $scope.codigoSeleccionado = val.codigo;
-//                $scope.loadTickets();
+                $scope.codigoSeleccionado = val.codigo;
+                $scope.loadTickets();
             };
 
 
@@ -122,7 +126,6 @@ angular.module('mesas-tickets')
             // Mostrar datos
             //
             function mostrarDatos() {
-                console.log('mostrando datos');
                 $http({
                     method: 'GET',
                     url: '/mesas/api/v1/mesas'
@@ -152,6 +155,33 @@ angular.module('mesas-tickets')
                 
             };
 
+            function mesaEstado(estado) {
+                console.log('ENTRO EN MESAESTADO');
+                console.log(estado);
+                auxColor = 'blue';
+                if (estado == null)
+                    { aux=0;
+                    } else {
+                        // Leo las características del estado de la mesa
+                        $http({
+                            method: 'GET',
+                            url: '/estados/api/v1/estados/nombremesa/' + estado
+                        }).then( function( response ) {
+                            $scope.estados = response.data;
+                            auxColor = $scope.estados[0].color;
+                            console.log(estado + ': ' + auxColor);
+                        }, function (error) {
+                            console.log('Error: ' + error);
+                        });
+                    };
+                
+                if (estado == null ) { 
+                    auxColor = 'yellow';
+                };
+                auxEstilo = {backgroundColor: auxColor}
+                return auxEstilo;
+            };
+            
             
             $scope.ver = function(item) {
                 $scope.datSel = {};
@@ -172,6 +202,17 @@ angular.module('mesas-tickets')
                 $scope.ver(item);
                 $scope.showEstado = true;
                 $scope.update = true;
+
+                $http({
+                    method: 'GET',
+                    url: '/estados/api/v1/estados'
+                }).then( function( response ) {
+                    $scope.estados = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
+                
+                
             }
             
         

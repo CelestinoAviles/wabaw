@@ -39,8 +39,6 @@ angular.module('mesas')
 
             mostrarDatos();
 
-            //            $scope.entity = {}
-
             function mostrarDatos() {
                 $scope.dat = [];
                 $http({
@@ -73,6 +71,17 @@ angular.module('mesas')
                 //                $scope.entity.index = index;
                 $scope.ver(index);
                 $scope.update = true;
+
+                $http({
+                    method: 'GET',
+                    url: '/estados/api/v1/estados'
+                }).then( function( response ) {
+                    $scope.estados = response.data;
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
+                
+                
             }
 
         

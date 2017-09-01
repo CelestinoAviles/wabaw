@@ -65,6 +65,11 @@ angular.module('dispositivopreferencias')
 
             }
 
+            $scope.Salir = function () {
+                window.location = '/#!/menuGestor';
+            };
+
+            
             $scope.ver = function(index) {
                 $scope.datSel = {};
                 $scope.datSel = $scope.dat[index];

@@ -3,10 +3,9 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h1 class="panel-title">Mesas y Tickets</h1>
-        </div>  
-        
-        <div class="panel-body">
+        </div>
 
+        <div class="panel-body">
             <table class="table table-hover">
                 <td class="col-md-6">
                     <button class="btn btn-primary" ng-click="Salir()"><i class="glyphicon glyphicon-home"></i></button>
@@ -15,8 +14,7 @@
                     <input type="text" ng-model="filtroTexto">
                 </td>
             </table>
-            
-    
+
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -44,9 +42,12 @@
                             {{ item.nombre }}
                         </td>
                         <td>
-                            <FONT SIZE=+2>{{ item.clave }}<FONT SIZE=-2>
+                            <FONT SIZE=+2>{{ item.clave }}</FONT><FONT SIZE=-2></FONT>
                         </td>
                         <td>
+                            <!-- Esta opcion da error
+                        <td class="ng-style: mesaEstado(item.estado)">
+                            -->
                             {{ item.estado }}
                         </td>
                         <td>
@@ -130,15 +131,19 @@
                 <div class="row">
                     <div class="col-md-6"><label>Nombre</label><input class="form-control" ng-readonly="(insert || update)" ng-model="datSel.nombre"></div>
                 </div>
+
                 <div class="row">
-                    <div class="col-md-6"><label>Estado</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.estado"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6"><label>Llamada</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.llamada"></div>
-                </div>
+                    <div class="col-md-6"><label>Estado</label>
+                        <select ng-readonly="!(insert || update)" ng-options="g.nombre as g.nombre for g in estados"
+                                ng-model="datSel.estado"
+                                class="form-control">
+                            <option value="">- Seleccione -</option>
+                        </select>
+                    </div>
+                </div><br>
+                
             </div>
         </div> 
 
         </div>
 </div>
-

@@ -7,7 +7,6 @@
         <table class="table table-hover">
             <td class="col-md-6">
                 <button class="btn btn-primary" ng-click="Salir()"><i class="glyphicon glyphicon-home"></i></button>
-                <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
             </td>
             <td class="col-md-6">
                 <input type="text" ng-model="filtroTexto">
@@ -18,15 +17,11 @@
                 <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="col-md-4">Acciones</th>
-                        <th class="col-md-1">Mesa</th>
-                        <th class="col-md-1">Ticket</th>
-                        <th class="col-md-1">Cód.Artículo</th>
-                        <th class="col-md-2">Descripción</th>
-                        <th class="col-md-1">Precio</th>
-                        <th class="col-md-1">Cantidad</th>
-                        <th class="col-md-1">Total</th>
-                        <th class="col-md-1">Estado</th>
+                        <th class="col-md-4 col-xs-4">Acciones</th>
+                        <th class="col-md-1 col-xs-1">Mesa</th>
+                        <th class="col-md-4 col-xs-4">Descripción</th>
+                        <th class="col-md-1 col-xs-1">Cantidad</th>
+                        <th class="col-md-2 col-xs-2">Estado</th>
                     </tr>
                 </thead>
 
@@ -44,26 +39,15 @@
                             <button class="btn btn-primary" data-toggle="tooltip" title="Preparado" ng-click="anotarPreparado(item)"><i class="glyphicon glyphicon-check"></i></button>
                             <button class="btn btn-primary" data-toggle="tooltip" title="Servido" ng-click="anotarServido(item)"><i class="glyphicon glyphicon-ok"></i></button>
                         </td>
-                        <td>
-                            {{ item.nombre_mesa }}
-                        </td>
-                        <td>
-                            {{ item.cod_ticket }}
-                        </td>
-                        <td>
-                            {{ item.cod_articulo  }}
+                        <td class="ng-style: lineaEstado(item.llamada);">
+                            {{ item.codigo_mesa }}
+                            {{ item.llamada }}
                         </td>
                         <td>
                             {{ item.nombre  }}
                         </td>
                         <td>
-                            {{ item.pvu  }}
-                        </td>
-                        <td>
                             {{ item.cantidad  }}
-                        </td>
-                        <td>
-                            {{ item.total  }}
                         </td>
                         <td>
                             {{ item.estado }}

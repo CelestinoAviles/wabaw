@@ -140,23 +140,20 @@ DROP TABLE WABAW.ESTADOS;
 CREATE TABLE WABAW.ESTADOS (
     codigo           integer not null,
     tipo             char(03) not null,
+    orden            integer  not null,
     nombre           char(10) not null,
     estado_inicial   boolean not null default false,
     estado_final     boolean not null default false,
     color            char(10) not null,
     CONSTRAINT estados_pkey PRIMARY KEY (codigo)
 );
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (1, 'MES', 'LIBRE',   'green', true, false);
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (2, 'MES', 'OCUPADO', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (3, 'MES', 'LLAMANDO', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (4, 'MES', 'RESERVADO', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (5, 'MES', 'ANULADO',  'orange', false, false);
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (10, 'TKT', 'ABIERTO',   'green', false, false);
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (11, 'TKT', 'PAGADO', 'green', false, true);
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (21, 'TKL', 'PEDIDO', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (22, 'TKL', 'EN CURSO', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (23, 'TKL', 'PREPARADO', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, nombre, color, estado_inicial, estado_final) values (24, 'TKL', 'SERVIDO', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (1, 'MES', 'LIMPIA',   'green', true, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (2, 'MES', 'BLOQUEADA', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (3, 'MES', 'RESERVADA', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (4, 'MES', 'OCUPADA', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (5, 'MES', 'EN CURSO', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (6, 'MES', 'SERVIDA', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (7, 'MES', 'PAGADA', 'orange', false, false);
 
 /*
 

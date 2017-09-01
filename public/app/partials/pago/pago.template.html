@@ -6,14 +6,14 @@
         </div>
         <div class="panel-body">
 
-            <div class="well col-xs-12 col-md-4">MESA  : {{ codigo_mesa }}</div>
-            <div class="well col-xs-12 col-md-4">Ticket: {{ cod_ticket }}</div>
-            <div class="well col-xs-12 col-md-4">Total : {{ total }}</div>
+            <div class="well col-xs-4 col-md-4">Mesa: {{ codigo_mesa }}</div>
+            <div class="well col-xs-4 col-md-4">Ticket: {{ cod_ticket }}</div>
+            <div class="well col-xs-4 col-md-4">Total: {{ total | currency }}</div>
 
         </div>
     </div>
     
-    <h2>Seleccionar forma de pago</h2>
+    <h2>Forma de pago</h2>
     
     <div class="list-group">
         <a href="#!/pagoEfectivo/{{ codigo_mesa }}/{{cod_ticket}}/{{total}}"   class="btn btn-block btn-success" role="button"><h1>Efectivo</h1></a>

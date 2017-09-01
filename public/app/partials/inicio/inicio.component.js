@@ -13,17 +13,15 @@
 		        templateUrl: 'app/partials/inicio/inicio.template.html',
 		        controller: function InicioController($translate, $scope, $routeParams, $location, servicio) {
                     
-            this.hero = {
+                    
+                    this.hero = {
                 name: 'Spawn'
             };
             this.empresa = "eeee";
             this.pie = "pieeee";
                     $scope.empresa ="wwww";
 
-//                    CargarFacebook();
-                    
                     $scope.servicio = servicio;
-//                    alert($scope.servicio);
                     console.log($scope.servicio);
                     console.log(servicio.listaCompartida);
                     console.log(servicio.datosCompartidos);

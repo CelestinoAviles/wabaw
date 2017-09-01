@@ -1,6 +1,6 @@
 <div class="container">
-
-    <div class="panel panel-primary" ng-show="showPreferencias">
+    
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h1 class="panel-title">Bienvenido</h1>
         </div>  
@@ -8,14 +8,14 @@
 
             <div class="row">
                 <div class="col-xs-12">
-                    <label>Número de mesa o espacio</label>
+                    <label>Número de mesa</label>
                     <input class="form-control" ng-model="datSel.codigo_mesa" data-toggle="tooltip" title="Código que aparece en su espacio">
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-xs-12">
-                    <label>Clave de acceso</label>
+                    <label for="sel1">Clave de acceso</label>
                     <input class="form-control" ng-model="datSel.password" data-toggle="tooltip" title="Clave asociada a este espacio">
                 </div>
             </div>
@@ -27,16 +27,14 @@
                 </div>
             </div><br>
 
-            <div class="col-xs-4">
-                <button class="btn btn-primary btn-block" ng-click="volver()">Cancelar</button>
-            </div>
-            <div class="col-xs-4">
-                <button class="btn btn-info btn-block" ng-click="limpiar()">Limpiar</button>
-            </div>
-            <div class="col-xs-4">
-                <button class="btn btn-success btn-block" ng-click="grabar()">Aceptar</button>
+            <div class="row">
+                <div class="col-md-6 col-xs-6">
+                    <button class="btn btn-success btn-block" ng-click="acceder()">Acceder</button>
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <button class="btn btn-primary btn-block" ng-click="volver()">Cancelar</button>
+                </div>
             </div>
         </div>
-        
     </div> 
 </div>

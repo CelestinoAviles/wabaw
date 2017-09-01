@@ -17,56 +17,36 @@
         <rrss parametro="general"></rrss> 
 
         <div class="panel-body">
-            
-            <table class="table table-hover table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th class="col-md-2" ng-show="!opcionCliente">Acciones </th>
-                        <th class="col-md-1">Fecha</th>
-                        <th class="col-md-1">Usuario</th>
-                        <th class="col-md-1">General</th>
-                        <th class="col-md-1">Limpieza</th>
-                        <th class="col-md-1">Servicio</th>
-                        <th class="col-md-6">Opiniones</th>
-                    </tr>
-                </thead>
-
-                <tfoot></tfoot>
-                <tbody>
-                    <tr ng-repeat="item in dat | filter:filtroTexto">
-                        <td ng-show="!opcionCliente">
-                            <button class="btn btn-primary" ng-click="ver($index)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" ng-click="edit($index)"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-remove"></i></button>
-                        </td>
-                        <td>
-                            {{ item.fecha  | date:'dd/MM/yyyy' }}
-                        </td>
-                        <td>
-                            {{ item.login }}
-                        </td>
-                        <td>
-                            <div  ng-controller="RatingController as rating">
-                                <star-rating ng-model="item.valor_general" readonly="rating.isReadonly"></star-rating>
-                            </div>
-                        </td>
-                        <td>
-                            <div  ng-controller="RatingController as rating">
-                                <star-rating ng-model="item.valor_limpieza" readonly="rating.isReadonly"></star-rating>
-                            </div>
-                        </td>
-                        <td>
-                            <div  ng-controller="RatingController as rating">
-                                <star-rating ng-model="item.valor_servicio" readonly="rating.isReadonly"></star-rating>
-                            </div>
-                        </td>
-                        <td>
-                            {{ item.observaciones }}
-                        </td>
-                    </tr>
-                    <tbody>
+            <table ng-table="$ctrl.tableParams" class="table table-hover table-striped table-bordered" show-filter="true">
+                <tr ng-repeat="item in $data">
+                    <td title="'Fecha'" filter="{ Fecha: 'text'}" sortable="'Fecha'">
+                        {{ item.fecha  | date:'dd/MM/yyyy' }}
+                    </td>
+                    <td title="'Usuario'" filter="{ login: 'text'}" sortable="'login'">
+                        {{ item.login }}
+                    </td>
+                    <td title="'General'" filter="{ General: 'number'}" sortable="'valor_general'">
+                        <div  ng-controller="RatingController as rating">
+                            <star-rating ng-model="item.valor_general" readonly="rating.isReadonly"></star-rating>
+                        </div>
+                    </td>
+                    <td title="'Limpieza'" filter="{ Limpieza: 'number'}" sortable="'valor_limpieza'">
+                        <div  ng-controller="RatingController as rating">
+                            <star-rating ng-model="item.valor_limpieza" readonly="rating.isReadonly"></star-rating>
+                        </div>
+                    </td>
+                    <td title="'Servicio'" filter="{ Servicio: 'number'}" sortable="'valor_servicio'">
+                        <div  ng-controller="RatingController as rating">
+                            <star-rating ng-model="item.valor_servicio" readonly="rating.isReadonly"></star-rating>
+                        </div>
+                    </td>
+                    <td title="'Comentarios'" filter="{ comentarios: 'text'}" sortable="'observaciones'">
+                        {{ item.observaciones }}
+                    </td>
+                </tr>
             </table>
         </div>
+
 
 <!-- Este sí funciona -->  
 <!--

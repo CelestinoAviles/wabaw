@@ -24,6 +24,14 @@ angular.module('ticketsLineas')
         $scope.update = false;
         $scope.anotarEnCurso = anotarEnCurso;
         $scope.anotarPreparado = anotarPreparado;
+        $scope.lineaEstado = lineaEstado;
+
+        
+
+        $scope.cocinero_estado = {
+            color:"#FF0000",
+            backgroundColor:'yellow'
+        };
 
         var self = this;
             
@@ -73,6 +81,23 @@ angular.module('ticketsLineas')
                 $scope.showEstado = true;
             }
 
+            function lineaEstado(estado) {
+                if (estado.trim() == "COCINANDO") {
+                return {
+                    color:"black",
+                    backgroundColor:'green'
+                }
+                };
+
+                if (estado.trim() == "COCINA") {
+                return {
+                    color:"black",
+                    backgroundColor:'yellow'
+                }
+                };
+                    
+            };
+        
             function anotarEnCurso(item) {
                 cambiarEstado(item, 'COCINANDO');  
             };

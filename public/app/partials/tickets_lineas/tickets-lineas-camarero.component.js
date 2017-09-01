@@ -10,7 +10,7 @@ angular.module('ticketsLineas')
   //      controller: function EntidadController($scope, $http, $routeParams, $location, NgTableParams) {
           
         var auxRuta = '/ticketslineas/api/v1/ticketslineas';
-        var auxEntidad = 'Líneas de Tickets pendientes de cerrar';
+        var auxEntidad = 'Productos pendientes de servir';
         var glbIntervalo = 10000;  // 10 segundos
 
         $scope.rate = 1;
@@ -26,6 +26,7 @@ angular.module('ticketsLineas')
         $scope.anotarEnCurso = anotarEnCurso;
         $scope.anotarServido = anotarServido;
         $scope.anotarPreparado = anotarPreparado;
+        $scope.lineaEstado = lineaEstado;
 
         var self = this;
             
@@ -134,6 +135,16 @@ angular.module('ticketsLineas')
                 mostrarDatos();
             }
 
+            function lineaEstado(llamada) {
+                if (llamada.trim() !== "") {
+                return {
+                    color:"black",
+                    backgroundColor:'yellow'
+                }
+                };
+        
+            };
+            
             
             $scope.grabar = function() {
                 if ($scope.insert) {

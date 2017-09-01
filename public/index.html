@@ -27,8 +27,9 @@
 <!--    <script type="text/javascript" src="ngtweet/dist/ngtweet.js"></script> -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
 
-    <!--    <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"> -->
-<!--    <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>    -->
+    <!-- NG-TABLE -->
+    <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+    <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
     
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <script type="text/javascript" src="bower_components/angular-socialshare/dist/angular-socialshare.js"></script>   
@@ -119,6 +120,8 @@
     <script src="./app/partials/familias/familias-ver.component.js"></script>
     <script src="./app/partials/imagenes/imagenes.component.js"></script>
     <script src="./app/partials/imagenes/imagenescarrusel.component.js"></script>
+    <script src="./app/partials/estados/estados.module.js"></script>
+    <script src="./app/partials/estados/estados.component.js"></script>
     <script src="./app/partials/empleados/empleados.component.js"></script>
     <script src="./app/partials/moviles/moviles.component.js"></script>
     <script src="./app/partials/pruebas/pruebas.module.js"></script>
@@ -180,25 +183,12 @@
 </head>
 
 <body>
-
+    
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button"></button>
-                <a class="navbar-brand" href="#"><strong>WABAW</strong></a>
+                <a class="navbar-brand" href="#!/inicio">WABAW</a>
             </div>
-<!--
-            
-            <div class="navbar-collapse collapse " id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="#!/inicio">Tablet</a></li>
-                    <li><a href="#!/dispositivoByod">Móvil</a></li>
-                    <li><a href="#!/menuCamarero">Camarero</a></li>
-                    <li><a href="#!/menuGestor">Gestor</a></li>
-                </ul>
-            </div>
--->    
-
         </div>
     </nav>
     <div class="container-fluid">
@@ -206,19 +196,13 @@
     </div>
 
     <footer>
-
+        <br>
+        <rrss000 parametro="'pie'" param2="12"></rrss000>
         <div class="row">
-            @ 2017
+            <p>@ Copyright 2017</p>
         </div>
-<!--        <div class="row"> -->
-<!--            <rrss-test parametro="'pie'" param2="12"></rrss-test> -->
-        <div class="col-xs-6">
-                OPINA EN LAS REDES SOCIALES:
-                <rrss000 parametro="'pie'" param2="12"></rrss000>
-        </div>
-<!--        </div> -->
-
     </footer>
+    
 </body>
 
 </html>

@@ -8,81 +8,73 @@ angular.module('preferencias')
         templateUrl: 'app/partials/' + 'dispositivopreferencias' + '/' + 'dispositivo-byod' + '.template.html',
         controller: function EntidadController($scope, $http, $routeParams, $location, $window) {
 
-            var auxRuta = '/preferencias/api/v1/preferencias';
-            var auxEntidad = 'preferencias';
-            
-            $scope.rate = 1;
-            $scope.max = 5;
-            $scope.texto = auxEntidad.toUpperCase();;
-            $scope.dat = [];
+            $scope.acceder = acceder;
+            $scope.volver = volver;
             $scope.datSel = [];
-            $scope.showCategoria = false;
-            $scope.insert = false;
-            $scope.update = true;
-            $scope.showPreferencias = true ;
+            $scope.datSel.idioma_dispositivo= 'es';
 
-            mostrarDatos();
-
-            function mostrarDatos() {
-                
-                var dispositivo = localStorage.getItem("dispositivo");
-                var preferencias = JSON.parse(dispositivo);
-                console.log(preferencias);
-                if (preferencias = null) {
-                    var dispositivo = {
-                        codigo_dispositivo: '0',
-                        nombre_dispositivo: '',
-                        idioma_dispositivo: 'ES',
-                        codigo_mesa       : 0
-                    };
-                    var dispositivoAGuardar = JSON.stringify(dispositivo);
-                    localStorage.setItem("dispositivo", dispositivoAGuardar );
-                    var dispositivo = localStorage.getItem("dispositivo");
-                    var preferencias = JSON.parse(dispositivo);
-                };
-    
-                console.log(preferencias); //true
-                $scope.datSel = preferencias;
-            };
-            
-            $scope.volver = function() {
-                $scope.datSel = {};
-                $scope.showCategoria = false;
-                $scope.showPreferencias = false;
-                mostrarDatos();
-            }
-
-            $scope.limpiar = function() {
+            function volver() {
                 localStorage.clear();
-                alert('Dispositivo limpiado de preferencias');
-                window.location = '#!/inicio';
+                alert('¡ Hasta pronto !');
+                window.location = '/#!/inicio';
+             };
+
+            function acceder() {
+                auxMesa = verMesa();
+                console.log('---');
+                console.log(auxMesa);
+                console.log($scope.dat);
             };
 
-            $scope.grabar = function() {
+            
+            function verMesa() {
+                console.log($scope.datSel.codigo_mesa);
+                console.log($scope.datSel.password);
+                $scope.dat = [];
+                $http({
+                    method: 'GET',
+                    url: '/mesas/api/v1/mesas/' + $scope.datSel.codigo_mesa.trim()
+                }).then( function( response ) {
+                    $scope.dat = response.data[0];
+                    console.log($scope.dat);
+                    console.log(response.data);
+                    console.log($scope.dat.clave);
+                    if( $scope.dat.clave.trim() === $scope.datSel.password.trim()) {
+                        alert('Correcto');
+                        var dispositivo = {
+                            codigo_dispositivo: '9999',
+                            nombre_dispositivo: 'Móvil particular',
+                            idioma_dispositivo: 'es',
+                            codigo_mesa       : $scope.datSel.codigo_mesa.trim()
+                        };
+                        grabar( dispositivo );
+
+                    } else {
+                      alert('Incorrecto');
+                        volver();
+                    };
+                }, function (error) {
+                    console.log('Error: ' + error);
+                });
+                return $scope.dat;
+            };
+
+            
+            
+            function grabar( dispositivo ) {
                 console.log('pwd');
                 console.log($scope.datSel.password)
-                if ($scope.datSel.password === "1234") {
                     
-                var dispositivo = {
-                    codigo_dispositivo: $scope.datSel.codigo_dispositivo,
-                    nombre_dispositivo: $scope.datSel.nombre_dispositivo,
-                    idioma_dispositivo: $scope.datSel.idioma_dispositivo,
-                    codigo_mesa       : $scope.datSel.codigo_mesa
-                };
 
                 // Guardamos directo el JSON al localStorage:
-
+                
                 var dispositivoAGuardar = JSON.stringify(dispositivo);
 
                 localStorage.setItem("dispositivo", dispositivoAGuardar );
                 var dispositivoGuardado = localStorage.getItem("dispositivo");
-                    window.location = "#!/inicio";
-                } else 
-                    {
-                      alert('incorrecto');  
-                    };
                 $scope.preferencias = dispositivo;
                 $scope.showPreferencias = false;
+                window.location = '/#!/inicio';
             }
         }
     });

@@ -9,13 +9,20 @@
 		    .component('menuGestor', {
 		        templateUrl: 'app/partials/menu/menu-gestor.template.html',
 		        controller: function MenuController($scope, $routeParams, $location) {
+
+                    $scope.cancelar = cancelar;
+                    $scope.validar = validar;
+                    console.log($scope.login_ok);
                     
-                    $scope.login_ok = false;
+                    if ( $scope.login_ok === undefined ) {
+                        $scope.login_ok = false;
+                    };
+                        
+                    console.log($scope.login_ok);
+//                    $scope.login_ok = false;
                     $scope.login = "";
                     $scope.password = "";
                     
-                    $scope.cancelar = cancelar;
-                    $scope.validar = validar;
                     
                     function cancelar() {
                         $scope.login_ok = false;
@@ -25,7 +32,9 @@
                     function validar() {
                         console.log($scope.login);
                         console.log($scope.password);
-                        $scope.login_ok = true;
+                        if ($scope.login == $scope.password) {
+                            $scope.login_ok = true;
+                        };
                     };
 
                 

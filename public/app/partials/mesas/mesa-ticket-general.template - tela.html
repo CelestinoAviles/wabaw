@@ -63,18 +63,18 @@
                                     </div>
 
                                     <div>
-    <!--
-<button class="btn btn-primary" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-refresh" data-toggle="tooltip" title="Calcular cuenta"></i></button>
+                                        <button class="btn btn-primary" ng-click="recalcularTicket(item)"><i class="glyphicon glyphicon-refresh" data-toggle="tooltip" title="Calcular cuenta"></i></button>
                     
                                         <button class="btn btn-primary" ng-click="verRecibo(item)"><i class="glyphicon glyphicon-print" data-toggle="tooltip" title="Ver recibo"></i></button>
--->
-                                        <a href="#!/pago" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-euro" data-toggle="tooltip"     title="Pagar"></i> Pagar</a>
+                                        <a href="#!/pago/{{item.codigo}}" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-euro" data-toggle="tooltip"     title="Pagar"></i> Pagar</a>
 
                                     </div>
                                 </td>
                                 <td>
                                     {{ item.codigo }}
+                                    {{ item.codigo_mesa }}
                                     {{ item.estado }}
+                                    
                                 </td>
                                 <td>
                                     {{ item.fecha_modifica  | date:'dd/MM/yyyy  HH:mm' }}
@@ -108,11 +108,11 @@ Solo cuando se confirma es cuando el camarero puede iniciar el pedido.
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="bg-primary">
-                <th class="col-md-3 col-xs-4">Acciones</th>
-                <th class="col-md-4 col-xs-3">Artículo</th>
-                <th class="col-md-1 col-xs-1">Ctd</th>
-                <th class="col-md-2 col-xs-2">Precio</th>
-                <th class="col-md-2 col-xs-2">Estado</th>
+                <th class="col-xs-3">Acciones</th>
+                <th class="col-xs-4">Artículo</th>
+                <th class="col-xs-1">Ctd</th>
+                <th class="col-xs-2">Precio</th>
+                <th class="col-xs-2">Estado</th>
             </tr>
         </thead>
         

@@ -8,20 +8,20 @@
 
         <div class="panel-body">
             <div ng-repeat="item in dat | filter:filtroTexto">
-                <div class="col-xs-3">
+                <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="oferta">
-                        <div class="image">
+                        <div class="oferta-img">
                             <img ng-src= {{item.url}} alt="Imagen" class="object-fit_contain">
+<!--                            <img id="background" ng-src= {{item.url}} alt="Imagen">                           --> 
                         </div>
-                        <div class="caption">
+                        <div class="caption oferta-texto">
                             <h3>{{ item.nombre }}</h3>
                             <p> Finaliza: {{ item.fechafin  | date: 'dd/MM/yyyy hh:mm' }} </p>
-                            <div class="art-pvp text-right">
+                            <div class="art-pvp text-center">
                                 {{ item.pvp }} €
                             </div>
                             <div>
-                                <a href="#!/articuloDetalle/{{item.codigo_articulo}}?pvp_venta={{item.pvp}}" class="btn btn-primary btn-block"><h1>Ver</h1></a> 
-<!--                                <a href="#" class="btn btn-default">Descargar</a> -->
+                                <a href="#!/articuloDetalle/{{item.codigo_articulo}}?pvp_venta={{item.pvp}}" class="btn btn-primary btn-block"><h3>Ver oferta</h3></a>
                             </div>
                         </div>
                     </div>

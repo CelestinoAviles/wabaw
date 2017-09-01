@@ -9,8 +9,8 @@ var translations_en = {
     JUGAR: 'Play',
     OPINAR: 'Post',
     LLAMAR: 'Call',
-    PEDIR: 'Order',
-    PREFERENCIAS: 'Preferences',
+    PEDIR: 'Menu',
+    PREFERENCIAS: 'Settings',
     MICUENTA: 'My Bill',
     ESPACIO: 'Area',
     IDIOMA: 'Language',
@@ -25,8 +25,8 @@ var translations_es = {
     JUGAR: 'Jugar',
     OPINAR: 'Opinar',
     LLAMAR: 'Llamar',
-    PEDIR: 'Pedir',
-    PREFERENCIAS: 'Preferencias',
+    PEDIR: 'La Carta',
+    PREFERENCIAS: 'Ajustes',
     MICUENTA: 'Mi cuenta',
     ESPACIO: 'Espacio',
     IDIOMA: 'Idioma',
@@ -118,6 +118,9 @@ angular.
         })
           .when('/empleados', {
           template: '<empleados></empleados>'
+        })
+          .when('/estados', {
+          template: '<estados></estados>'
         })
           .when('/articulos', {
           template: '<articulos></articulos>'

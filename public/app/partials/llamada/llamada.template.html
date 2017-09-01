@@ -1,28 +1,31 @@
 <div class="container">
 
-    <div class="panel panel-primary" ng-show="!showCategoria">
+<!--    <div class="panel panel-primary" ng-show="!showCategoria">
         <div class="panel-heading">
             <h3 class="panel-title"> {{ texto }}</h3>
         </div>
 
         <div class="panel-body">
-            <div class="col-xs-8">
-                <div class="well">¿ Qué necesita ?</div>
+-->
+    <div class="col-xs-8">
+                <h2>¿Qué desea?</h2>
             </div>
             <div class="col-xs-4">
-                <div class="well">MESA: {{ espacio }}</div>
+                <div class="well">
+                    <p>MESA: {{ espacio }}
+                    </p>
+                </div>
             </div>
             <div class="col-xs-6"></div>
             
-            {{ nombre }}
-
+            <button class="btn btn-primary btn-block" ng-click="llamar('consultar')"><h1>CONSULTAR</h1></button>
             <button class="btn btn-success btn-block" ng-click="llamar('pedir')"><h1>PEDIR</h1></button>
             <button class="btn btn-info btn-block"    ng-click="llamar('pagar')"><h1>PAGAR</h1></button>
-            <button class="btn btn-primary btn-block"    ng-click="llamar('asistencia')"><h1>CONSULTA</h1></button>
-            <button class="btn btn-warning btn-block" ng-click="llamar('queja')"><h1>QUEJA</h1></button>
-            <button class="btn btn-basic btn-block" ng-click="llamar('otros')"><h1>OTROS</h1></button>
+            <button class="btn btn-info btn-block"    ng-click="volver()"><h1>Volver</h1></button>
             
         </div>
+<!--
     </div>
 
 </div>
+-->

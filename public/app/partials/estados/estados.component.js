@@ -1,55 +1,31 @@
 //---------------------------------------------------------//
-// modulo **** OPINIONES SOBRE EL ESTABLECIMIENTO   *****
+// modulo **** ESTADOS *****
 //---------------------------------------------------------//
-(function() {
+angular.module('estados')
+    .component('estados', {
+        templateUrl: 'app/partials/estados/estados.template.html',
+        controller: function EstadosController($scope, $http, $routeParams, $location) {
 
-angular.module('posts')
-    .component('postsCliente', {
-        templateUrl: 'app/partials/' + 'posts' + '/' + 'posts-cliente' + '.template.html',
-        controller: function EntidadController($scope, $http, $routeParams, $location, $interval, NgTableParams) {
-
-            var vm = this;
-            var auxRuta = '/posts/api/v1/posts';
-            var auxEntidad = 'Opiniones sobre el local y sus servicios';
-            var glbIntervalo = 10000;  // 10 segundos
-    
-            $scope.opcionCliente = true;
-            $scope.rate = 1;
-            $scope.max = 5;
-            $scope.texto = auxEntidad.toUpperCase();;
+            $scope.texto = "Estados";
             $scope.dat = [];
             $scope.datSel = [];
             $scope.showCategoria = false;
             $scope.insert = false;
             $scope.update = false;
 
+            $scope.estados = [];
             mostrarDatos();
-            stop = $interval(function() {
-                mostrarDatos();
-            }, glbIntervalo);
 
-            $scope.Salir = function () {
-                $interval.cancel(stop);
-                window.location = '/#!/inicio';
-            };
-
-            
             function mostrarDatos() {
                 $scope.dat = [];
                 $http({
                     method: 'GET',
-                    url: auxRuta
+                    url: '/estados/api/v1/estados'
                 }).then( function( response ) {
                     $scope.dat = response.data;
-                    data = $scope.dat;
-                    console.log(data);
-//                    data = [{login:'1', fecha:'10'}];
-                    vm.tableParams = new NgTableParams({}, { dataset: data });
-
                 }, function (error) {
                     console.log('Error: ' + error);
                 });
-                
             
             }
 
@@ -70,9 +46,10 @@ angular.module('posts')
         
             $scope.delete = function(index) {
                 var auxId = $scope.dat[index].codigo;
+                
                 $http({
                     method: 'DELETE',
-                    url: auxRuta + '/' + auxId
+                    url: 'estados/api/v1/estados/' + auxId
                 }).then( function( response ) {
                     $scope.dat = response.data;
                 }, function (error) {
@@ -83,6 +60,8 @@ angular.module('posts')
 
             $scope.newItem = function() {
                 $scope.datSel = {};
+                $scope.datSel.estado_inicial = true;
+                $scope.datSel.estado_final = true;
                 $scope.showCategoria = true;
                 $scope.insert = true;
             }
@@ -94,30 +73,31 @@ angular.module('posts')
                 mostrarDatos();
             }
 
-            $scope.grabar = function() {
+            
+            $scope.grabar = function(index) {
                 if ($scope.insert) {
                     $scope.showCategoria = false;
                     $scope.insert = false;
-
+                    
                     $http({
                         method: 'POST',
-                        url: auxRuta, 
+                        url: '/estados/api/v1/estados', 
                         data: $scope.datSel
                     }).then( function( response ) {
                         $scope.dat = response.data;
                     }, function (error) {
                         console.log('Error: ' + error);
                     });
-                    
                 }
-                else {
-
+                 else {
+                     var auxId = $scope.datSel.codigo;
+                     console.log($scope.datSel);
                     $http({
                         method: 'PUT',
-                        url: auxRuta + '/' + $scope.datSel.codigo, 
+                        url: '/estados/api/v1/estados/' + auxId, 
                         data: $scope.datSel
                     }).then( function( response ) {
-                        $scope.datSel = {};
+                        $scope.dat = response.data;
                     }, function (error) {
                         console.log('Error: ' + error);
                     });
@@ -129,5 +109,3 @@ angular.module('posts')
             }
         }
     });
-
-    })();

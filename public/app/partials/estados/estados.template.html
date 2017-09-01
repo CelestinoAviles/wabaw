@@ -10,7 +10,6 @@
         </div>
         <table class="table table-hover">
             <td class="col-md-6">
-                <button class="btn btn-primary" ng-click="Salir()"><i class="glyphicon glyphicon-home"></i></button>
                 <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
             </td>
             <td class="col-md-6">
@@ -24,12 +23,13 @@
                 <thead>
                     <tr>
                         <th class="col-md-2">Acciones</th>
-                        <th class="col-md-1">Código</th>
+                        <th class="col-md-1">Codigo</th>
                         <th class="col-md-1">Tipo</th>
-                        <th class="col-md-4">Nombre del Espacio</th>
-                        <th class="col-md-1">Clave</th>
-                        <th class="col-md-1">Estado</th>
-                        <th class="col-md-1">Llamada</th>
+                        <th class="col-md-1">Orden</th>
+                        <th class="col-md-3">Nombre</th>
+                        <th class="col-md-1">Stt Inicial</th>
+                        <th class="col-md-1">Stt Final</th>
+                        <th class="col-md-2">Color</th>
                     </tr>
                 </thead>
                 <tfoot></tfoot>
@@ -45,22 +45,21 @@
                         </td>
                         <td>
                             {{ item.tipo }}
-                            <select ng-disabled="true"
-                                    ng-model="item.tipo"
-                                    ng-options="g.id as g.nomTipo for g in nomTipos">
-                            </select>
                         </td>
                         <td>
-                            <span><a ng-click="ver($index)">{{ item.nombre }}</a></span>
+                            {{ item.orden }}
                         </td>
                         <td>
-                            <span>{{ item.clave }}</span>
+                            {{ item.nombre }}
                         </td>
                         <td>
-                            <span>{{ item.estado }}</span>
+                            {{ item.estado_inicial }}
                         </td>
                         <td>
-                            <span>{{ item.llamada }}</span>
+                            {{ item.estado_final }}
+                        </td>
+                        <td>
+                            {{ item.color }}
                         </td>
                     </tr>
                     <tbody>
@@ -79,29 +78,29 @@
                 <div class="col-md-6"><label>Código</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.codigo"></div>
             </div><br>
             <div class="row">
-                <div class="col-md-6"><label>Tipo (B=Barra, S=Salón, T=Terraza)</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.tipo"></div>
-            </div>
+                <div class="col-md-6"><label>Tipo</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.tipo"></div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-6"><label>Orden</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.orden"></div>
+            </div><br>
             <div class="row">
                 <div class="col-md-6"><label>Nombre</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.nombre"></div>
-            </div>
+            </div><br>
             <div class="row">
-                <div class="col-md-6"><label>Clave</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.clave"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-6"><label>Estado</label>
-                    <select ng-readonly="!(insert || update)" ng-options="g.nombre as g.nombre for g in estados"
-                            ng-model="datSel.estado"
-                            class="form-control">
-                        <option value="">- Seleccione -</option>
-                    </select>
+                <div class="col-md-6"><label>Estado Inicial</label>
+                    <input type="checkbox" ng-readonly="!(insert || update)" ng-model="datSel.estado_inicial">             
                 </div>
-            </div>
+            </div><br>
             <div class="row">
-                <div class="col-md-6"><label>Llamada</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.llamada"></div>
-            </div>
+                <div class="col-md-6"><label>Estado Final</label>
+                    <input type="checkbox" ng-readonly="!(insert || update)" ng-model="datSel.estado_final">             
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-6"><label>Color</label><input class="form-control" ng-readonly="!(insert || update)" ng-model="datSel.color"></div>
+            </div><br>
+
         </div>
     </div> 
-
-
 
 </div>

@@ -7,7 +7,6 @@
         <table class="table table-hover">
             <td class="col-md-6">
                 <button class="btn btn-primary" ng-click="Salir()"><i class="glyphicon glyphicon-home"></i></button>
-                <button class="btn btn-primary" ng-click="newItem()"><i class="glyphicon glyphicon-plus"></i></button>
             </td>
             <td class="col-md-6">
                 <input type="text" ng-model="filtroTexto">
@@ -18,15 +17,11 @@
                 <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="col-md-4">Acciones</th>
+                        <th class="col-md-3">Acciones</th>
                         <th class="col-md-1">Mesa</th>
-                        <th class="col-md-1">Ticket</th>
-                        <th class="col-md-1">Cód.Artículo</th>
-                        <th class="col-md-2">Descripción</th>
-                        <th class="col-md-1">Precio</th>
+                        <th class="col-md-5">Descripción</th>
                         <th class="col-md-1">Cantidad</th>
-                        <th class="col-md-1">Total</th>
-                        <th class="col-md-1">Estado</th>
+                        <th class="col-md-2">Estado</th>
                     </tr>
                 </thead>
 
@@ -34,10 +29,7 @@
                 <tbody>
                     <tr ng-repeat="item in dat | filter:filtroTexto">
                         <td>
-                            <button class="btn btn-primary" data-toggle="tooltip" title="Ver" ng-click="ver(item)"><i class="glyphicon glyphicon-eye-open"></i></button>
-                            <button class="btn btn-primary" data-toggle="tooltip" title="Modificar" ng-click="edit(item)"><i class="glyphicon glyphicon-edit"></i></button>
                             <button class="btn btn-danger" data-toggle="tooltip" title="Borrar" ng-click="delete(item)"><i class="glyphicon glyphicon-remove"></i></button>
-                            <button class="btn btn-primary" data-toggle="tooltip" title="Cambiar estado" ng-click="estado(item)"><i class="glyphicon glyphicon-random"></i></button>
                             <button class="btn btn-primary" data-toggle="tooltip" title="En curso" ng-click="anotarEnCurso(item)"><i class="glyphicon glyphicon-wrench"></i></button>
                             <button class="btn btn-primary" data-toggle="tooltip" title="Preparado" ng-click="anotarPreparado(item)"><i class="glyphicon glyphicon-check"></i></button>
                         </td>
@@ -45,24 +37,12 @@
                             {{ item.nombre_mesa }}
                         </td>
                         <td>
-                            {{ item.cod_ticket }}
-                        </td>
-                        <td>
-                            {{ item.cod_articulo  }}
-                        </td>
-                        <td>
                             {{ item.nombre  }}
-                        </td>
-                        <td>
-                            {{ item.pvu  }}
                         </td>
                         <td>
                             {{ item.cantidad  }}
                         </td>
-                        <td>
-                            {{ item.total  }}
-                        </td>
-                        <td>
+                        <td class="ng-style: lineaEstado(item.estado);">
                             {{ item.estado }}
                         </td>
                     </tr>
