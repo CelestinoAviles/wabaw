@@ -1,0 +1,269 @@
+/* CSS Version 1.0 */
+@import url("http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css") screen;
+
+
+body {
+    margin: 0px;
+    padding: 0px;
+    padding-top: 60px;
+    border: 0px solid;
+    font-siz: 1.5em;
+    font-family: 'Lato', sans-serif;
+
+    /* Ubicación de la imagen */
+    background-image: url(../img/imagenes/fondo.jpg);
+
+    /* Nos aseguramos que la imagen de fondo este centrada vertical y
+    horizontalmente en todo momento */
+    background-position: center center;
+
+    /* La imagen de fondo no se repite */
+    background-repeat: no-repeat;
+
+    /* La imagen de fondo está fija en el viewport, de modo que no se mueva cuando
+    la altura del contenido supere la altura de la imagen. */
+    background-attachment: fixed; 
+
+    /* La imagen de fondo se reescala cuando se cambia el ancho de ventana
+    del navegador */
+    background-size: cover;
+
+    /* Fijamos un color de fondo para que se muestre mientras se está
+    cargando la imagen de fondo o si hay problemas para cargarla  */
+    background-color: aquamarine;
+    
+    
+}
+
+@media only screen and (max-width: 1280px)
+{
+    body {
+        background-color: red;
+        margin: 0px;
+        padding: 0px;
+        padding-top: 60px;
+        border: 0px solid;
+    }
+}
+
+@media screen and (max-width: 768px)
+{
+    body {
+        background-color: blueviolet;
+        margin: 0px;
+        padding: 0px;
+        padding-top: 60px;
+        border: 0px solid;
+    }
+}
+
+@media only screen and (max-width: 320px)
+{
+    body {
+        margin:0px;
+        background-color: greenyellow;
+        padding: 0px;
+        padding-top: 60px;
+        border: 0px solid;
+    }
+}
+
+.container-fluid {
+    margin:0px;
+    padding: 0px;
+    border: 0px;
+}
+
+.familias {
+    background-color: greenyellow;
+    border: 1px solid;
+    border-color: azure;
+    text-align: left ;
+}
+
+.familia-img {
+    margin:0px;
+    padding: 0px;
+    border: 1px solid blue;
+    width: 100%;
+    height: 150px;
+    border-bottom-color: blue;
+    background-color: lightblue;
+}
+
+.familia-texto {
+    border: 1px solid blue;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden; 
+    font-size: 250%;
+}
+
+.articulos {
+    margin: 0px;
+    padding: 0px;
+    background-color: greenyellow;
+    border: 1px solid;
+    border-color: azure;
+    text-align: left ;
+}
+
+.articulo-img {
+    margin:0px;
+    padding: 0px;
+    border: 0px;
+    width: 100px;
+    height: 150px;
+    border-bottom-color: blue;
+    background-color: lightblue;
+    overflow: hidden;
+}
+
+.articulo-lista-texto {
+    font-size: 3vw;
+}
+
+
+.ancho {
+    color: white;
+    text-overflow: ellipsis;
+}
+
+.navbar {
+    border: 0px solid;
+    color: red;
+    background-color: deepskyblue;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+table{
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    border: 0px solid green;
+}
+
+td {
+  font-size: 100%;
+  border: solid 1px gray;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: hidden;
+}
+
+.art-pvp {
+    background-color: coral;
+    font-weight: 700;
+    font-size: 200%;
+    color: white;
+}
+
+.page-header {
+    background-color: blue;
+}
+
+.footer {
+    background-color: red;
+}
+
+/* Imagenes ofertas */
+.img-oferta {
+    object-fit: fill;
+/*    max-width: 300px; */
+    height: auto;
+    border-bottom-color: blue;
+    background-color: lightblue;
+    overflow: hidden;
+}
+
+.oferta {
+    border-bottom-color: blue;
+    background-color: lightblue;
+}
+
+/* Para validación de campos */
+
+.ng-invalid.ng-dirty {
+    border-color: red;
+}
+
+.ng-valid.ng-dirty {
+    border-color: green;
+}
+
+#slides_control>div {
+    height: 300px;
+}
+
+#slides_control {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    float: left;
+    left: 20%;
+/*    max-width: 300px; */
+/*    height: 300px; */
+/*    top: 20px; */
+}
+
+
+/* 
+.object-fit_fill { object-fit: fill }
+.object-fit_contain { object-fit: contain }
+.object-fit_cover { object-fit: cover }
+.object-fit_none { object-fit: none }
+.object-fit_scale-down { object-fit: scale-down }
+
+img { height: 200px; background-color: lightblue;}
+
+img[class] { 
+  width: 100%;
+}
+*/
+
+.original-image {
+  margin-bottom: 50px;
+}
+
+.image {
+    object-fit: fill;
+    max-width: 300px;
+    max-height: 300px;
+    border-bottom-color: blue;
+    background-color: lightblue;
+    overflow: hidden;
+}
+
+.login {
+  margin:0 auto;
+  max-width:500px;
+}
+
+.login-header {
+  text-align:left;
+  font-size:200%;
+}
+/* .login-header h1 {
+   text-shadow: 0px 5px 15px #000; */
+}
+.login-form {
+  border:.5px solid #fff;
+  background:#4facff;
+  border-radius:10px;
+  box-shadow:0px 0px 10px #000;
+}
+.login-form h3 {
+  text-align:left;
+  margin-left:40px;
+  color:#fff;
+}
+.login-form {
+  box-sizing:border-box;
+  padding-top:15px;
+	padding-bottom:10%;
+  margin:5% auto;
+  text-align:center;
+}

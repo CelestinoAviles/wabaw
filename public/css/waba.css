@@ -4,6 +4,9 @@
 {
     body {
         background-color: aquamarine;
+        margin: 0px;
+        padding: 0px;
+        border: 0px solid;
     }
 }
 
@@ -11,31 +14,52 @@
 {
     body {
         background-color: floralwhite;
+        margin: 0px;
+        padding: 0px;
+        border: 0px solid;
     }
 }
 
 @media handheld
 {
-    background-color: blue;
+    body {
+        background-color: floralwhite;
+        margin: 0px;
+        padding: 0px;
+        border: 0px solid;
+    }
 }
 
 @media all
 {
     body {
         background-color: aliceblue;
+        margin: 0px;
+        padding: 0px;
+        border: 0px solid;
     }
 }
+
+body {
+        background-color: aquamarine;
+        margin: 0px;
+        padding: 0px;
+        border: 0px solid;
+    }
+    
+
+
 
 h1 {
   font-size: 2vw;
 }
 
 h2 {
-  font-size: 1,5vw;
+  font-size: 1.5vw;
 }
 
 h3 {
-  font-size: 1,5vw;
+  font-size: 1.5vw;
 }
 
 
@@ -45,21 +69,19 @@ h3 {
 }
 
 .navbar {
-    margin-top: 0;
-    border-radius: 0;
+    margin: 0px;
+    padding: 0px;
+    border: 0px solid;
     color: white;
-    color: blue;
     background-color: deepskyblue;
 }
 
 body {
-    font-size: 1,5vw;
-    padding-top: 60px;
-    padding-bottom: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
     margin: 0px;
-    margin-top: 0px;
+    padding: 0px;
+    border: 0px solid;
+    font-size: 1.5vw;
+    padding-top: 60px;
     font-family: 'Lato', sans-serif;
 
     
@@ -96,7 +118,7 @@ td {
   font-size: 100%;
   border: solid 1px gray;
   overflow: hidden;
-  white-space: wrap;
+  white-space: nowrap;
 /*  text-overflow: ellipsis; */
 }
 
@@ -107,12 +129,14 @@ td {
     color: white;
 }
 
+/*
 header {
     background: url(../img/inicio/fondo.jpg) no-repeat center;
     background-size: cover;
     width: 100%;
     padding-top: 50px;
 }
+*/
 
 .page-header {
     background-color: blue;
@@ -123,8 +147,10 @@ header {
 }
 
 .btn-xxl {
-    padding: 20px 26px;
+/*    padding: 20px 26px; */
+    padding: 0px;
     font-size: 100%;
+    border: 0px solid;
     border-radius: 1px;
 }
 
@@ -176,6 +202,7 @@ header {
 .object-fit_none { object-fit: none }
 .object-fit_scale-down { object-fit: scale-down }
 
+/*
 html { 
   color: #eee; 
   font-size: 200%;
@@ -185,6 +212,7 @@ html {
 }
 
 p { font-weight: 200; font-size: 100%; margin-bottom: 10px; margin-top: 0;}
+*/
 
 img { height: 200px; background-color: lightblue;}
 
