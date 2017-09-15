@@ -1,0 +1,8 @@
+901,B,Equipo gestor       ,1234      ,,
+103,T,Terraza Mesa 3      ,5612      ,BLOQUEADA ,
+11,S,Salon Mesa 1        ,,LIMPIA    ,
+1,B,Barra 1             ,1716      ,LIMPIA    ,
+12,S,Salón Mesa 2        ,,,CONSULTAR 
+102,T,Terraza Mesa 2      ,8027      ,,CONSULTAR 
+2,B,Barra 2             ,8995      ,          ,
+101,T,Terraza Mesa 1      ,7634      ,          ,

@@ -147,13 +147,13 @@ CREATE TABLE WABAW.ESTADOS (
     color            char(10) not null,
     CONSTRAINT estados_pkey PRIMARY KEY (codigo)
 );
-insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (1, 'MES', 'LIMPIA',   'green', true, false);
-insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (2, 'MES', 'BLOQUEADA', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (3, 'MES', 'RESERVADA', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (4, 'MES', 'OCUPADA', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (5, 'MES', 'EN CURSO', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (6, 'MES', 'SERVIDA', 'orange', false, false);
-insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (7, 'MES', 'PAGADA', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (1, 'MES', 1, 'LIMPIA',   'green', true, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (2, 'MES', 2, 'BLOQUEADA', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (3, 'MES', 3, 'RESERVADA', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (4, 'MES', 4, 'OCUPADA', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (5, 'MES', 5, 'EN CURSO', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (6, 'MES', 6, 'SERVIDA', 'orange', false, false);
+insert into wabaw.estados (codigo, tipo, orden, nombre, color, estado_inicial, estado_final) values (7, 'MES', 7, 'PAGADA', 'orange', false, false);
 
 /*
 
@@ -206,6 +206,7 @@ CREATE TABLE wabaw.Articulos_Opiniones (
 );
 
 
+DROP TABLE wabaw.posts_general;
 CREATE TABLE wabaw.posts_general (
     codigo          integer  not null default nextval('wabaw.sqgeneral'),
     login           char(20) not null,
@@ -247,6 +248,7 @@ CREATE TABLE wabaw.almacenes (
 );
 
 
+DROP TABLE wabaw.tickets;
 CREATE TABLE wabaw.tickets (
     codigo          integer  not null default nextval('wabaw.sqgeneral'),
     cod_cliente     integer not null,
@@ -269,6 +271,7 @@ CREATE TABLE wabaw.tickets (
     CONSTRAINT tickets_pkey PRIMARY KEY (codigo)
 );
 
+DROP TABLE wabaw.tickets_lineas;
 CREATE TABLE wabaw.tickets_lineas (
     codigo          integer  not null default nextval('wabaw.sqgeneral'),
     cod_ticket      integer not null,

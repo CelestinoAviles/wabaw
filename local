@@ -1,0 +1,1402 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.0
+-- Dumped by pg_dump version 9.6.0
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: wabaw; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA wabaw;
+
+
+ALTER SCHEMA wabaw OWNER TO postgres;
+
+SET search_path = wabaw, pg_catalog;
+
+--
+-- Name: ejemplo(); Type: FUNCTION; Schema: wabaw; Owner: postgres
+--
+
+CREATE FUNCTION ejemplo() RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+ RETURN 104;
+END;
+$$;
+
+
+ALTER FUNCTION wabaw.ejemplo() OWNER TO postgres;
+
+--
+-- Name: ejemplo2(integer); Type: FUNCTION; Schema: wabaw; Owner: postgres
+--
+
+CREATE FUNCTION ejemplo2(numero integer) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+ RETURN numero;
+END;
+$$;
+
+
+ALTER FUNCTION wabaw.ejemplo2(numero integer) OWNER TO postgres;
+
+--
+-- Name: sqgeneral; Type: SEQUENCE; Schema: wabaw; Owner: postgres
+--
+
+CREATE SEQUENCE sqgeneral
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE sqgeneral OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: abonos; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE abonos (
+    cod_abono integer DEFAULT nextval('sqgeneral'::regclass) NOT NULL,
+    cod_empleado integer NOT NULL,
+    cod_cliente integer,
+    fecha_abono date,
+    importe_abono numeric(9,2),
+    stt_abono character(1)
+);
+
+
+ALTER TABLE abonos OWNER TO postgres;
+
+--
+-- Name: articulos; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE articulos (
+    codigo integer DEFAULT nextval('sqgeneral'::regclass) NOT NULL,
+    codigo_articulo character(10) NOT NULL,
+    nombre character(30) NOT NULL,
+    descripcion character(100) NOT NULL,
+    cod_familia integer NOT NULL,
+    stock_actual integer,
+    stock_minimo integer,
+    cantidad_pedir integer,
+    pvp_venta numeric(6,2),
+    fecha_ultima_venta date,
+    fecha_ultima_compra date,
+    fecha_ultima_modificacion timestamp without time zone,
+    estado character(1),
+    ubicacion character(10),
+    cod_tipo integer,
+    observaciones character(100)
+);
+
+
+ALTER TABLE articulos OWNER TO postgres;
+
+--
+-- Name: articulos_imagenes; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE articulos_imagenes (
+    codigo integer DEFAULT nextval('sqgeneral'::regclass) NOT NULL,
+    codigo_articulo integer NOT NULL,
+    codigo_imagen integer NOT NULL,
+    numero_orden integer NOT NULL
+);
+
+
+ALTER TABLE articulos_imagenes OWNER TO postgres;
+
+--
+-- Name: articulos_opiniones; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE articulos_opiniones (
+    id integer DEFAULT nextval('sqgeneral'::regclass) NOT NULL,
+    fecha timestamp without time zone,
+    login character(20) NOT NULL,
+    codigo_articulo integer NOT NULL,
+    valorgeneral integer NOT NULL,
+    observaciones character(200)
+);
+
+
+ALTER TABLE articulos_opiniones OWNER TO postgres;
+
+--
+-- Name: dispositivo_preferencias; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE dispositivo_preferencias (
+    codigo_dispositivo integer NOT NULL,
+    codigo_mesa integer,
+    idioma_dispositivo character(2) NOT NULL
+);
+
+
+ALTER TABLE dispositivo_preferencias OWNER TO postgres;
+
+--
+-- Name: dispositivos; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE dispositivos (
+    codigo_dispositivo integer NOT NULL,
+    nombre character(20) NOT NULL,
+    marca character(20) NOT NULL,
+    modelo character(20),
+    fecha_compra date,
+    observaciones character(200)
+);
+
+
+ALTER TABLE dispositivos OWNER TO postgres;
+
+--
+-- Name: sqempleados; Type: SEQUENCE; Schema: wabaw; Owner: postgres
+--
+
+CREATE SEQUENCE sqempleados
+    START WITH 101
+    INCREMENT BY 1
+    MINVALUE 101
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE sqempleados OWNER TO postgres;
+
+--
+-- Name: empleados; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE empleados (
+    codigo integer DEFAULT nextval('sqempleados'::regclass) NOT NULL,
+    pwd character(20),
+    perfil character(1),
+    numdoc character(9),
+    nombre character(20) NOT NULL,
+    apellidos character(40) NOT NULL,
+    email character(40),
+    telefono1 character(15),
+    telefono2 character(15),
+    telefono3 character(15),
+    numero_ss character(20),
+    direccion character(40),
+    poblacion character(30),
+    codigo_postal character(5),
+    provincia character(20),
+    pais character(20),
+    fecha_nacimiento date,
+    fecha_alta date,
+    fecha_baja date,
+    observaciones character(100)
+);
+
+
+ALTER TABLE empleados OWNER TO postgres;
+
+--
+-- Name: emps; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE emps (
+    firstname character varying(64),
+    lastname character varying(64)
+);
+
+
+ALTER TABLE emps OWNER TO postgres;
+
+--
+-- Name: estados; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE estados (
+    codigo integer NOT NULL,
+    tipo character(3) NOT NULL,
+    orden integer NOT NULL,
+    nombre character(10) NOT NULL,
+    estado_inicial boolean DEFAULT false NOT NULL,
+    estado_final boolean DEFAULT false NOT NULL,
+    color character(10) NOT NULL
+);
+
+
+ALTER TABLE estados OWNER TO postgres;
+
+--
+-- Name: familias; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE familias (
+    codigo integer NOT NULL,
+    descripcion character(20) NOT NULL,
+    url character(40) NOT NULL,
+    visible boolean
+);
+
+
+ALTER TABLE familias OWNER TO postgres;
+
+--
+-- Name: formas_pago; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE formas_pago (
+    codigo character(10) NOT NULL,
+    descripcion character(20) NOT NULL,
+    tipo character(20) NOT NULL
+);
+
+
+ALTER TABLE formas_pago OWNER TO postgres;
+
+--
+-- Name: imagenes; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE imagenes (
+    codigo integer DEFAULT nextval('sqgeneral'::regclass) NOT NULL,
+    url character(200) NOT NULL,
+    descripcion character(200)
+);
+
+
+ALTER TABLE imagenes OWNER TO postgres;
+
+--
+-- Name: items; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE items (
+    id integer NOT NULL,
+    text character varying(40) NOT NULL,
+    complete boolean
+);
+
+
+ALTER TABLE items OWNER TO postgres;
+
+--
+-- Name: items_id_seq; Type: SEQUENCE; Schema: wabaw; Owner: postgres
+--
+
+CREATE SEQUENCE items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE items_id_seq OWNER TO postgres;
+
+--
+-- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: wabaw; Owner: postgres
+--
+
+ALTER SEQUENCE items_id_seq OWNED BY items.id;
+
+
+--
+-- Name: mesas; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE mesas (
+    codigo integer NOT NULL,
+    tipo character(1) NOT NULL,
+    nombre character(20) NOT NULL,
+    clave character(10),
+    estado character(10),
+    llamada character(10)
+);
+
+
+ALTER TABLE mesas OWNER TO postgres;
+
+--
+-- Name: ofertas; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE ofertas (
+    id integer DEFAULT nextval('sqgeneral'::regclass) NOT NULL,
+    codigo_articulo integer NOT NULL,
+    pvp numeric(6,2),
+    fechainicio timestamp without time zone,
+    fechafin timestamp without time zone,
+    observaciones character(100)
+);
+
+
+ALTER TABLE ofertas OWNER TO postgres;
+
+--
+-- Name: posts_general; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE posts_general (
+    codigo integer DEFAULT nextval('sqgeneral'::regclass) NOT NULL,
+    login character(20) NOT NULL,
+    fecha timestamp without time zone,
+    valor_general integer,
+    valor_limpieza integer,
+    valor_servicio integer,
+    redes_sociales boolean,
+    observaciones character(200) NOT NULL
+);
+
+
+ALTER TABLE posts_general OWNER TO postgres;
+
+--
+-- Name: pups; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE pups (
+    id integer NOT NULL,
+    name character varying,
+    breed character varying,
+    age integer,
+    sex character varying
+);
+
+
+ALTER TABLE pups OWNER TO postgres;
+
+--
+-- Name: pups_id_seq; Type: SEQUENCE; Schema: wabaw; Owner: postgres
+--
+
+CREATE SEQUENCE pups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE pups_id_seq OWNER TO postgres;
+
+--
+-- Name: pups_id_seq; Type: SEQUENCE OWNED BY; Schema: wabaw; Owner: postgres
+--
+
+ALTER SEQUENCE pups_id_seq OWNED BY pups.id;
+
+
+--
+-- Name: series_facturas; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE series_facturas (
+    serie_codigo character(3) NOT NULL,
+    serie_nombre character(20) NOT NULL
+);
+
+
+ALTER TABLE series_facturas OWNER TO postgres;
+
+--
+-- Name: tickets; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE tickets (
+    codigo integer DEFAULT nextval('sqgeneral'::regclass) NOT NULL,
+    cod_cliente integer NOT NULL,
+    cod_empleado integer NOT NULL,
+    cod_espacio integer NOT NULL,
+    fecha_ticket timestamp without time zone NOT NULL,
+    fecha_modifica timestamp without time zone NOT NULL,
+    fecha_pago timestamp without time zone,
+    observaciones character(100),
+    subtotal numeric(12,2),
+    prc_descuento numeric(4,2),
+    tot_descuento numeric(12,2),
+    prc_impuestos numeric(4,2),
+    tot_impuestos numeric(12,2),
+    total numeric(12,2),
+    total_entrega numeric(12,2),
+    total_cambio numeric(12,2),
+    estado character varying(3),
+    llamada character varying(10)
+);
+
+
+ALTER TABLE tickets OWNER TO postgres;
+
+--
+-- Name: tickets_lineas; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE tickets_lineas (
+    codigo integer DEFAULT nextval('sqgeneral'::regclass) NOT NULL,
+    cod_ticket integer NOT NULL,
+    cod_articulo integer NOT NULL,
+    cantidad numeric(12,2) NOT NULL,
+    pvu numeric(12,2) NOT NULL,
+    total numeric(12,2) NOT NULL,
+    estado character(10)
+);
+
+
+ALTER TABLE tickets_lineas OWNER TO postgres;
+
+--
+-- Name: usuarios; Type: TABLE; Schema: wabaw; Owner: postgres
+--
+
+CREATE TABLE usuarios (
+    codigo integer DEFAULT nextval('sqgeneral'::regclass) NOT NULL,
+    nombre character(20) NOT NULL,
+    pwd character(20) NOT NULL,
+    login character(20) NOT NULL,
+    email character varying(40) NOT NULL,
+    tfno character(12)
+);
+
+
+ALTER TABLE usuarios OWNER TO postgres;
+
+--
+-- Name: items id; Type: DEFAULT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY items ALTER COLUMN id SET DEFAULT nextval('items_id_seq'::regclass);
+
+
+--
+-- Name: pups id; Type: DEFAULT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY pups ALTER COLUMN id SET DEFAULT nextval('pups_id_seq'::regclass);
+
+
+--
+-- Data for Name: abonos; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY abonos (cod_abono, cod_empleado, cod_cliente, fecha_abono, importe_abono, stt_abono) FROM stdin;
+1	1	1	\N	12.00	\N
+2	2	2	\N	12.23	\N
+3	1	1	2016-11-27	123.23	0
+4	1	1	2016-11-28	123.23	0
+\.
+
+
+--
+-- Data for Name: articulos; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY articulos (codigo, codigo_articulo, nombre, descripcion, cod_familia, stock_actual, stock_minimo, cantidad_pedir, pvp_venta, fecha_ultima_venta, fecha_ultima_compra, fecha_ultima_modificacion, estado, ubicacion, cod_tipo, observaciones) FROM stdin;
+1029	719       	AGUA VICHYY                   	AGUA VICHYZ                                                                                         	140	5	\N	\N	1.05	\N	\N	\N	\N	\N	\N	\N
+771	362       	ROSQUILLA DE ENSALADILLA      	ROSQUILLA DE ENSALADILLA                                                                            	10	5	\N	\N	0.90	\N	\N	\N	\N	\N	\N	\N
+843	801       	CAFE SOLO                     	CAFE SOLO                                                                                           	50	5	\N	\N	0.90	\N	\N	\N	\N	\N	\N	\N
+812	915       	CAFE ALFONSO                  	CAFE ALFONSO                                                                                        	40	5	\N	\N	2.80	\N	\N	\N	\N	\N	\N	\N
+976	115       	TARRINA 2 BOLAS (60 MM)       	TARRINA 2 BOLAS (60 MM)                                                                             	120	5	\N	\N	3.70	\N	\N	\N	\N	\N	\N	\N
+977	113       	TARRINA 2 BOLAS (50 MM)       	TARRINA 2 BOLAS (50 MM)                                                                             	120	5	\N	\N	2.10	\N	\N	\N	\N	\N	\N	\N
+1017	752       	BATIDO VAINILLA PULEVA        	BATIDO VAINILLA PULEVA                                                                              	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1019	734       	AGUA LANJARON 1,5L            	AGUA LANJARON 1,5L                                                                                  	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1020	729       	SCHWEPPES LIMON               	SCHWEPPES LIMON                                                                                     	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+773	360       	ENSALADILLA CON ANCHOA (1)    	ENSALADILLA CON ANCHOA (1)                                                                          	10	5	\N	\N	2.10	\N	\N	\N	\N	\N	\N	\N
+774	359       	ENSALADILLA                   	ENSALADILLA                                                                                         	10	5	\N	\N	1.50	\N	\N	\N	\N	\N	\N	\N
+775	872       	SANDWICH JAMON SERRANO/TOMATE 	SANDWICH JAMON SERRANO/TOMATE                                                                       	20	5	\N	\N	2.10	\N	\N	\N	\N	\N	\N	\N
+776	866       	PULGA JAMON YORK Y QUESO      	PULGA JAMON YORK Y QUESO                                                                            	20	5	\N	\N	1.05	\N	\N	\N	\N	\N	\N	\N
+777	865       	PULGA QUESO                   	PULGA QUESO                                                                                         	20	5	\N	\N	1.05	\N	\N	\N	\N	\N	\N	\N
+778	864       	PULGA JAMON                   	PULGA JAMON                                                                                         	20	5	\N	\N	1.05	\N	\N	\N	\N	\N	\N	\N
+779	863       	CROISSANT JAMON YORK Y QUESO  	CROISSANT JAMON YORK Y QUESO                                                                        	20	5	\N	\N	2.10	\N	\N	\N	\N	\N	\N	\N
+780	862       	SANDWICH JAMON YORK Y QUESO   	SANDWICH JAMON YORK Y QUESO                                                                         	20	5	\N	\N	2.00	\N	\N	\N	\N	\N	\N	\N
+781	861       	CATALANA ENTERA (2 JM 1 TM)   	CATALANA ENTERA (2 JM 1 TM)                                                                         	20	5	\N	\N	2.40	\N	\N	\N	\N	\N	\N	\N
+782	860       	CATALANA MEDIA                	CATALANA MEDIA                                                                                      	20	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+783	964       	TARTA CHOCOLATE MINI          	TARTA CHOCOLATE MINI                                                                                	30	5	\N	\N	2.40	\N	\N	\N	\N	\N	\N	\N
+784	929       	PIZZA PEQUE¥A                 	PIZZA PEQUE¥A                                                                                       	30	5	\N	\N	1.20	\N	\N	\N	\N	\N	\N	\N
+785	913       	MAGDALENA NORMAL              	MAGDALENA NORMAL                                                                                    	30	5	\N	\N	1.00	\N	\N	\N	\N	\N	\N	\N
+786	909       	MAGDALENA MANZANA             	MAGDALENA MANZANA                                                                                   	30	5	\N	\N	1.20	\N	\N	\N	\N	\N	\N	\N
+787	908       	TORTA DE RECADO               	TORTA DE RECADO                                                                                     	30	5	\N	\N	1.00	\N	\N	\N	\N	\N	\N	\N
+788	899       	MONA MINI                     	MONA MINI                                                                                           	30	5	\N	\N	0.50	\N	\N	\N	\N	\N	\N	\N
+789	898       	BIZCOCHO CASERO               	BIZCOCHO CASERO                                                                                     	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+763	960       	PATATAS FRITAS CASERAS        	PATATAS FRITAS CASERAS                                                                              	10	5	\N	\N	1.40	\N	\N	\N	\N	\N	\N	\N
+764	957       	GANCHITOS DE QUESO            	GANCHITOS DE QUESO                                                                                  	10	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+765	954       	COPOS DE MAIZ                 	COPOS DE MAIZ                                                                                       	10	5	\N	\N	0.80	\N	\N	\N	\N	\N	\N	\N
+766	953       	PATATAS FRITAS BOLSA 35 GR    	PATATAS FRITAS BOLSA 35 GR                                                                          	10	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+767	952       	CASCARUJA                     	CASCARUJA                                                                                           	10	5	\N	\N	1.05	\N	\N	\N	\N	\N	\N	\N
+770	363       	MARINERA (ROSQUILLA Y ANCHOA) 	MARINERA (ROSQUILLA Y ANCHOA)                                                                       	10	5	\N	\N	1.50	\N	\N	\N	\N	\N	\N	\N
+762	965       	ALMENDRAS. PLATO              	ALMENDRAS. PLATO                                                                                    	10	5	\N	\N	2.30	\N	\N	\N	\N	\N	\N	\N
+790	8801      	BIZCOCHO DE MANZANA           	BIZCOCHO DE MANZANA                                                                                 	30	5	\N	\N	1.20	\N	\N	\N	\N	\N	\N	\N
+791	880       	BIZCOCHO DE CHOCOLATE         	BIZCOCHO DE CHOCOLATE                                                                               	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+792	879       	MONA                          	MONA                                                                                                	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+793	878       	TRUFA CHOCOLATE               	TRUFA CHOCOLATE                                                                                     	30	5	\N	\N	1.05	\N	\N	\N	\N	\N	\N	\N
+794	876       	TORTA DE PASCUA               	TORTA DE PASCUA                                                                                     	30	5	\N	\N	1.50	\N	\N	\N	\N	\N	\N	\N
+795	874       	ENSAIMADA                     	ENSAIMADA                                                                                           	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+796	8731      	DONUT DE CHOCOLATE            	DONUT DE CHOCOLATE                                                                                  	30	5	\N	\N	0.90	\N	\N	\N	\N	\N	\N	\N
+797	873       	DONUTS                        	DONUTS                                                                                              	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+798	871       	BIZCOCHO                      	BIZCOCHO                                                                                            	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+799	8701      	ENSAIMADA MALLORQUINA         	ENSAIMADA MALLORQUINA                                                                               	30	5	\N	\N	2.05	\N	\N	\N	\N	\N	\N	\N
+800	869       	ROLLITO JUMILLANO             	ROLLITO JUMILLANO                                                                                   	30	5	\N	\N	0.55	\N	\N	\N	\N	\N	\N	\N
+801	868       	MAGDALENA MONJAS              	MAGDALENA MONJAS                                                                                    	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+802	867       	MAGDALENA EN BOLSA            	MAGDALENA EN BOLSA                                                                                  	30	5	\N	\N	0.55	\N	\N	\N	\N	\N	\N	\N
+803	859       	COSTILLA                      	COSTILLA                                                                                            	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+804	858       	NAPOLITANA CHOCOLATE          	NAPOLITANA CHOCOLATE                                                                                	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+805	857       	NAPOLITANA CREMA              	NAPOLITANA CREMA                                                                                    	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+806	856       	CROISSANT                     	CROISSANT                                                                                           	30	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+807	195       	TARTA DE QUESO PORCION        	TARTA DE QUESO PORCION                                                                              	30	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+808	919       	CAFE MOKACCINO                	CAFE MOKACCINO                                                                                      	40	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+809	918       	CAFE BIB DE MILAN             	CAFE BIB DE MILAN                                                                                   	40	5	\N	\N	2.40	\N	\N	\N	\N	\N	\N	\N
+810	917       	CAFE MAKATON                  	CAFE MAKATON                                                                                        	40	5	\N	\N	2.80	\N	\N	\N	\N	\N	\N	\N
+811	916       	CAFE JAMAICANO                	CAFE JAMAICANO                                                                                      	40	5	\N	\N	2.80	\N	\N	\N	\N	\N	\N	\N
+813	914       	CAFE LIEJA                    	CAFE LIEJA                                                                                          	40	5	\N	\N	2.50	\N	\N	\N	\N	\N	\N	\N
+814	850       	CAFE AL CHOCOLATE             	CAFE AL CHOCOLATE                                                                                   	40	5	\N	\N	1.10	\N	\N	\N	\N	\N	\N	\N
+815	849       	CAFE JAVA                     	CAFE JAVA                                                                                           	40	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+816	848       	CAFE CREMA IRLANDESA          	CAFE CREMA IRLANDESA                                                                                	40	5	\N	\N	2.90	\N	\N	\N	\N	\N	\N	\N
+817	847       	CAFE BORGIA                   	CAFE BORGIA                                                                                         	40	5	\N	\N	1.70	\N	\N	\N	\N	\N	\N	\N
+818	846       	CAFE CAPRICHO                 	CAFE CAPRICHO                                                                                       	40	5	\N	\N	1.95	\N	\N	\N	\N	\N	\N	\N
+819	845       	CAFE CUBAFE                   	CAFE CUBAFE                                                                                         	40	5	\N	\N	2.90	\N	\N	\N	\N	\N	\N	\N
+820	844       	CAFE IRLANDES                 	CAFE IRLANDES                                                                                       	40	5	\N	\N	2.80	\N	\N	\N	\N	\N	\N	\N
+821	843       	CAFE COCTEL DE CAFE           	CAFE COCTEL DE CAFE                                                                                 	40	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+822	842       	CAFE ESCOCES                  	CAFE ESCOCES                                                                                        	40	5	\N	\N	2.80	\N	\N	\N	\N	\N	\N	\N
+823	841       	CAFE CAPUCCINO EN COPA        	CAFE CAPUCCINO EN COPA                                                                              	40	5	\N	\N	2.05	\N	\N	\N	\N	\N	\N	\N
+824	821       	CAFE ASIATICO                 	CAFE ASIATICO                                                                                       	40	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+825	806       	CAFE VIENES                   	CAFE VIENES                                                                                         	40	5	\N	\N	2.05	\N	\N	\N	\N	\N	\N	\N
+826	923       	RECUELO                       	RECUELO                                                                                             	50	5	\N	\N	0.50	\N	\N	\N	\N	\N	\N	\N
+827	877       	CHOCOLATE VIENES              	CHOCOLATE VIENES                                                                                    	50	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+828	875       	CHOCOLATE A LA TAZA           	CHOCOLATE A LA TAZA                                                                                 	50	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+829	839       	CAFE BELMONTE BAILEYS         	CAFE BELMONTE BAILEYS                                                                               	50	5	\N	\N	1.40	\N	\N	\N	\N	\N	\N	\N
+830	8381      	CAFE CARAJILLO BAILEYS        	CAFE CARAJILLO BAILEYS                                                                              	50	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+831	838       	CAFE CARAJILLO ANIS           	CAFE CARAJILLO ANIS                                                                                 	50	5	\N	\N	1.15	\N	\N	\N	\N	\N	\N	\N
+832	837       	CAFE CAPUCCINO NESCAFE        	CAFE CAPUCCINO NESCAFE                                                                              	50	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+833	819       	CAFE AMERICANO                	CAFE AMERICANO                                                                                      	50	5	\N	\N	1.00	\N	\N	\N	\N	\N	\N	\N
+834	818       	VASO DE LECHE                 	VASO DE LECHE                                                                                       	50	5	\N	\N	1.00	\N	\N	\N	\N	\N	\N	\N
+835	817       	COLA CAO CON LECHE            	COLA CAO CON LECHE                                                                                  	50	5	\N	\N	1.15	\N	\N	\N	\N	\N	\N	\N
+836	809       	CAFE BELMONTE                 	CAFE BELMONTE                                                                                       	50	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+837	808       	CAFE CARAJILLO                	CAFE CARAJILLO                                                                                      	50	5	\N	\N	1.20	\N	\N	\N	\N	\N	\N	\N
+838	807       	CAFE BOMBON                   	CAFE BOMBON                                                                                         	50	5	\N	\N	1.15	\N	\N	\N	\N	\N	\N	\N
+839	805       	CAFE CAPUCCINO EN TAZA        	CAFE CAPUCCINO EN TAZA                                                                              	50	5	\N	\N	1.95	\N	\N	\N	\N	\N	\N	\N
+840	804       	CAFE CON LECHE                	CAFE CON LECHE                                                                                      	50	5	\N	\N	1.10	\N	\N	\N	\N	\N	\N	\N
+841	803       	CAFE MANCHADO                 	CAFE MANCHADO                                                                                       	50	5	\N	\N	1.00	\N	\N	\N	\N	\N	\N	\N
+842	802       	CAFE CORTADO                  	CAFE CORTADO                                                                                        	50	5	\N	\N	1.00	\N	\N	\N	\N	\N	\N	\N
+844	366       	VINO (TINTO, BLANCO, ROSADO)  	VINO (TINTO, BLANCO, ROSADO)                                                                        	60	5	\N	\N	1.30	\N	\N	\N	\N	\N	\N	\N
+846	357       	CERVEZA AGUILA (BOTE)         	CERVEZA AGUILA (BOTE)                                                                               	60	5	\N	\N	1.30	\N	\N	\N	\N	\N	\N	\N
+847	355       	CERVEZA ESTRELLA 1/3          	CERVEZA ESTRELLA 1/3                                                                                	60	5	\N	\N	1.50	\N	\N	\N	\N	\N	\N	\N
+848	354       	CERVEZA ESTRELLA BOTE         	CERVEZA ESTRELLA BOTE                                                                               	60	5	\N	\N	1.30	\N	\N	\N	\N	\N	\N	\N
+849	353       	CERVEZA ESTRELLA 25CC         	CERVEZA ESTRELLA 25CC                                                                               	60	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+850	352       	CERVEZA HEINEKEN 25CC         	CERVEZA HEINEKEN 25CC                                                                               	60	5	\N	\N	1.50	\N	\N	\N	\N	\N	\N	\N
+851	351       	CERVEZA HEINEKEN 33CC         	CERVEZA HEINEKEN 33CC                                                                               	60	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+852	350       	CERVEZA MAHOU 25CC            	CERVEZA MAHOU 25CC                                                                                  	60	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+853	774       	COMBINADO BACARDI             	COMBINADO BACARDI                                                                                   	70	5	\N	\N	3.00	\N	\N	\N	\N	\N	\N	\N
+854	773       	COMBINADO BRUGAL/HAVANA       	COMBINADO BRUGAL/HAVANA                                                                             	70	5	\N	\N	3.00	\N	\N	\N	\N	\N	\N	\N
+855	772       	COMBINADO DYC                 	COMBINADO DYC                                                                                       	70	5	\N	\N	3.00	\N	\N	\N	\N	\N	\N	\N
+856	771       	COMBINADO JB/CUTTY/BALL.      	COMBINADO JB/CUTTY/BALL.                                                                            	70	5	\N	\N	3.00	\N	\N	\N	\N	\N	\N	\N
+857	770       	COMBINADO BOMBAY              	COMBINADO BOMBAY                                                                                    	70	5	\N	\N	3.50	\N	\N	\N	\N	\N	\N	\N
+858	769       	COMBINADO BEEFETER            	COMBINADO BEEFETER                                                                                  	70	5	\N	\N	3.00	\N	\N	\N	\N	\N	\N	\N
+859	768       	COMBINADO LARIOS              	COMBINADO LARIOS                                                                                    	70	5	\N	\N	3.00	\N	\N	\N	\N	\N	\N	\N
+860	765       	MARTINI ROJO/BLANCO           	MARTINI ROJO/BLANCO                                                                                 	70	5	\N	\N	2.00	\N	\N	\N	\N	\N	\N	\N
+861	761       	LICORES                       	LICORES                                                                                             	70	5	\N	\N	2.50	\N	\N	\N	\N	\N	\N	\N
+862	760       	COMBINADO                     	COMBINADO                                                                                           	70	5	\N	\N	3.00	\N	\N	\N	\N	\N	\N	\N
+863	905       	DESAYUNO COMPLETO BOLLERIA    	DESAYUNO COMPLETO BOLLERIA                                                                          	80	5	\N	\N	2.75	\N	\N	\N	\N	\N	\N	\N
+864	903       	DESAYUNO BOLLERIA             	DESAYUNO BOLLERIA                                                                                   	80	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+865	902       	DESAYUNO TOSTADA (1/2 TOSTADA)	DESAYUNO TOSTADA (1/2 TOSTADA)                                                                      	80	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+866	900       	CHOCOLATE CON MONA            	CHOCOLATE CON MONA                                                                                  	80	5	\N	\N	2.00	\N	\N	\N	\N	\N	\N	\N
+867	911       	TOSTADA LAXANTE               	TOSTADA LAXANTE                                                                                     	80	5	\N	\N	1.30	\N	\N	\N	\N	\N	\N	\N
+868	910       	TOSTADA LAXANTE (1/2)         	TOSTADA LAXANTE (1/2)                                                                               	80	5	\N	\N	0.65	\N	\N	\N	\N	\N	\N	\N
+869	855       	MEDIA TOSTADA                 	MEDIA TOSTADA                                                                                       	80	5	\N	\N	0.50	\N	\N	\N	\N	\N	\N	\N
+870	854       	TOSTADA WESTFALIA             	TOSTADA WESTFALIA                                                                                   	80	5	\N	\N	0.80	\N	\N	\N	\N	\N	\N	\N
+871	853       	TOSTADA INTEGRAL              	TOSTADA INTEGRAL                                                                                    	80	5	\N	\N	0.80	\N	\N	\N	\N	\N	\N	\N
+872	852       	TOSTADA CARRASCA              	TOSTADA CARRASCA                                                                                    	80	5	\N	\N	0.80	\N	\N	\N	\N	\N	\N	\N
+873	851       	TOSTADA NORMAL                	TOSTADA NORMAL                                                                                      	80	5	\N	\N	0.80	\N	\N	\N	\N	\N	\N	\N
+874	652       	BATIDO CON NATA               	BATIDO CON NATA                                                                                     	90	5	\N	\N	3.05	\N	\N	\N	\N	\N	\N	\N
+875	651       	BATIDO                        	BATIDO                                                                                              	90	5	\N	\N	2.65	\N	\N	\N	\N	\N	\N	\N
+876	258       	CUBANITO (P)                  	CUBANITO (P)                                                                                        	90	5	\N	\N	2.05	\N	\N	\N	\N	\N	\N	\N
+877	257       	CUBANITO (G)                  	CUBANITO (G)                                                                                        	90	5	\N	\N	2.75	\N	\N	\N	\N	\N	\N	\N
+878	256       	NEGRITO (P)                   	NEGRITO (P)                                                                                         	90	5	\N	\N	1.95	\N	\N	\N	\N	\N	\N	\N
+879	255       	NEGRITO (G)                   	NEGRITO (G)                                                                                         	90	5	\N	\N	2.40	\N	\N	\N	\N	\N	\N	\N
+880	254       	CANARIO (P)                   	CANARIO (P)                                                                                         	90	5	\N	\N	1.95	\N	\N	\N	\N	\N	\N	\N
+881	253       	CANARIO (G)                   	CANARIO (G)                                                                                         	90	5	\N	\N	2.40	\N	\N	\N	\N	\N	\N	\N
+882	252       	BLANCO Y NEGRO (P)            	BLANCO Y NEGRO (P)                                                                                  	90	5	\N	\N	1.95	\N	\N	\N	\N	\N	\N	\N
+883	251       	BLANCO Y NEGRO (G)            	BLANCO Y NEGRO (G)                                                                                  	90	5	\N	\N	2.40	\N	\N	\N	\N	\N	\N	\N
+884	766       	COMBINADO GRANIZADO PEQUE¥O   	COMBINADO GRANIZADO PEQUE¥O                                                                         	100	5	\N	\N	2.60	\N	\N	\N	\N	\N	\N	\N
+885	764       	COMBINADO GRANIZADO GRANDE    	COMBINADO GRANIZADO GRANDE                                                                          	100	5	\N	\N	3.00	\N	\N	\N	\N	\N	\N	\N
+886	240       	LECHERA ALMENDRA 1 LITRO      	LECHERA ALMENDRA 1 LITRO                                                                            	100	5	\N	\N	8.40	\N	\N	\N	\N	\N	\N	\N
+887	239       	LECHERA ALMENDRA 1/2 LITRO    	LECHERA ALMENDRA 1/2 LITRO                                                                          	100	5	\N	\N	4.20	\N	\N	\N	\N	\N	\N	\N
+888	238       	LECHERA CHUFA 1 LITRO         	LECHERA CHUFA 1 LITRO                                                                               	100	5	\N	\N	7.35	\N	\N	\N	\N	\N	\N	\N
+889	237       	LECHERA CHUFA 1/2 LITRO       	LECHERA CHUFA 1/2 LITRO                                                                             	100	5	\N	\N	3.70	\N	\N	\N	\N	\N	\N	\N
+890	236       	LECHERA CAFE 1 LITRO          	LECHERA CAFE 1 LITRO                                                                                	100	5	\N	\N	6.30	\N	\N	\N	\N	\N	\N	\N
+891	235       	LECHERA CAFE 1/2 LITRO        	LECHERA CAFE 1/2 LITRO                                                                              	100	5	\N	\N	3.15	\N	\N	\N	\N	\N	\N	\N
+892	234       	LECHERA LECHE 1 LITRO         	LECHERA LECHE 1 LITRO                                                                               	100	5	\N	\N	6.30	\N	\N	\N	\N	\N	\N	\N
+893	233       	LECHERA LECHE 1/2 LITRO       	LECHERA LECHE 1/2 LITRO                                                                             	100	5	\N	\N	3.15	\N	\N	\N	\N	\N	\N	\N
+894	232       	LECHERA DE LIMON 1 LITRO      	LECHERA DE LIMON 1 LITRO                                                                            	100	5	\N	\N	6.30	\N	\N	\N	\N	\N	\N	\N
+895	231       	LECHERA LIMON 1/2 LITRO       	LECHERA LIMON 1/2 LITRO                                                                             	100	5	\N	\N	3.15	\N	\N	\N	\N	\N	\N	\N
+896	225       	GR. HORCHATA CHUFA (CHUPITO)  	GR. HORCHATA CHUFA (CHUPITO)                                                                        	100	5	\N	\N	0.75	\N	\N	\N	\N	\N	\N	\N
+897	224       	GR. LECHE (CHUPITO)           	GR. LECHE (CHUPITO)                                                                                 	100	5	\N	\N	0.65	\N	\N	\N	\N	\N	\N	\N
+898	223       	GR. CAFE (CHUPITO)            	GR. CAFE (CHUPITO)                                                                                  	100	5	\N	\N	0.65	\N	\N	\N	\N	\N	\N	\N
+899	222       	GR. CAFE DESC. (CHUPITO)      	GR. CAFE DESC. (CHUPITO)                                                                            	100	5	\N	\N	0.65	\N	\N	\N	\N	\N	\N	\N
+900	221       	GR. LIMON (CHUPITO)           	GR. LIMON (CHUPITO)                                                                                 	100	5	\N	\N	0.65	\N	\N	\N	\N	\N	\N	\N
+901	218       	GR. NARANJA (G)               	GR. NARANJA (G)                                                                                     	100	5	\N	\N	2.30	\N	\N	\N	\N	\N	\N	\N
+902	217       	GR. NARANJA (P)               	GR. NARANJA (P)                                                                                     	100	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+903	216       	MEZCLA LIMON CHUFA (G)        	MEZCLA LIMON CHUFA (G)                                                                              	100	5	\N	\N	2.00	\N	\N	\N	\N	\N	\N	\N
+904	215       	MEZCLA LIMON CHUFA (P)        	MEZCLA LIMON CHUFA (P)                                                                              	100	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+905	214       	GR. HORCHATA ALMENDRA (P)     	GR. HORCHATA ALMENDRA (P)                                                                           	100	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+906	213       	GR. HORCHATA ALMENDRA (G)     	GR. HORCHATA ALMENDRA (G)                                                                           	100	5	\N	\N	2.30	\N	\N	\N	\N	\N	\N	\N
+907	212       	GR. HORCHATA CHUFA (P)        	GR. HORCHATA CHUFA (P)                                                                              	100	5	\N	\N	1.70	\N	\N	\N	\N	\N	\N	\N
+908	211       	GR. HORCHATA CHUFA (G)        	GR. HORCHATA CHUFA (G)                                                                              	100	5	\N	\N	2.10	\N	\N	\N	\N	\N	\N	\N
+909	210       	GR. CAFE VERANO (P)           	GR. CAFE VERANO (P)                                                                                 	100	5	\N	\N	1.45	\N	\N	\N	\N	\N	\N	\N
+910	209       	GR. CAFE VERANO (G)           	GR. CAFE VERANO (G)                                                                                 	100	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+911	208       	GR. LECHE (P)                 	GR. LECHE (P)                                                                                       	100	5	\N	\N	1.45	\N	\N	\N	\N	\N	\N	\N
+912	207       	GR. LECHE (G)                 	GR. LECHE (G)                                                                                       	100	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+913	206       	GR. CAFE (P)                  	GR. CAFE (P)                                                                                        	100	5	\N	\N	1.45	\N	\N	\N	\N	\N	\N	\N
+914	205       	GR. CAFE (G)                  	GR. CAFE (G)                                                                                        	100	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+915	204       	GR. CAFE DESC (P)             	GR. CAFE DESC (P)                                                                                   	100	5	\N	\N	1.45	\N	\N	\N	\N	\N	\N	\N
+916	203       	GR. CAFE DESC (G)             	GR. CAFE DESC (G)                                                                                   	100	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+917	202       	GR. LIMON (P)                 	GR. LIMON (P)                                                                                       	100	5	\N	\N	1.45	\N	\N	\N	\N	\N	\N	\N
+918	201       	GR. LIMON (G)                 	GR. LIMON (G)                                                                                       	100	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+919	196       	POKEMON (JIJONENCA)           	POKEMON (JIJONENCA)                                                                                 	110	5	\N	\N	2.30	\N	\N	\N	\N	\N	\N	\N
+920	190       	JUMPY CREAM                   	JUMPY CREAM                                                                                         	110	5	\N	\N	1.00	\N	\N	\N	\N	\N	\N	\N
+921	189       	MINILACASITOS                 	MINILACASITOS                                                                                       	110	5	\N	\N	1.20	\N	\N	\N	\N	\N	\N	\N
+922	188       	XUPI LIMON                    	XUPI LIMON                                                                                          	110	5	\N	\N	1.00	\N	\N	\N	\N	\N	\N	\N
+923	187       	XUPI FRESA                    	XUPI FRESA                                                                                          	110	5	\N	\N	1.00	\N	\N	\N	\N	\N	\N	\N
+924	186       	DIGIMON                       	DIGIMON                                                                                             	110	5	\N	\N	2.30	\N	\N	\N	\N	\N	\N	\N
+925	185       	PIKAPOLO                      	PIKAPOLO                                                                                            	110	5	\N	\N	1.50	\N	\N	\N	\N	\N	\N	\N
+926	184       	PINK MOUSE                    	PINK MOUSE                                                                                          	110	5	\N	\N	1.00	\N	\N	\N	\N	\N	\N	\N
+927	183       	ZOO LOCO (MENORQUINA)         	ZOO LOCO (MENORQUINA)                                                                               	110	5	\N	\N	2.55	\N	\N	\N	\N	\N	\N	\N
+928	182       	PUNKY (MENORQUINA)            	PUNKY (MENORQUINA)                                                                                  	110	5	\N	\N	2.00	\N	\N	\N	\N	\N	\N	\N
+929	181       	VACKY (MENORQUINA)            	VACKY (MENORQUINA)                                                                                  	110	5	\N	\N	2.00	\N	\N	\N	\N	\N	\N	\N
+930	176       	TARTA COSTA BLANCA            	TARTA COSTA BLANCA                                                                                  	110	5	\N	\N	9.45	\N	\N	\N	\N	\N	\N	\N
+931	175       	TARTA NACHO                   	TARTA NACHO                                                                                         	110	5	\N	\N	15.75	\N	\N	\N	\N	\N	\N	\N
+932	174       	TARTA WHISKY MEDIANA          	TARTA WHISKY MEDIANA                                                                                	110	5	\N	\N	15.00	\N	\N	\N	\N	\N	\N	\N
+933	173       	TARTA PRIMAVERA               	TARTA PRIMAVERA                                                                                     	110	5	\N	\N	12.60	\N	\N	\N	\N	\N	\N	\N
+934	172       	TARTA WISKY INDIVIDUAL        	TARTA WISKY INDIVIDUAL                                                                              	110	5	\N	\N	3.25	\N	\N	\N	\N	\N	\N	\N
+935	171       	OLLA BELMONTE                 	OLLA BELMONTE                                                                                       	110	5	\N	\N	3.05	\N	\N	\N	\N	\N	\N	\N
+936	170       	CESTA NATA CON NUECES         	CESTA NATA CON NUECES                                                                               	110	5	\N	\N	2.95	\N	\N	\N	\N	\N	\N	\N
+937	169       	CREMA CATALANA                	CREMA CATALANA                                                                                      	110	5	\N	\N	2.75	\N	\N	\N	\N	\N	\N	\N
+938	168       	SANDWICH NATA                 	SANDWICH NATA                                                                                       	110	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+939	167       	JARRA NATA FRESA              	JARRA NATA FRESA                                                                                    	110	5	\N	\N	3.05	\N	\N	\N	\N	\N	\N	\N
+940	166       	GARRAPI¥ERA                   	GARRAPI¥ERA                                                                                         	110	5	\N	\N	3.05	\N	\N	\N	\N	\N	\N	\N
+941	164       	TARRINA NATA-FRESA LA TERCIA  	TARRINA NATA-FRESA LA TERCIA                                                                        	110	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+942	163       	TARRINA TURRON LA TERCIA      	TARRINA TURRON LA TERCIA                                                                            	110	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+943	162       	COCO HELADO                   	COCO HELADO                                                                                         	110	5	\N	\N	3.15	\N	\N	\N	\N	\N	\N	\N
+944	161       	CONO NATA FRESA               	CONO NATA FRESA                                                                                     	110	5	\N	\N	1.30	\N	\N	\N	\N	\N	\N	\N
+945	160       	CONO BATURRO                  	CONO BATURRO                                                                                        	110	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+946	159       	CONO CARIBE¥O                 	CONO CARIBE¥O                                                                                       	110	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+947	158       	CONO TERCIA                   	CONO TERCIA                                                                                         	110	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+948	157       	NARANJA HELADA                	NARANJA HELADA                                                                                      	110	5	\N	\N	2.65	\N	\N	\N	\N	\N	\N	\N
+949	156       	LIMON HELADO                  	LIMON HELADO                                                                                        	110	5	\N	\N	2.65	\N	\N	\N	\N	\N	\N	\N
+950	154       	GRAN BOMBIN                   	GRAN BOMBIN                                                                                         	110	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+951	153       	PIRAMIDE NATA                 	PIRAMIDE NATA                                                                                       	110	5	\N	\N	1.20	\N	\N	\N	\N	\N	\N	\N
+952	152       	PIRAMIDE ALMENDRADO           	PIRAMIDE ALMENDRADO                                                                                 	110	5	\N	\N	1.45	\N	\N	\N	\N	\N	\N	\N
+953	1008      	GRAN BOMBON CRACK             	GRAN BOMBON CRACK                                                                                   	110	5	\N	\N	1.80	\N	\N	\N	\N	\N	\N	\N
+954	1006      	JICONO NATA                   	JICONO NATA                                                                                         	110	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+955	1004      	JICONO TURRON                 	JICONO TURRON                                                                                       	110	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+956	1003      	JICONO CHOCO TRUFA            	JICONO CHOCO TRUFA                                                                                  	110	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+957	1002      	GRAN BOMBON ALMENDRADO        	GRAN BOMBON ALMENDRADO                                                                              	110	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+958	1001      	GRAN BOMBON SIN AZUCAR        	GRAN BOMBON SIN AZUCAR                                                                              	110	5	\N	\N	1.60	\N	\N	\N	\N	\N	\N	\N
+959	180       	POLO DE CHOCOLATE             	POLO DE CHOCOLATE                                                                                   	110	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+960	179       	POLO DE NARANJA               	POLO DE NARANJA                                                                                     	110	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+961	178       	POLO DE FRESA                 	POLO DE FRESA                                                                                       	110	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+962	155       	POLO LA TERCIA                	POLO LA TERCIA                                                                                      	110	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+963	151       	POLO VARIOS SABORES           	POLO VARIOS SABORES                                                                                 	110	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+964	150       	POLO DE ARROZ CON LECHE       	POLO DE ARROZ CON LECHE                                                                             	110	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+965	118       	BOLA ADICIONAL GRANDE (60)    	BOLA ADICIONAL GRANDE (60)                                                                          	120	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+966	117       	BOLA ADICIONAL MEDIANA (50)   	BOLA ADICIONAL MEDIANA (50)                                                                         	120	5	\N	\N	1.05	\N	\N	\N	\N	\N	\N	\N
+967	116       	BOLA ADICIONAL PEQUE¥A (40 MM)	BOLA ADICIONAL PEQUE¥A (40 MM)                                                                      	120	5	\N	\N	1.05	\N	\N	\N	\N	\N	\N	\N
+968	111       	BARQUILLO GRANDE              	BARQUILLO GRANDE                                                                                    	120	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+969	107       	TULIPA VACIA                  	TULIPA VACIA                                                                                        	120	5	\N	\N	0.55	\N	\N	\N	\N	\N	\N	\N
+970	106       	TULIPA DOS BOLAS              	TULIPA DOS BOLAS                                                                                    	120	5	\N	\N	2.10	\N	\N	\N	\N	\N	\N	\N
+971	105       	TULIPA 3 BOLAS                	TULIPA 3 BOLAS                                                                                      	120	5	\N	\N	2.95	\N	\N	\N	\N	\N	\N	\N
+972	104       	MACETA UNA BOLA               	MACETA UNA BOLA                                                                                     	120	5	\N	\N	1.05	\N	\N	\N	\N	\N	\N	\N
+973	101       	BARQUILLO MEDIANO             	BARQUILLO MEDIANO                                                                                   	120	5	\N	\N	1.50	\N	\N	\N	\N	\N	\N	\N
+974	100       	BARQUILLO PEQUE¥O             	BARQUILLO PEQUE¥O                                                                                   	120	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+975	61        	TARRINA 1/2 LITRO             	TARRINA 1/2 LITRO                                                                                   	120	5	\N	\N	4.00	\N	\N	\N	\N	\N	\N	\N
+978	112       	TARRINA 1 BOLA (GRANDE)       	TARRINA 1 BOLA (GRANDE)                                                                             	120	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+979	102       	TARRINA 1 BOLA (PEQ)          	TARRINA 1 BOLA (PEQ)                                                                                	120	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+980	62        	TARRINA GRANDE (1/2 LITRO)    	TARRINA GRANDE (1/2 LITRO)                                                                          	120	5	\N	\N	4.80	\N	\N	\N	\N	\N	\N	\N
+981	61        	TARRINA MEDIANA (250CC)       	TARRINA MEDIANA (250CC)                                                                             	120	5	\N	\N	2.65	\N	\N	\N	\N	\N	\N	\N
+982	60        	TARRINA PEQUE¥A (165CC)       	TARRINA PEQUE¥A (165CC)                                                                             	120	5	\N	\N	1.90	\N	\N	\N	\N	\N	\N	\N
+983	870       	BIZCOCHO CON HELADO (BOLA 40) 	BIZCOCHO CON HELADO (BOLA 40)                                                                       	130	5	\N	\N	0.95	\N	\N	\N	\N	\N	\N	\N
+984	607       	COPA FRESA                    	COPA FRESA                                                                                          	130	5	\N	\N	4.10	\N	\N	\N	\N	\N	\N	\N
+985	606       	COPA ANANAS                   	COPA ANANAS                                                                                         	130	5	\N	\N	4.10	\N	\N	\N	\N	\N	\N	\N
+986	605       	COPA KIWI                     	COPA KIWI                                                                                           	130	5	\N	\N	4.10	\N	\N	\N	\N	\N	\N	\N
+987	604       	COPA AVELLANA                 	COPA AVELLANA                                                                                       	130	5	\N	\N	4.10	\N	\N	\N	\N	\N	\N	\N
+989	602       	COPA NUGAT                    	COPA NUGAT                                                                                          	130	5	\N	\N	4.10	\N	\N	\N	\N	\N	\N	\N
+990	601       	COPA BANANA                   	COPA BANANA                                                                                         	130	5	\N	\N	4.10	\N	\N	\N	\N	\N	\N	\N
+991	406       	COPA AL GUSTO                 	COPA AL GUSTO                                                                                       	130	5	\N	\N	3.80	\N	\N	\N	\N	\N	\N	\N
+992	405       	COPA CARIBE                   	COPA CARIBE                                                                                         	130	5	\N	\N	3.80	\N	\N	\N	\N	\N	\N	\N
+993	404       	COPA EVEREST                  	COPA EVEREST                                                                                        	130	5	\N	\N	3.80	\N	\N	\N	\N	\N	\N	\N
+994	403       	COPA CAPRICCIO                	COPA CAPRICCIO                                                                                      	130	5	\N	\N	3.80	\N	\N	\N	\N	\N	\N	\N
+995	402       	COPA DOS SABORES (MED)        	COPA DOS SABORES (MED)                                                                              	130	5	\N	\N	2.50	\N	\N	\N	\N	\N	\N	\N
+996	401       	COPA DE UN SABOR              	COPA DE UN SABOR                                                                                    	130	5	\N	\N	2.50	\N	\N	\N	\N	\N	\N	\N
+997	305       	DEGUSTACION TROPICAL          	DEGUSTACION TROPICAL                                                                                	130	5	\N	\N	3.55	\N	\N	\N	\N	\N	\N	\N
+998	304       	DEGUSTACION CLASICA           	DEGUSTACION CLASICA                                                                                 	130	5	\N	\N	3.55	\N	\N	\N	\N	\N	\N	\N
+999	303       	TITANIC                       	TITANIC                                                                                             	130	5	\N	\N	5.45	\N	\N	\N	\N	\N	\N	\N
+1000	302       	HUEVO FRITO                   	HUEVO FRITO                                                                                         	130	5	\N	\N	2.95	\N	\N	\N	\N	\N	\N	\N
+1001	301       	BANANA SPLIT                  	BANANA SPLIT                                                                                        	130	5	\N	\N	3.80	\N	\N	\N	\N	\N	\N	\N
+1003	501       	MICKEY                        	MICKEY                                                                                              	130	5	\N	\N	2.05	\N	\N	\N	\N	\N	\N	\N
+1004	128       	LA ISLA DEL TESORO            	LA ISLA DEL TESORO                                                                                  	130	5	\N	\N	2.30	\N	\N	\N	\N	\N	\N	\N
+1005	127       	PAYASO                        	PAYASO                                                                                              	130	5	\N	\N	2.50	\N	\N	\N	\N	\N	\N	\N
+1007	125       	GUSANITO                      	GUSANITO                                                                                            	130	5	\N	\N	2.40	\N	\N	\N	\N	\N	\N	\N
+1008	124       	SPAGUETTI                     	SPAGUETTI                                                                                           	130	5	\N	\N	2.10	\N	\N	\N	\N	\N	\N	\N
+1009	123       	ALFONSITO                     	ALFONSITO                                                                                           	130	5	\N	\N	2.20	\N	\N	\N	\N	\N	\N	\N
+1010	122       	OSITO                         	OSITO                                                                                               	130	5	\N	\N	2.40	\N	\N	\N	\N	\N	\N	\N
+1011	121       	PINOCHO                       	PINOCHO                                                                                             	130	5	\N	\N	2.50	\N	\N	\N	\N	\N	\N	\N
+1012	928       	TRINA TI LIMON NEGRO          	TRINA TI LIMON NEGRO                                                                                	140	5	\N	\N	1.50	\N	\N	\N	\N	\N	\N	\N
+1013	763       	AQUARIUS NARANJA 20CC         	AQUARIUS NARANJA 20CC                                                                               	140	5	\N	\N	1.20	\N	\N	\N	\N	\N	\N	\N
+1014	762       	AQUARIUS 20CC                 	AQUARIUS 20CC                                                                                       	140	5	\N	\N	1.20	\N	\N	\N	\N	\N	\N	\N
+1015	758       	SPRITE                        	SPRITE                                                                                              	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1016	755       	MARE ROSSO                    	MARE ROSSO                                                                                          	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1021	728       	SCHWEPPES TONICA              	SCHWEPPES TONICA                                                                                    	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1022	726       	FANTA DE LIMON (BOTE)         	FANTA DE LIMON (BOTE)                                                                               	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1023	725       	FANTA NARANJA (BOTE)          	FANTA NARANJA (BOTE)                                                                                	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1024	724       	COCA-COLA SIN (20CC)          	COCA-COLA SIN (20CC)                                                                                	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1025	723       	COCA-COLA LIGHT (20CC)        	COCA-COLA LIGHT (20CC)                                                                              	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1026	722       	COCA-COLA SIN (BOTE)          	COCA-COLA SIN (BOTE)                                                                                	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1027	721       	COCA-COLA LIGHT (BOTE)        	COCA-COLA LIGHT (BOTE)                                                                              	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1028	720       	NESTEE                        	NESTEE                                                                                              	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1030	718       	AQUARIUS BOTE                 	AQUARIUS BOTE                                                                                       	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1031	717       	TONICA NORDIC                 	TONICA NORDIC                                                                                       	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1032	716       	BATIDO CACAO PULEVA           	BATIDO CACAO PULEVA                                                                                 	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1033	715       	FANTA DE LIMON                	FANTA DE LIMON                                                                                      	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1034	714       	FANTA NARANJA                 	FANTA NARANJA                                                                                       	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1035	713       	COCA-COLA 20CC                	COCA-COLA 20CC                                                                                      	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1036	712       	COCA-COLA (BOTE)              	COCA-COLA (BOTE)                                                                                    	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1039	709       	GINGER-ALE                    	GINGER-ALE                                                                                          	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1040	708       	KAS FRUIT MELOCOTON           	KAS FRUIT MELOCOTON                                                                                 	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1041	707       	KAS FRUIT PI¥A                	KAS FRUIT PI¥A                                                                                      	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1042	706       	SEVEN-UP                      	SEVEN-UP                                                                                            	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1043	705       	KAS LIMON                     	KAS LIMON                                                                                           	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1044	704       	KAS NARANJA                   	KAS NARANJA                                                                                         	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1045	703       	BITTER SIN                    	BITTER SIN                                                                                          	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1046	702       	PEPSI-LIGHT                   	PEPSI-LIGHT                                                                                         	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1047	701       	PEPSI NORMAL                  	PEPSI NORMAL                                                                                        	140	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1048	358       	BURN                          	BURN                                                                                                	140	5	\N	\N	2.00	\N	\N	\N	\N	\N	\N	\N
+1049	356       	RED BULL                      	RED BULL                                                                                            	140	5	\N	\N	2.00	\N	\N	\N	\N	\N	\N	\N
+1050	925       	TE ESPECIAL CON LECHE         	TE ESPECIAL CON LECHE                                                                               	150	5	\N	\N	1.50	\N	\N	\N	\N	\N	\N	\N
+1051	924       	TE CON LECHE                  	TE CON LECHE                                                                                        	150	5	\N	\N	1.30	\N	\N	\N	\N	\N	\N	\N
+1052	816       	TE CON LECHE                  	TE CON LECHE                                                                                        	150	5	\N	\N	1.15	\N	\N	\N	\N	\N	\N	\N
+1053	815       	MANWI                         	MANWI                                                                                               	150	5	\N	\N	1.15	\N	\N	\N	\N	\N	\N	\N
+1054	814       	TEWI                          	TEWI                                                                                                	150	5	\N	\N	1.15	\N	\N	\N	\N	\N	\N	\N
+1055	813       	TILA                          	TILA                                                                                                	150	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+1056	812       	POLEO                         	POLEO                                                                                               	150	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+1057	811       	MANZANILLA                    	MANZANILLA                                                                                          	150	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+1058	810       	TE                            	TE                                                                                                  	150	5	\N	\N	0.85	\N	\N	\N	\N	\N	\N	\N
+1059	785       	TE POMPADOUR TE ROOBOIS       	TE POMPADOUR TE ROOBOIS                                                                             	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1060	783       	TE POMPADOUR TE CON NARANJA   	TE POMPADOUR TE CON NARANJA                                                                         	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1061	782       	TE COMPA¥IA INDIAS TEA BLANCO 	TE COMPA¥IA INDIAS TEA BLANCO                                                                       	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1062	782       	TE POMPADOUR TE CON LIMON     	TE POMPADOUR TE CON LIMON                                                                           	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1063	781       	TE HORNIMANS TE DE LA BELLEZA 	TE HORNIMANS TE DE LA BELLEZA                                                                       	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1064	780       	TE HORNIMANS INFUDIGEST       	TE HORNIMANS INFUDIGEST                                                                             	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1065	897       	TE TWININGS PU-ERH            	TE TWININGS PU-ERH                                                                                  	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1066	836       	TE CON LIMON INCLUIDO         	TE CON LIMON INCLUIDO                                                                               	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1067	835       	TE PU-ERH                     	TE PU-ERH                                                                                           	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1068	834       	TE VERDE CON MENTA            	TE VERDE CON MENTA                                                                                  	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1069	833       	TE EARL GREY                  	TE EARL GREY                                                                                        	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1070	832       	TE SABOR CANELA               	TE SABOR CANELA                                                                                     	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1071	831       	TE SABOR MELOCOTON            	TE SABOR MELOCOTON                                                                                  	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1072	830       	TE SABOR FRESA                	TE SABOR FRESA                                                                                      	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1073	829       	TE FRUTAS                     	TE FRUTAS                                                                                           	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1074	828       	TE BREAKFAST                  	TE BREAKFAST                                                                                        	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1075	827       	TE CEYLAN                     	TE CEYLAN                                                                                           	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1076	826       	TE SIN (DESCAFEINADO)         	TE SIN (DESCAFEINADO)                                                                               	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1077	825       	TE JAZMIN                     	TE JAZMIN                                                                                           	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1078	824       	TE BLANCO                     	TE BLANCO                                                                                           	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1079	823       	TE ROJO                       	TE ROJO                                                                                             	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1080	822       	TE VERDE                      	TE VERDE                                                                                            	150	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1081	901       	ZUMO DE NARANJA               	ZUMO DE NARANJA                                                                                     	160	5	\N	\N	1.35	\N	\N	\N	\N	\N	\N	\N
+1082	788       	ZUMO TOMATE HERO              	ZUMO TOMATE HERO                                                                                    	160	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1083	787       	MOSTO HERO                    	MOSTO HERO                                                                                          	160	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1084	786       	ZUMO PI¥A HERO                	ZUMO PI¥A HERO                                                                                      	160	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1085	779       	ZUMO MELOCOTON HERO           	ZUMO MELOCOTON HERO                                                                                 	160	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1086	732       	ZUMO VIDA PI¥A                	ZUMO VIDA PI¥A                                                                                      	160	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+1087	731       	ZUMO VIDA MELOCOTON           	ZUMO VIDA MELOCOTON                                                                                 	160	5	\N	\N	1.25	\N	\N	\N	\N	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: articulos_imagenes; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY articulos_imagenes (codigo, codigo_articulo, codigo_imagen, numero_orden) FROM stdin;
+1139	965	10001	1
+1140	762	10001	1
+1141	774	10002	1
+1142	781	10003	1
+1143	779	10004	1
+1144	780	10005	1
+1145	797	10006	1
+1146	795	10007	1
+1147	824	10008	1
+1148	808	10009	1
+1149	833	10010	1
+1150	837	10011	1
+1151	848	10012	1
+1152	847	10013	1
+1153	851	10014	1
+1154	850	10015	1
+1155	862	10016	1
+1156	860	10017	1
+1157	858	10018	1
+1158	866	10019	1
+1159	864	10020	1
+1160	863	10021	1
+1161	865	10022	1
+1162	865	10023	2
+1225	875	10012	1
+1229	843	10010	1
+\.
+
+
+--
+-- Data for Name: articulos_opiniones; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY articulos_opiniones (id, fecha, login, codigo_articulo, valorgeneral, observaciones) FROM stdin;
+1194	2017-05-06 09:53:14.992075	Luis                	782	4	Buen servicio                                                                                                                                                                                           
+1196	2017-05-06 13:59:01.011731	-                   	782	5	Fenomenal, monton de jamón                                                                                                                                                                              
+1198	2017-05-07 18:18:30.796879	-                   	782	5	\N
+1199	2017-05-07 18:23:27.166211	-                   	782	5	\N
+1200	2017-05-07 18:29:51.606706	-                   	782	5	\N
+1228	2017-07-15 15:58:06.64904	Anonimo             	1045	1	\N
+1242	2017-07-21 18:49:51.151721	-                   	824	5	Muy bueno                                                                                                                                                                                               
+1243	2017-07-21 19:06:24.935862	-                   	824	3	\N
+1245	2017-07-22 10:26:45.856184	-                   	843	5	qqq                                                                                                                                                                                                     
+1260	2017-08-23 09:58:52.687185	-                   	847	2	Vaya con la cerveza                                                                                                                                                                                     
+1280	2017-08-25 19:06:01.829898	-                   	849	4	Www aunque vale                                                                                                                                                                                         
+1328	2017-09-01 19:45:03.763852	-                   	833	5	\N
+\.
+
+
+--
+-- Data for Name: dispositivo_preferencias; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY dispositivo_preferencias (codigo_dispositivo, codigo_mesa, idioma_dispositivo) FROM stdin;
+2	12	ES
+\.
+
+
+--
+-- Data for Name: dispositivos; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY dispositivos (codigo_dispositivo, nombre, marca, modelo, fecha_compra, observaciones) FROM stdin;
+1	Tablet TD 7"        	TD Systems          	7" QC IPS WBK1      	2017-07-01	Tablet 7" TD                                                                                                                                                                                            
+2	Tablet Samsung 10"  	Samsung             	11"                 	2017-01-01	\N
+\.
+
+
+--
+-- Data for Name: empleados; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY empleados (codigo, pwd, perfil, numdoc, nombre, apellidos, email, telefono1, telefono2, telefono3, numero_ss, direccion, poblacion, codigo_postal, provincia, pais, fecha_nacimiento, fecha_alta, fecha_baja, observaciones) FROM stdin;
+107	1234                	G	\N	Juan                	Nadie                                   	juan.nadie@gmail.com                    	123456789      	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: emps; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY emps (firstname, lastname) FROM stdin;
+Juan	Nadie00
+Juan	Nadie01
+\.
+
+
+--
+-- Data for Name: estados; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY estados (codigo, tipo, orden, nombre, estado_inicial, estado_final, color) FROM stdin;
+1	MES	1	LIMPIA    	t	f	green     
+2	MES	2	BLOQUEADA 	f	f	orange    
+\.
+
+
+--
+-- Data for Name: familias; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY familias (codigo, descripcion, url, visible) FROM stdin;
+10	APERITIVO           	../img/imagenes/aperitivo.jpg           	t
+20	BOCATA              	../img/imagenes/bocata.jpg              	t
+30	BOLLERIA            	../img/imagenes/bolleria.jpg            	t
+40	CAFE_ESPECIAL       	../img/imagenes/cafe_especial.jpg       	t
+50	CAFE_NORMAL         	../img/imagenes/cafe_normal.jpg         	t
+60	CERVEZA             	../img/imagenes/cerveza.jpg             	t
+70	COPAS               	../img/imagenes/copas.jpg               	t
+80	DESAYUNO            	../img/imagenes/desayuno.jpg            	t
+90	GRANIZADO_CON_BOLA  	../img/imagenes/granizado_con_bola.jpg  	t
+100	GRANIZADOS          	../img/imagenes/granizados.jpg          	t
+110	HELADO_IMPULSO      	../img/imagenes/helado_impulso.jpg      	t
+120	HELADO_BOLA         	../img/imagenes/helado_bola.jpg         	t
+130	HELADO_COPA         	../img/imagenes/helado_copa.jpg         	t
+140	REFRESCOS           	../img/imagenes/refrescos.jpg           	t
+150	TES                 	../img/imagenes/tes.jpg                 	t
+160	ZUMOS               	../img/imagenes/zumos.jpg               	t
+\.
+
+
+--
+-- Data for Name: formas_pago; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY formas_pago (codigo, descripcion, tipo) FROM stdin;
+\.
+
+
+--
+-- Data for Name: imagenes; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY imagenes (codigo, url, descripcion) FROM stdin;
+10007	../img/imagenes/ensaimada.jpg                                                                                                                                                                           	Donut                                                                                                                                                                                                   
+8	./img/imagenes/002.jpg                                                                                                                                                                                  	Preciosa vista                                                                                                                                                                                          
+9	./img/imagenes/003.jpg                                                                                                                                                                                  	Otra imagen magnifica                                                                                                                                                                                   
+10008	../img/imagenes/asiatico.jpeg                                                                                                                                                                           	Asiatico                                                                                                                                                                                                
+7	../img/imagenes/001.jpg                                                                                                                                                                                 	1                                                                                                                                                                                                       
+10009	../img/imagenes/mokaccino.jpg                                                                                                                                                                           	Mokaccino                                                                                                                                                                                               
+54	../img/imagenes/cocacola.jpg                                                                                                                                                                            	Coca Cola Bote 33 cl.                                                                                                                                                                                   
+10001	../img/imagenes/almendras.jpg                                                                                                                                                                           	Plato de almendras                                                                                                                                                                                      
+10002	../img/imagenes/ensaladilla.jpg                                                                                                                                                                         	Ensaladilla                                                                                                                                                                                             
+10003	../img/imagenes/catalana.jpg                                                                                                                                                                            	Catalana                                                                                                                                                                                                
+10004	../img/imagenes/croissant-jamon-queso.jpg                                                                                                                                                               	Catalana                                                                                                                                                                                                
+10005	../img/imagenes/sandwich-mixto.jpg                                                                                                                                                                      	Sandwich Mixto                                                                                                                                                                                          
+10006	../img/imagenes/donut.jpg                                                                                                                                                                               	Donut                                                                                                                                                                                                   
+10010	../img/imagenes/americano.jpeg                                                                                                                                                                          	Americano                                                                                                                                                                                               
+10011	../img/imagenes/carajillo.jpg                                                                                                                                                                           	Carajillo                                                                                                                                                                                               
+10012	../img/imagenes/el-bote.jpg                                                                                                                                                                             	Estrella                                                                                                                                                                                                
+10013	../img/imagenes/el-tercio.jpg                                                                                                                                                                           	Estrella                                                                                                                                                                                                
+10014	../img/imagenes/heineken-tercio.jpg                                                                                                                                                                     	Estrella                                                                                                                                                                                                
+10015	../img/imagenes/heineken-cuarto.jpg                                                                                                                                                                     	Estrella                                                                                                                                                                                                
+10016	../img/imagenes/combinado-importacion.jpg                                                                                                                                                               	Combinado                                                                                                                                                                                               
+10017	../img/imagenes/martini.jpg                                                                                                                                                                             	Martini                                                                                                                                                                                                 
+10018	../img/imagenes/combinado-ginebra.jpg                                                                                                                                                                   	Ginebra                                                                                                                                                                                                 
+10019	../img/imagenes/chocolate-mona.jpg                                                                                                                                                                      	Choco                                                                                                                                                                                                   
+10020	../img/imagenes/desayuno-bolleria.jpg                                                                                                                                                                   	-                                                                                                                                                                                                       
+10021	../img/imagenes/desayuno-bolleria-completo.jpg                                                                                                                                                          	-                                                                                                                                                                                                       
+10022	../img/imagenes/desayuno-tostada.jpg                                                                                                                                                                    	-                                                                                                                                                                                                       
+10023	../img/imagenes/desayuno-tostada-2.jpg                                                                                                                                                                  	-                                                                                                                                                                                                       
+1224	../img/imagenes/cerveza.jpg                                                                                                                                                                             	Cerveza                                                                                                                                                                                                 
+\.
+
+
+--
+-- Data for Name: items; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY items (id, text, complete) FROM stdin;
+1	test	f
+2	test	f
+3	test	f
+\.
+
+
+--
+-- Name: items_id_seq; Type: SEQUENCE SET; Schema: wabaw; Owner: postgres
+--
+
+SELECT pg_catalog.setval('items_id_seq', 4, true);
+
+
+--
+-- Data for Name: mesas; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY mesas (codigo, tipo, nombre, clave, estado, llamada) FROM stdin;
+901	B	Equipo gestor       	1234      	\N	\N
+103	T	Terraza Mesa 3      	5612      	BLOQUEADA 	\N
+11	S	Salon Mesa 1        	\N	LIMPIA    	\N
+1	B	Barra 1             	1716      	LIMPIA    	\N
+12	S	Salón Mesa 2        	\N	\N	CONSULTAR 
+102	T	Terraza Mesa 2      	8027      	\N	CONSULTAR 
+2	B	Barra 2             	8995      	          	\N
+101	T	Terraza Mesa 1      	7634      	          	\N
+\.
+
+
+--
+-- Data for Name: ofertas; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY ofertas (id, codigo_articulo, pvp, fechainicio, fechafin, observaciones) FROM stdin;
+1164	865	2.50	2017-04-20 00:00:00	2017-04-30 00:00:00	\N
+1218	68	1.00	2017-01-01 00:00:00	2017-12-31 00:00:00	\N
+1220	250	1.00	2017-01-01 00:00:00	2018-01-01 00:00:00	\N
+1221	843	1.00	2016-12-31 21:21:00	2017-12-31 21:00:00	\N
+53	858	3.10	2016-12-31 21:00:00	2017-12-31 20:00:00	\N
+1219	824	1.50	2016-12-31 18:31:00	2017-12-30 18:00:00	\N
+\.
+
+
+--
+-- Data for Name: posts_general; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY posts_general (codigo, login, fecha, valor_general, valor_limpieza, valor_servicio, redes_sociales, observaciones) FROM stdin;
+68	Juan                	2017-04-13 00:00:00	5	5	5	f	Vaya                                                                                                                                                                                                    
+71	Luis                	2017-04-13 00:00:00	1	1	1	\N	Luis                                                                                                                                                                                                    
+72	Pedro               	2017-04-13 00:00:00	2	2	2	\N	2                                                                                                                                                                                                       
+73	Ana                 	2017-04-13 00:00:00	4	4	4	\N	Ana 4                                                                                                                                                                                                   
+74	CAri                	2017-04-13 00:00:00	3	3	3	t	Vaya                                                                                                                                                                                                    
+75	Paz                 	2017-04-13 00:00:00	3	3	3	\N	3                                                                                                                                                                                                       
+76	Cel                 	2017-04-13 00:00:00	4	4	4	t	4                                                                                                                                                                                                       
+77	1                   	2017-04-13 00:00:00	1	1	1	t	1                                                                                                                                                                                                       
+1094	Juan                	2017-04-24 00:00:00	1	1	5	\N	1 1 5                                                                                                                                                                                                   
+1187	Luis                	2017-04-29 00:00:00	\N	\N	\N	\N	5 5 5                                                                                                                                                                                                   
+1206	Juan                	2017-05-10 00:00:00	5	4	3	\N	333                                                                                                                                                                                                     
+1207	Juan                	2017-05-10 00:00:00	5	4	3	\N	qqq                                                                                                                                                                                                     
+1208	Luis                	2017-05-10 00:00:00	5	5	5	\N	h                                                                                                                                                                                                       
+1211	Juan                	2017-05-11 00:00:00	5	5	5	t	Un sitio con encanto digno de visitar                                                                                                                                                                   
+1248	q                   	2017-08-22 00:00:00	2	1	1	\N	1                                                                                                                                                                                                       
+1249	1                   	2017-08-22 00:00:00	3	1	1	\N	q                                                                                                                                                                                                       
+1250	Luis                	2017-08-22 00:00:00	4	1	1	\N	q                                                                                                                                                                                                       
+1251	Celestino           	2017-08-22 00:00:00	3	3	4	\N	Luis con 3 3 4                                                                                                                                                                                          
+1263	Juan                	2017-08-23 00:00:00	5	5	5	\N	Buen sitio para tomar un cafe                                                                                                                                                                           
+1264	Juan                	2017-08-23 00:00:00	3	4	2	\N	Buen sitio                                                                                                                                                                                              
+1265	q                   	2017-08-23 00:00:00	5	5	5	\N	554                                                                                                                                                                                                     
+1266	w                   	2017-08-23 00:00:00	4	3	2	\N	www                                                                                                                                                                                                     
+1277	Luis                	2017-08-25 00:00:00	4	4	4	\N	Magnifico sitio para tomar algo                                                                                                                                                                         
+1319	D                   	2017-09-01 00:00:00	5	5	5	\N	Www                                                                                                                                                                                                     
+\.
+
+
+--
+-- Data for Name: pups; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY pups (id, name, breed, age, sex) FROM stdin;
+1	Tyler	Retrieved	3	M
+\.
+
+
+--
+-- Name: pups_id_seq; Type: SEQUENCE SET; Schema: wabaw; Owner: postgres
+--
+
+SELECT pg_catalog.setval('pups_id_seq', 1, true);
+
+
+--
+-- Data for Name: series_facturas; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY series_facturas (serie_codigo, serie_nombre) FROM stdin;
+\.
+
+
+--
+-- Name: sqempleados; Type: SEQUENCE SET; Schema: wabaw; Owner: postgres
+--
+
+SELECT pg_catalog.setval('sqempleados', 107, true);
+
+
+--
+-- Name: sqgeneral; Type: SEQUENCE SET; Schema: wabaw; Owner: postgres
+--
+
+SELECT pg_catalog.setval('sqgeneral', 1334, true);
+
+
+--
+-- Data for Name: tickets; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY tickets (codigo, cod_cliente, cod_empleado, cod_espacio, fecha_ticket, fecha_modifica, fecha_pago, observaciones, subtotal, prc_descuento, tot_descuento, prc_impuestos, tot_impuestos, total, total_entrega, total_cambio, estado, llamada) FROM stdin;
+1179	1	1	101	2017-04-26 00:54:54.112027	2017-04-26 00:54:54.112027	2017-04-26 00:55:56.550142	                                                                                                    	\N	\N	\N	\N	\N	2.30	2.30	0.00	PAG	\N
+1127	1	1	101	2017-04-25 11:53:02.413277	2017-04-25 11:53:02.413277	2017-04-25 12:24:36.706466	                                                                                                    	\N	\N	\N	\N	\N	2.80	2.80	0.00	PAG	\N
+58	2	1	101	2017-04-09 20:30:41.195204	2017-05-09 17:15:22.694627	\N	Mesa reservada                                                                                      	\N	\N	\N	\N	\N	0.00	\N	\N	PAG	\N
+1136	1	1	101	2017-04-25 14:07:49.628376	2017-04-25 19:56:08.159003	2017-04-25 20:09:08.185973	                                                                                                    	\N	\N	\N	\N	\N	8.55	8.55	0.00	PAG	\N
+80	1	2	101	2017-04-15 11:08:54.675277	2017-05-09 17:15:34.427823	\N	                                                                                                    	\N	\N	\N	\N	\N	0.00	\N	\N	PAG	\N
+91	1	1	101	2017-04-20 10:32:46.998631	2017-05-09 17:15:51.768744	\N	                                                                                                    	\N	\N	\N	\N	\N	16.80	\N	\N	PAG	\N
+1133	1	1	101	2017-04-25 12:58:45.977374	2017-05-09 17:16:04.92509	\N	                                                                                                    	\N	\N	\N	\N	\N	3.90	\N	\N	PAG	\N
+1167	1	1	101	2017-04-25 20:09:55.561185	2017-04-25 20:09:55.561185	2017-04-25 20:19:00.458478	                                                                                                    	\N	\N	\N	\N	\N	2.30	2.30	0.00	PAG	\N
+1212	1	1	101	2017-05-11 18:45:44.156952	2017-05-11 18:45:44.156952	2017-05-11 18:49:16.374234	                                                                                                    	\N	\N	\N	\N	\N	1.60	1.60	0.00	PAG	\N
+1129	1	1	101	2017-04-25 12:24:49.980068	2017-04-25 12:33:52.647448	2017-04-25 12:55:07.437217	                                                                                                    	\N	\N	\N	\N	\N	3.00	3.00	0.00	PAG	\N
+1169	1	1	101	2017-04-26 00:20:47.427399	2017-04-26 00:20:47.427399	2017-04-26 00:21:12.508709	                                                                                                    	\N	\N	\N	\N	\N	2.80	2.80	0.00	PAG	\N
+55	1	1	101	2017-04-09 02:03:52.703085	2017-07-19 18:27:05.977705	\N	\N	\N	\N	\N	\N	\N	0.00	\N	\N	PAG	\N
+1171	1	1	101	2017-04-26 00:37:25.388458	2017-04-26 00:37:25.388458	2017-04-26 00:39:22.975281	                                                                                                    	\N	\N	\N	\N	\N	1.15	1.15	0.00	PAG	\N
+104	1	1	101	2017-04-21 17:59:19.368718	2017-05-05 19:05:00.665675	2017-05-05 19:05:24.925017	                                                                                                    	\N	\N	\N	\N	\N	4.60	4.60	0.00	PAG	\N
+81	1	2	101	2017-04-15 11:10:23.000402	2017-07-19 18:33:38.611769	\N	                                                                                                    	\N	\N	\N	\N	\N	0.00	\N	\N	PAS	\N
+1173	1	1	101	2017-04-26 00:39:37.894713	2017-04-26 00:39:37.894713	2017-04-26 00:43:33.83374	                                                                                                    	\N	\N	\N	\N	\N	1.40	1.40	0.00	PAG	\N
+1214	1	1	101	2017-05-11 18:49:22.897027	2017-07-19 19:14:58.908339	2017-05-11 18:50:00.02461	                                                                                                    	\N	\N	\N	\N	\N	2.30	2.30	0.00		\N
+107	1	1	101	2017-04-21 19:09:41.483953	2017-07-19 19:15:37.011941	2017-04-25 11:47:08.851755	                                                                                                    	\N	\N	\N	\N	\N	7.85	7.85	0.00		\N
+1189	1	1	101	2017-05-05 19:07:25.74923	2017-05-11 18:56:12.531247	\N	                                                                                                    	\N	\N	\N	\N	\N	3.20	\N	\N	\N	\N
+1176	1	1	101	2017-04-26 00:43:55.662478	2017-04-26 00:43:55.662478	2017-04-26 00:54:46.11569	                                                                                                    	\N	\N	\N	\N	\N	2.30	2.30	0.00	PAG	\N
+1202	1	1	101	2017-05-09 17:09:22.03446	2017-05-10 21:17:28.339096	2017-05-10 22:02:36.011884	                                                                                                    	\N	\N	\N	\N	\N	7.40	7.40	0.00	PAG	\N
+1269	1	1	11	2017-08-24 15:58:10.889293	2017-08-24 15:58:10.889293	2017-08-24 15:58:29.578474	                                                                                                    	\N	\N	\N	\N	\N	1.10	1.10	0.00	PAG	\N
+1261	1	1	11	2017-08-23 13:07:36.299794	2017-08-23 13:07:36.299794	2017-08-24 15:16:36.90984	                                                                                                    	\N	\N	\N	\N	\N	2.00	5.00	3.00	PAG	\N
+1271	1	1	11	2017-08-24 15:59:08.711519	2017-08-24 15:59:08.711519	2017-08-24 15:59:31.245918	                                                                                                    	\N	\N	\N	\N	\N	1.60	1.60	0.00	PAG	\N
+1298	1	1	1	2017-08-29 01:05:19.679898	2017-08-29 01:05:19.679898	2017-08-29 12:25:40.202493	                                                                                                    	\N	\N	\N	\N	\N	0.90	0.90	0.00	PAG	\N
+1320	1	1	12	2017-09-01 19:21:36.889545	2017-09-01 19:21:36.889545	2017-09-01 19:26:05.352855	                                                                                                    	\N	\N	\N	\N	\N	1.80	1.80	0.00	PAY	\N
+1286	1	1	103	2017-08-27 12:04:49.251724	2017-08-28 14:42:12.453728	\N	                                                                                                    	\N	\N	\N	\N	\N	12.50	\N	\N	\N	\N
+1295	1	1	2	2017-08-28 17:56:13.274538	2017-08-28 17:56:13.274538	2017-08-29 12:25:55.837806	                                                                                                    	\N	\N	\N	\N	\N	1.50	1.50	0.00	PAG	\N
+1275	1	1	11	2017-08-24 18:10:14.112446	2017-08-29 12:37:37.448434	\N	                                                                                                    	\N	\N	\N	\N	\N	5.30	\N	\N	\N	\N
+1273	1	1	11	2017-08-24 16:06:28.933648	2017-08-24 16:06:28.933648	2017-08-24 16:19:18.53511	                                                                                                    	\N	\N	\N	\N	\N	0.85	0.85	0.00	PAY	\N
+1216	1	1	101	2017-05-11 23:48:32.548522	2017-05-11 23:48:32.548522	\N	                                                                                                    	\N	\N	\N	\N	\N	7.75	\N	\N	\N	\N
+1231	1	1	101	2017-07-19 19:01:04.869367	2017-07-19 19:01:04.869367	\N	No                                                                                                  	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+1307	1	1	102	2017-08-29 12:50:22.92003	2017-08-29 12:50:22.92003	2017-09-01 19:38:09.538521	                                                                                                    	\N	\N	\N	\N	\N	11.35	11.35	0.00	PAG	\N
+1267	1	1	11	2017-08-24 15:17:04.326093	2017-08-24 15:17:04.326093	2017-08-24 15:56:38.059468	                                                                                                    	\N	\N	\N	\N	\N	2.10	2.10	0.00	PAG	\N
+1301	1	1	1	2017-08-29 12:37:15.618425	2017-08-29 12:37:15.618425	\N	                                                                                                    	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+1232	1	1	1	2017-07-20 16:57:20.299676	2017-08-28 17:52:49.665541	2017-08-28 17:53:26.478738	                                                                                                    	\N	\N	\N	\N	\N	3.90	3.90	0.00	PAG	\N
+1278	1	1	102	2017-08-25 18:34:45.505464	2017-08-27 11:48:59.459437	2017-08-27 12:11:09.630073	                                                                                                    	\N	\N	\N	\N	\N	12.90	12.90	0.00	PAY	\N
+1288	1	1	102	2017-08-27 12:16:25.796146	2017-08-28 17:42:50.828047	2017-08-29 12:48:02.186471	                                                                                                    	\N	\N	\N	\N	\N	1.90	1.90	0.00	PAG	\N
+1304	1	1	12	2017-08-29 12:41:05.510217	2017-08-29 12:41:05.510217	2017-09-01 19:21:26.624761	                                                                                                    	\N	\N	\N	\N	\N	2.10	2.10	0.00	PAG	\N
+1329	1	1	12	2017-09-04 19:31:12.349793	2017-09-04 19:31:12.349793	\N	                                                                                                    	\N	\N	\N	\N	\N	4.90	\N	\N	\N	\N
+1325	1	1	102	2017-09-01 19:38:59.66426	2017-09-01 19:44:55.123992	2017-09-01 19:45:22.680783	                                                                                                    	\N	\N	\N	\N	\N	2.00	2.00	0.00	PAG	\N
+1323	1	1	102	2017-09-01 19:38:26.806502	2017-09-01 19:38:26.806502	2017-09-01 19:38:44.100307	                                                                                                    	\N	\N	\N	\N	\N	2.30	2.30	0.00	PAG	\N
+1330	1	1	102	2017-09-06 19:45:11.758467	2017-09-06 19:45:11.758467	\N	                                                                                                    	\N	\N	\N	\N	\N	2.30	\N	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: tickets_lineas; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY tickets_lineas (codigo, cod_ticket, cod_articulo, cantidad, pvu, total, estado) FROM stdin;
+57	81	47	1.00	1.00	1.00	\N
+82	81	47	1.00	1.00	1.00	\N
+41	81	62	4.50	3.40	15.30	ES3       
+83	81	62	4.50	3.40	15.30	\N
+102	91	62	3.00	0.00	0.00	EN CURSO  
+100	91	47	1.00	2.00	0.00	EN CURSO  
+105	91	47	5.00	2.00	0.00	\N
+106	104	47	3.00	2.00	0.00	\N
+1302	1275	762	1.00	2.30	2.30	SERVIDO   
+1303	1275	847	2.00	1.50	3.00	SERVIDO   
+1308	1307	781	1.00	2.40	2.40	SERVIDO   
+1254	1232	847	1.00	1.50	1.50	SERVIDO   
+1310	1286	865	2.00	1.60	3.20	SERVIDO   
+1311	1286	847	2.00	1.50	3.00	SERVIDO   
+1300	1295	847	1.00	1.50	1.50	SERVIDO   
+1309	1307	847	1.00	1.50	1.50	SERVIDO   
+1299	1298	843	1.00	0.90	0.90	SERVIDO   
+1305	1304	842	1.00	1.00	1.00	SERVIDO   
+1262	1261	843	2.00	1.00	2.00	PEDIDO    
+1312	1286	824	1.00	1.90	1.90	SERVIDO   
+1314	1286	820	1.00	2.80	2.80	SERVIDO   
+1313	1286	782	1.00	1.60	1.60	SERVIDO   
+1306	1288	864	1.00	1.90	1.90	SERVIDO   
+1317	1307	781	2.00	2.40	4.80	SERVIDO   
+1130	1129	833	1.00	1.00	1.00	\N
+1131	1129	833	1.00	1.00	1.00	\N
+1132	1129	833	1.00	1.00	1.00	\N
+1135	1133	839	1.00	1.95	1.95	EN CURSO  
+1282	1278	819	1.00	2.90	2.90	SERVIDO   
+1137	1136	853	1.00	3.00	3.00	\N
+1283	1278	819	1.00	2.90	2.90	PEDIDO    
+1284	1278	855	1.00	3.00	3.00	PEDIDO    
+1285	1278	824	2.00	1.50	3.00	PEDIDO    
+1315	1304	814	1.00	1.10	1.10	SERVIDO   
+1172	1171	838	1.00	1.15	1.15	\N
+1174	55	829	1.00	1.40	1.40	\N
+1175	1173	829	1.00	1.40	1.40	\N
+1177	55	838	1.00	1.15	1.15	\N
+1321	1320	843	2.00	0.90	1.80	SERVIDO   
+1318	1307	774	1.00	1.50	1.50	SERVIDO   
+1322	1307	838	1.00	1.15	1.15	PEDIDO    
+1324	1323	762	1.00	2.30	2.30	PEDIDO    
+1326	1325	833	1.00	1.00	1.00	PEDIDO    
+1327	1325	833	1.00	1.00	1.00	PEDIDO    
+1331	1329	848	2.00	1.30	2.60	PEDIDO    
+1332	1329	762	1.00	2.30	2.30	PEDIDO    
+1333	1330	762	1.00	2.30	2.30	PEDIDO    
+1334	1330	762	1.00	2.30	2.30	PEDIDO    
+1134	1133	839	1.00	1.95	1.95	SERVIDO   
+\.
+
+
+--
+-- Data for Name: usuarios; Type: TABLE DATA; Schema: wabaw; Owner: postgres
+--
+
+COPY usuarios (codigo, nombre, pwd, login, email, tfno) FROM stdin;
+6	1                   	3                   	2                   	4	5           
+33	Celestino           	pwdpwd              	cap04c              	celestino.aviles@gmail.com	123456789   
+\.
+
+
+--
+-- Name: abonos abonos_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY abonos
+    ADD CONSTRAINT abonos_pkey PRIMARY KEY (cod_abono);
+
+
+--
+-- Name: articulos_imagenes articulos_imagenes_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY articulos_imagenes
+    ADD CONSTRAINT articulos_imagenes_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: articulos articulos_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY articulos
+    ADD CONSTRAINT articulos_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: articulos_opiniones articulosopiniones_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY articulos_opiniones
+    ADD CONSTRAINT articulosopiniones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dispositivo_preferencias dispositivo_preferencias_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY dispositivo_preferencias
+    ADD CONSTRAINT dispositivo_preferencias_pkey PRIMARY KEY (codigo_dispositivo);
+
+
+--
+-- Name: dispositivos dispositivos_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY dispositivos
+    ADD CONSTRAINT dispositivos_pkey PRIMARY KEY (codigo_dispositivo);
+
+
+--
+-- Name: empleados empleados_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY empleados
+    ADD CONSTRAINT empleados_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: estados estados_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY estados
+    ADD CONSTRAINT estados_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: familias familias_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY familias
+    ADD CONSTRAINT familias_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: formas_pago formas_pago_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY formas_pago
+    ADD CONSTRAINT formas_pago_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: imagenes imagenes_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY imagenes
+    ADD CONSTRAINT imagenes_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: items items_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY items
+    ADD CONSTRAINT items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mesas mesas_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY mesas
+    ADD CONSTRAINT mesas_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: ofertas ofertas_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY ofertas
+    ADD CONSTRAINT ofertas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_general post_general_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY posts_general
+    ADD CONSTRAINT post_general_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: pups pups_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY pups
+    ADD CONSTRAINT pups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: series_facturas series_facturas_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY series_facturas
+    ADD CONSTRAINT series_facturas_pkey PRIMARY KEY (serie_codigo);
+
+
+--
+-- Name: tickets tickets_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY tickets
+    ADD CONSTRAINT tickets_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: tickets_lineas tktlin_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY tickets_lineas
+    ADD CONSTRAINT tktlin_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: usuarios usuarios_pkey; Type: CONSTRAINT; Schema: wabaw; Owner: postgres
+--
+
+ALTER TABLE ONLY usuarios
+    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (login);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
