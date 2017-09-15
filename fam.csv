@@ -1,0 +1,12 @@
+10,APERITIVO           ,../img/imagenes/aperitivo.jpg           ,t
+50,CAFE                ,../img/imagenes/cafe_normal.jpg         ,t
+20,BOCATA              ,../img/imagenes/bocata.jpg              ,t
+30,BOLLERIA            ,../img/imagenes/bolleria.jpg            ,t
+60,CERVEZA             ,../img/imagenes/cerveza.jpg             ,t
+70,COPAS               ,../img/imagenes/copas.jpg               ,t
+80,DESAYUNO            ,../img/imagenes/desayuno.jpg            ,t
+90,GRANIZADO_CON_BOLA  ,../img/imagenes/granizado_con_bola.jpg  ,t
+100,GRANIZADOS          ,../img/imagenes/granizados.jpg          ,t
+120,HELADO_BOLA         ,../img/imagenes/helado_bola.jpg         ,t
+140,REFRESCOS           ,../img/imagenes/refrescos.jpg           ,t
+150,TES                 ,../img/imagenes/tes.jpg                 ,t

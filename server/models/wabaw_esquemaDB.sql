@@ -165,7 +165,7 @@ DROP TABLE wabaw.familias;
 CREATE TABLE wabaw.familias (
     codigo       integer not null,
     descripcion  char(20) not null,
-    url          char(30) not null,
+    url          char(40) not null,
     visible      boolean,
     CONSTRAINT familias_pkey PRIMARY KEY (codigo)
 );
